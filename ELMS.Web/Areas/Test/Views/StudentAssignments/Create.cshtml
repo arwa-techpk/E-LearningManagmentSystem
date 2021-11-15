@@ -1,0 +1,65 @@
+﻿@model ELMS.Infrastructure.Models.StudentAssignment
+
+@{
+    ViewData["Title"] = "";
+}
+
+
+<div class="card">
+    <div class="card-header">
+        <div class="col-sm-12">
+            <label class="card-subtitle">Student Assignment Create</label>
+            <a asp-action="Index" class="btn bg-dark btn-sm float-right">
+                <i class="fa fa-backward"></i> Back to List
+            </a>
+
+        </div>
+    </div>
+    <div id="viewAll" class="card-body ">
+        <div class="row">
+            <div class="col-md-12">
+                <form asp-action="Create">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="row">
+                        <div class="form-group col-md-4">
+                            <label asp-for="AssignmentId" class="control-label"></label>
+                            <select asp-for="AssignmentId" class="form-control" asp-items="ViewBag.AssignmentId"></select>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label asp-for="StudentId" class="control-label"></label>
+                            <select asp-for="StudentId" class="form-control" asp-items="ViewBag.StudentId"></select>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label asp-for="SubmissionDate" class="control-label"></label>
+                            <input asp-for="SubmissionDate" class="form-control" />
+                            <span asp-validation-for="SubmissionDate" class="text-danger"></span>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-4">
+                            <label asp-for="ObtainScore" class="control-label"></label>
+                            <input asp-for="ObtainScore" class="form-control" />
+                            <span asp-validation-for="ObtainScore" class="text-danger"></span>
+                        </div>
+                        <div class="form-group col-md-12">
+                            <label asp-for="AssignmentDetails" class="control-label"></label>
+                            <textarea asp-for="AssignmentDetails" class="form-control" rows="5"></textarea>
+                            <span asp-validation-for="AssignmentDetails" class="text-danger"></span>
+                        </div>
+
+                    </div>
+                    <div class="form-group col-md-4">
+                        <input type="submit" value="Create" class="btn btn-primary" />
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

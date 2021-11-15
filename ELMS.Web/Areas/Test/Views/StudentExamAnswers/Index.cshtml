@@ -1,0 +1,72 @@
+﻿@model IEnumerable<ELMS.Infrastructure.Models.StudentExamAnswer>
+
+@{
+    ViewData["Title"] = "Student Exam Answer";
+}
+
+<div class="card">
+    <div class="card-header">
+        <div class="col-sm-12">
+            <a asp-action="Create" class="btn bg-success float-right">
+                <i class="fa fa-plus-square"></i> Create
+            </a>
+
+        </div>
+    </div>
+    <div id="viewAll" class="card-body table-responsive">
+
+        <table class="table table-hover table-bordered" id="tableStudentExamAnswer">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.ObtainedScore)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.AnswerSheet)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Student)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Exam)
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ObtainedScore)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.AnswerSheet)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Student.Id)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Exam.Id)
+                        </td>
+                        <td>
+                            <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-xs bg-success" title="Edit"><i class="fas fa-edit"></i></a>
+                            <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-xs bg-info" title="Details"><i class="fas fa-eye"></i></a>
+                            <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-xs bg-danger" title="Delete"><i class="fas fa-trash-alt"></i></a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@section Scripts
+{
+    <script src="~/js/site.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#tableStudentExamAnswer").DataTable();
+        });
+    </script>
+}

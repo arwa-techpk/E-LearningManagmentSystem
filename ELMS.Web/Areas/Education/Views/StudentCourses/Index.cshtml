@@ -1,0 +1,94 @@
+﻿@model IEnumerable<ELMS.Infrastructure.Models.StudentCourse>
+
+@{
+    ViewData["Title"] = "Student Course";
+}
+
+<div class="card">
+    <div class="card-header">
+        <div class="col-sm-12">
+            <a asp-action="Create" class="btn bg-success float-right">
+                <i class="fa fa-plus-square"></i> Create
+            </a>
+
+        </div>
+    </div>
+    <div id="viewAll" class="card-body table-responsive">
+
+        <table class="table table-hover table-bordered" id="tableStudentCourse">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Student)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Course)
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Student.UserName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Course.Title)
+                        </td>
+                        <td>
+                            <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-xs bg-success" title="Edit"><i class="fas fa-edit"></i></a>
+                            <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-xs bg-info" title="Details"><i class="fas fa-eye"></i></a>
+                            <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-xs bg-danger" title="Delete"><i class="fas fa-trash-alt"></i></a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+    
+    
+
+@section Scripts
+{
+    <script src="https://cdn.datatables.net/rowgroup/1.1.4/js/dataTables.rowGroup.min.js"></script>
+    <script src="~/js/site.js"></script>
+    <script>
+      
+
+        $(document).ready(function () {
+            var collapsedGroups = {};
+
+            var table = $('#tableStudentCourse').DataTable({
+                order: [[0, 'asc']],
+                rowGroup: {
+                    // Uses the 'row group' plugin
+                    dataSrc: 0,
+                    startRender: function (rows, group) {
+                        var collapsed = !!collapsedGroups[group];
+
+                        rows.nodes().each(function (r) {
+                            r.style.display = collapsed ? 'none' : '';
+                        });
+
+                        // Add category name to the <tr>. NOTE: Hardcoded colspan
+                        return $('<tr/>')
+                            .append('<td colspan="8">' + group + ' (' + rows.count() + ')</td>')
+                            .attr('data-name', group)
+                            .toggleClass('collapsed', collapsed);
+                    }
+                }
+            });
+
+            $('#tableStudentCourse tbody').on('click', 'tr.dtrg-group', function () {
+                
+                var name = $(this).data('name');
+                collapsedGroups[name] = !collapsedGroups[name];
+                table.draw(false);
+            });
+
+        });
+    </script>
+}

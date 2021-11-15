@@ -1,0 +1,177 @@
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@inject IHtmlLocalizer<SharedResource> localizer
+<aside id="sideBar" class="main-sidebar sidebar-dark-primary">
+    <a href="/" class="brand-link">
+        <img src="~/images/logo-transparent.png" id="brand-logo" alt="logo" class="brand-image img-circle"
+             style="opacity: .8">
+        <span class="brand-text font-weight-light" style="font-size:0.8em!important">ELMS</span>
+    </a>
+    <div class="sidebar">
+        <nav class="mt-2">
+            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                <li class="nav-item">
+                    <a href="/" class="nav-link">
+                        <i class="nav-icon fas fa-th"></i>
+                        <p>
+                            @localizer["Dashboard"]
+                            <span class="right badge badge-danger">@localizer["New"]</span>
+                        </p>
+                    </a>
+                </li>
+                @if (User.IsInRole("SuperAdmin"))
+                {
+                    <li class="nav-header">@localizer["Admin"]</li>
+                    <li is-active-route asp-area="Admin" class="nav-item has-treeview">
+                        <a is-active-route asp-area="Admin" class="nav-link">
+                            <i class="nav-icon fas fa-user"></i>
+                            <p>
+                                @localizer["Admin Settings"]
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a is-active-route asp-area="Admin" asp-controller="User" class="nav-link">
+                                    <i class="far fa-user-circle nav-icon"></i>
+                                    <p>@localizer["Users"]</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a is-active-route asp-area="Admin" asp-controller="Role" class="nav-link">
+                                    <i class="far fa-user-circle nav-icon"></i>
+                                    <p>@localizer["Roles"]</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a is-active-route asp-area="Admin" asp-controller="Schools" class="nav-link">
+                                    <i class="far fa-user-circle nav-icon"></i>
+                                    <p>@localizer["Schools"]</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                }
+                @if (User.IsInRole("Admin"))
+                {
+                    <li class="nav-header">@localizer["Admin"]</li>
+                    <li is-active-route asp-area="Admin" class="nav-item has-treeview">
+                        <a is-active-route asp-area="Admin" class="nav-link">
+                            <i class="nav-icon fas fa-user"></i>
+                            <p>
+                                @localizer["Admin Settings"]
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a is-active-route asp-area="Admin" asp-controller="Teacher" class="nav-link">
+                                    <i class="far fa-user-circle nav-icon"></i>
+                                    <p>@localizer["Teachers"]</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a is-active-route asp-area="Admin" asp-controller="Student" class="nav-link">
+                                    <i class="far fa-user-circle nav-icon"></i>
+                                    <p>@localizer["Students"]</p>
+                                </a>
+                            </li>
+
+                        </ul>
+                    </li>
+                }
+                @if (User.IsInRole("Teacher") || User.IsInRole("Student"))
+                {
+                    <li class="nav-header">@localizer["Test"]</li>
+                    <li is-active-route asp-area="Test" class="nav-item has-treeview">
+                        <a is-active-route asp-area="Test" class="nav-link">
+                            <i class="nav-icon fas fa-tachometer-alt"></i>
+                            <p>
+                                @localizer["Test"]
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            @if (User.IsInRole("Teacher"))
+                            {
+                                <li class="nav-item">
+                                    <a is-active-route asp-area="Test" asp-controller="Assignments" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>@localizer["Assignments"]</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a is-active-route asp-area="Test" asp-controller="Exams" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>@localizer["Exams"]</p>
+                                    </a>
+                                </li>
+                            }
+                            @if (User.IsInRole("Student"))
+                            {
+                                <li class="nav-item">
+                                    <a is-active-route asp-area="Test" asp-controller="StudentAssignments" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>@localizer["Student Assignments"]</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a is-active-route asp-area="Test" asp-controller="StudentExamAnswers" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>@localizer["Exam Answers"]</p>
+                                    </a>
+                                </li>
+                            }
+                        </ul>
+                    </li>
+
+                }                    <li is-active-route asp-area="Education" class="nav-item has-treeview">
+                        <a is-active-route asp-area="Education" class="nav-link">
+                            <i class="nav-icon fas fa-archive"></i>
+                            <p>
+                                @localizer["Education"]
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            @if (User.IsInRole("Admin"))
+                            {
+                                <li class="nav-item">
+                                    <a is-active-route asp-area="Education" asp-controller="Courses" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>@localizer["Course"]</p>
+                                    </a>
+                                </li>
+                            }
+                            @if (User.IsInRole("Teacher"))
+                            {
+                                <li class="nav-item">
+                                    <a is-active-route asp-area="Education" asp-controller="Lectures" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>@localizer["Lectures"]</p>
+                                    </a>
+                                </li>
+                            }
+                            @if (User.IsInRole("Admin"))
+                            {
+                                <li class="nav-item">
+                                    <a is-active-route asp-area="Education" asp-controller="StudentCourses" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>@localizer["Student's Enrollment"]</p>
+                                    </a>
+                                </li>
+                            }
+                            @if (User.IsInRole("Teacher"))
+                            {
+                                <li class="nav-item">
+                                    <a is-active-route asp-area="Education" asp-controller="StudentLectures" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>@localizer["Lecture's Attendence"]</p>
+                                    </a>
+                                </li>
+                            }
+                        </ul>
+                    </li>
+                </ul>
+        </nav>
+    </div>
+</aside>
