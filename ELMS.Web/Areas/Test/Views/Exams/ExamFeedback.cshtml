@@ -1,0 +1,51 @@
+﻿@model ELMS.Infrastructure.Models.StudentExamAnswer
+
+@{
+    ViewData["Title"] = "";
+}
+
+
+<div class="card">
+    <div class="card-header">
+        <div class="col-sm-12">
+            <label class="card-title">Exam Feedback</label>
+            
+            <a asp-action="SubmittedExamAnswers" class="btn bg-dark btn-sm float-right">Back to List</a>
+        </div>
+    </div>
+    <div id="viewAll" class="card-body">
+
+        <div class="row">
+            <div class="col-md-4">
+                <form asp-action="ExamFeedback">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <input type="hidden" asp-for="Id" />
+                    <input type="hidden" asp-for="ExamId" />
+                    <input type="hidden" asp-for="StudentId" />
+
+
+                    <div class="form-group">
+                        <label asp-for="ObtainedScore" class="control-label"></label>
+                        <input asp-for="ObtainedScore" class="form-control" />
+                        <span asp-validation-for="ObtainedScore" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="AnswerSheet" class="control-label"></label>
+                        <a asp-action="DownloadExam" asp-route-id="@Model.AnswerSheet" class="btn btn-xs bg-info" title="Details"><i class="fas fa-download"></i> Download</a>
+                    </div>
+
+
+                    <div class="form-group">
+                        <input type="submit" value="Save" class="btn btn-primary" />
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        </div>
+           
+        </div>
+
+        @section Scripts {
+            @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+        }

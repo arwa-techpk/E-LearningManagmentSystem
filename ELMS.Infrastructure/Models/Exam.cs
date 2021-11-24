@@ -1,6 +1,8 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 #nullable disable
 
@@ -18,7 +20,7 @@ namespace ELMS.Infrastructure.Models
         [Display(Name = "Course")]
         [Required]
         public int CourseId { get; set; }
-        public TimeSpan Duration { get; set; }
+        public int Duration { get; set; }
         [Display(Name = "Exam Date")]
         [Required]
         public DateTime ExamDate { get; set; }
@@ -26,9 +28,11 @@ namespace ELMS.Infrastructure.Models
         [Required]
         public int TotalScore { get; set; }
         [Display(Name = "Exam Questionnaire")]
-        [Required]
+        
         public string ExamPaper { get; set; }
-
+        [Display(Name = "File")]
+        [NotMapped]
+        public IFormFile FormFile { get; set; }
         public virtual Course Course { get; set; }
         public virtual ICollection<StudentExamAnswer> StudentExamAnswers { get; set; }
     }

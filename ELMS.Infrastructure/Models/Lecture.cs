@@ -26,6 +26,8 @@ namespace ELMS.Infrastructure.Models
         [Display(Name = "Duration (Minutes)")]
         [Required]
         public string Duration { get; set; }
+        public string ZoomMeetingHostURL { get; set; }
+        public string ZoomMeetingJoinURL { get; set; }
 
         // lets add the zoom link/ google meeting link here? // generate the zoom meeting link auto
         // whenever student clik that link, his attendence will automatically marked 

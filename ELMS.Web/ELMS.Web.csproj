@@ -34,7 +34,6 @@
     <Folder Include="Areas\Settings\Models\" />
     <Folder Include="Areas\Settings\Views\" />
     <Folder Include="Areas\Test\Data\" />
-    <Folder Include="Areas\Test\Models\" />
     <Folder Include="Views\Shared\Components\Menu\" />
   </ItemGroup>
 

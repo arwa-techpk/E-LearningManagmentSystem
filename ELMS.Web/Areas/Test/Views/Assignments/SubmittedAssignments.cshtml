@@ -1,0 +1,121 @@
+﻿@model IEnumerable<ELMS.Web.Areas.Test.Models.AssignmentSubmissionViewModel>
+
+
+
+
+<div class="card">
+    <div class="card-header">
+        <div class="col-sm-12">
+           
+            <label class="card-title">Submitted Assignments</label>
+
+        </div>
+    </div>
+    <div id="viewAll" class="card-body table-responsive">
+        <table class="table table-hover table-bordered" id="tblSubmitAssignments">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Assignment.Name)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.SubmissionDate)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.AssignmentDetails)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.ObtainScore)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Student.Email)
+                    </th>
+
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Assignment.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.SubmissionDate)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.AssignmentDetails)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ObtainScore)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Student.Email)
+                        </td>
+
+                        <td>
+                            @{
+                                if (item.StudentAssignmentId != null)
+                                {
+                                    <a asp-action="AssignmentFeedback" asp-route-id="@item.StudentAssignmentId" class="btn btn-sm btn-primary">Feedback</a>
+                                }
+
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+</div>
+    </div>
+<style>
+    table.dataTable tr.dtrg-group td {
+        background-color: #20c997;
+        color:#ffffff;
+        border:dotted;
+    }
+</style>
+        @section Scripts
+{
+            <script src="https://cdn.datatables.net/rowgroup/1.1.4/js/dataTables.rowGroup.min.js"></script>
+            <script src="~/js/site.js"></script>
+            <script>
+
+
+                $(document).ready(function () {
+                    var collapsedGroups = {};
+
+                    var table = $('#tblSubmitAssignments').DataTable({
+                        order: [[0, 'asc']],
+                        rowGroup: {
+                            // Uses the 'row group' plugin
+                            dataSrc: 0,
+                            startRender: function (rows, group) {
+                                var collapsed = !!collapsedGroups[group];
+
+                                rows.nodes().each(function (r) {
+                                    r.style.display = collapsed ? 'none' : '';
+                                });
+
+                                // Add category name to the <tr>. NOTE: Hardcoded colspan
+                                return $('<tr/>')
+                                    .append('<td colspan="8">' + group + ' (' + rows.count() + ')</td>')
+                                    .attr('data-name', group)
+                                    .toggleClass('collapsed', collapsed);
+                            }
+                        }
+                    });
+
+                    $('#tblSubmitAssignments tbody').on('click', 'tr.dtrg-group', function () {
+
+                        var name = $(this).data('name');
+                        collapsedGroups[name] = !collapsedGroups[name];
+                        table.draw(false);
+                    });
+
+                });
+            </script>
+
+        }

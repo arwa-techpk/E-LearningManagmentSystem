@@ -64,13 +64,13 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a is-active-route asp-area="Admin" asp-controller="Teacher" class="nav-link">
+                                <a is-active-route asp-area="Admin" asp-controller="Teacher" asp-action="index" class="nav-link">
                                     <i class="far fa-user-circle nav-icon"></i>
                                     <p>@localizer["Teachers"]</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a is-active-route asp-area="Admin" asp-controller="Student" class="nav-link">
+                                <a is-active-route asp-area="Admin" asp-controller="Student"  asp-action="index"  class="nav-link">
                                     <i class="far fa-user-circle nav-icon"></i>
                                     <p>@localizer["Students"]</p>
                                 </a>
@@ -94,19 +94,32 @@
                             @if (User.IsInRole("Teacher"))
                             {
                                 <li class="nav-item">
-                                    <a is-active-route asp-area="Test" asp-controller="Assignments" class="nav-link">
+                                    <a is-active-route asp-area="Test" asp-controller="Assignments"  asp-action="index"  class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>@localizer["Assignments"]</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a is-active-route asp-area="Test" asp-controller="Exams" class="nav-link">
+                                    <a is-active-route asp-area="Test" asp-controller="Exams"  asp-action="index"  class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>@localizer["Exams"]</p>
                                     </a>
                                 </li>
+
+                                <li class="nav-item">
+                                    <a is-active-route asp-area="Test" asp-controller="Assignments" asp-action="SubmittedAssignments" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>@localizer["Assignments Feedback"]</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a is-active-route asp-area="Test" asp-controller="Exams" asp-action="SubmittedExamAnswers" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>@localizer["Exam Feedback"]</p>
+                                    </a>
+                                </li>
                             }
-                            @if (User.IsInRole("Student"))
+                            @if (User.IsInRole("Student") )
                             {
                                 <li class="nav-item">
                                     <a is-active-route asp-area="Test" asp-controller="StudentAssignments" class="nav-link">
@@ -136,7 +149,7 @@
                             @if (User.IsInRole("Admin"))
                             {
                                 <li class="nav-item">
-                                    <a is-active-route asp-area="Education" asp-controller="Courses" class="nav-link">
+                                    <a is-active-route asp-area="Education" asp-controller="Courses"  asp-action="index"  class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>@localizer["Course"]</p>
                                     </a>
@@ -145,7 +158,7 @@
                             @if (User.IsInRole("Teacher"))
                             {
                                 <li class="nav-item">
-                                    <a is-active-route asp-area="Education" asp-controller="Lectures" class="nav-link">
+                                    <a is-active-route asp-area="Education" asp-controller="Lectures"  asp-action="index"  class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>@localizer["Lectures"]</p>
                                     </a>
@@ -154,13 +167,13 @@
                             @if (User.IsInRole("Admin"))
                             {
                                 <li class="nav-item">
-                                    <a is-active-route asp-area="Education" asp-controller="StudentCourses" class="nav-link">
+                                    <a is-active-route asp-area="Education" asp-controller="StudentCourses"  asp-action="index"  class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>@localizer["Student's Enrollment"]</p>
                                     </a>
                                 </li>
                             }
-                            @if (User.IsInRole("Teacher"))
+                            @*@if (User.IsInRole("Teacher"))
                             {
                                 <li class="nav-item">
                                     <a is-active-route asp-area="Education" asp-controller="StudentLectures" class="nav-link">
@@ -168,7 +181,7 @@
                                         <p>@localizer["Lecture's Attendence"]</p>
                                     </a>
                                 </li>
-                            }
+                            }*@
                         </ul>
                     </li>
                 </ul>

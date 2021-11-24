@@ -1,59 +1,84 @@
 ﻿@model ELMS.Infrastructure.Models.Exam
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "";
 }
 
-<h1>Edit</h1>
 
-<h4>Exam</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Id" />
-            <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
-                <span asp-validation-for="Name" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="CourseId" class="control-label"></label>
-                <select asp-for="CourseId" class="form-control" asp-items="ViewBag.CourseId"></select>
-                <span asp-validation-for="CourseId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Duration" class="control-label"></label>
-                <input asp-for="Duration" class="form-control" />
-                <span asp-validation-for="Duration" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ExamDate" class="control-label"></label>
-                <input asp-for="ExamDate" class="form-control" />
-                <span asp-validation-for="ExamDate" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="TotalScore" class="control-label"></label>
-                <input asp-for="TotalScore" class="form-control" />
-                <span asp-validation-for="TotalScore" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ExamPaper" class="control-label"></label>
-                <input asp-for="ExamPaper" class="form-control" />
-                <span asp-validation-for="ExamPaper" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
+<div class="card">
+    <div class="card-header">
+        <div class="col-sm-12">
+            <label class="card-subtitle">Exam Update</label>
+            <a asp-action="Index" class="btn bg-dark btn-sm float-right">
+                <i class="fa fa-backward"></i> Back to List
+            </a>
+
+        </div>
     </div>
-</div>
+    <div id="viewAll" class="card-body ">
+        <div class="row">
+            <div class="col-md-12">
+                <form asp-action="Edit" enctype="multipart/form-data">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <input type="hidden" asp-for="Id" />
+                    <input type="hidden" asp-for="ExamPaper" />
+                    <div class="form-row">
+                        <div class="form-group col-md-4">
+                            <label asp-for="Name" class="control-label"></label>
+                            <input asp-for="Name" class="form-control" />
+                            <span asp-validation-for="Name" class="text-danger"></span>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label asp-for="CourseId" class="control-label"></label>
+                            <select asp-for="CourseId" class="form-control" asp-items="ViewBag.CourseId"></select>
+                            <span asp-validation-for="CourseId" class="text-danger"></span>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label asp-for="Duration" class="control-label"></label>
+                            <input asp-for="Duration" class="form-control" />
+                            <span asp-validation-for="Duration" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-4">
+                            <label asp-for="ExamDate" class="control-label"></label>
+                            <input asp-for="ExamDate" class="form-control" />
+                            <span asp-validation-for="ExamDate" class="text-danger"></span>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label asp-for="TotalScore" class="control-label"></label>
+                            <input asp-for="TotalScore" class="form-control" />
+                            <span asp-validation-for="TotalScore" class="text-danger"></span>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label asp-for="ExamPaper" class="control-label"></label>
+                            <input asp-for="FormFile" class="form-control-file" />
+                            <span asp-validation-for="FormFile" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-4">
+                            @if (Model.ExamPaper != null)
+                            {
+                                <a asp-action="DownloadExam" asp-route-id="@Model.ExamPaper" class="btn btn-sm bg-info" title="Details"><i class="fas fa-download"></i> Download Exam</a>
+                                @*<button onclick="document.getElementById('achimage').src = null;" type="button" style="margin-top:10px" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i> Remove Image</button>*@
+                            }
+                            else
+                            {
+                                <label class="col-form-label-sm">No file attached</label>
+                            }
+                        </div>
+                        <div class="form-group col-md-4">
+                            <input type="submit" value="Save" class="btn btn-primary" />
+                        </div>
+                        </div>
+                </form>
+            </div>
+        </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
+       
+        </div>
 </div>
-
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}
+        @section Scripts {
+            @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+        }

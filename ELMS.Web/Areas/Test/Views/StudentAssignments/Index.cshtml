@@ -1,16 +1,13 @@
-﻿@model IEnumerable<ELMS.Infrastructure.Models.StudentAssignment>
+﻿@model IEnumerable<ELMS.Web.Areas.Test.Models.AssignmentSubmissionViewModel>
 
 @{
-    ViewData["Title"] = "Student Assignment";
+    ViewData["Title"] = "";
 }
 
 <div class="card" style="">
     <div class="card-header">
         <div class="col-sm-12">
-            <a asp-action="Create" class="btn bg-success float-right">
-                <i class="fa fa-plus-square"></i> Create
-            </a>
-
+           <label class="card-title">Your Assignments</label>
         </div>
     </div>
     <div id="viewAll" class="card-body table-responsive">
@@ -19,48 +16,67 @@
             <thead>
                 <tr>
                     <th>
-                        @Html.DisplayNameFor(model => model.SubmissionDate)
+                        @Html.DisplayNameFor(model => model.Assignment.Course.Title)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.AssignmentDetails)
+                        Last Date of Submission
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Assignment.TotalScore)
                     </th>
                     <th>
                         @Html.DisplayNameFor(model => model.ObtainScore)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Student)
+                        @Html.DisplayNameFor(model => model.Assignment.AssignmentFile)
                     </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Assignment)
-                    </th>
+                   
                     <th></th>
                 </tr>
             </thead>
             <tbody>
                 @foreach (var item in Model)
                 {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.SubmissionDate)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.AssignmentDetails)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.ObtainScore)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Student.Id)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Assignment.Id)
-                        </td>
-                        <td>
-                            <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-xs bg-success" title="Edit"><i class="fas fa-edit"></i></a>
-                            <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-xs bg-info" title="Details"><i class="fas fa-eye"></i></a>
-                            <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-xs bg-danger" title="Delete"><i class="fas fa-trash-alt"></i></a>
-                        </td>
-                    </tr>
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Assignment.Course.Title)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Assignment.SubmissionDate)
+
+                  
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Assignment.TotalScore)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ObtainScore)
+                    </td>
+                    <td>
+                        <a asp-action="DownloadAssignment" asp-controller="Assignment"
+                           asp-route-id="@item.Assignment.AssignmentFile" class="btn btn-xs bg-info"
+                           title="Download Assignment"><i class="fas fa-download"></i> @Html.DisplayFor(modelItem => item.Assignment.Name)</a>
+
+                    </td>
+
+                    <td>
+                        @{
+                            if (!string.IsNullOrEmpty(item.AssignmentDetails))
+                            {
+                                <a asp-action="DownloadAssignment" asp-controller="Assignment"
+                                   asp-route-id="@item.AssignmentDetails" class="btn btn-xs bg-info"
+                                   title="Download Assignment"><i class="fas fa-download"></i> @Html.DisplayFor(modelItem => item.SubmissionDate)</a>
+
+                            }
+
+                            if (item.LastDateToSubmit>DateTime.Now)
+                            {
+                        <a asp-action="SubmitAssignment" asp-route-assignmentid="@item.AssignmentId" asp-route-courseid="@item.Assignment.Course.Id" class="btn btn-xs bg-success" title="Edit">Submit Assignment</a>
+                        @*<a asp-action="Details" asp-route-id="@item.AssignmentId" class="btn btn-xs bg-info" title="Details"><i class="fas fa-eye"></i></a>*@
+                                }
+                            }
+                    </td>
+                </tr>
                 }
             </tbody>
         </table>

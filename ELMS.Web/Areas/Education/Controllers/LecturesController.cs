@@ -9,6 +9,8 @@ using ELMS.Infrastructure.DbContexts;
 using ELMS.Infrastructure.Models;
 using Microsoft.AspNetCore.Identity;
 using ELMS.Infrastructure.Identity.Models;
+using ELMS.Infrastructure.Zoom;
+using Microsoft.Extensions.Configuration;
 
 namespace ELMS.Web.Areas.Education.Controllers
 {
@@ -17,12 +19,13 @@ namespace ELMS.Web.Areas.Education.Controllers
     {
         private readonly ApplicationDbContext _context;
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly IConfiguration _config;
 
-
-        public LecturesController(UserManager<ApplicationUser> userManager, ApplicationDbContext context)
+        public LecturesController(UserManager<ApplicationUser> userManager, ApplicationDbContext context, IConfiguration config)
         {
             _userManager = userManager;
             _context = context;
+            _config = config;
         }
 
         // GET: Education/Lectures
@@ -68,13 +71,45 @@ namespace ELMS.Web.Areas.Education.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Title,CourseId,LectureDate,Duration")] Lecture lecture)
         {
+            var currentUser = await _userManager.GetUserAsync(HttpContext.User);
+
             if (ModelState.IsValid)
             {
-                _context.Add(lecture);
-                await _context.SaveChangesAsync();
+                try
+                {
+                    ZoomNet zoomNet = new ZoomNet();
+                    ZoomMeetingResponse zoomMeetingResponse = zoomNet.CreateZoomMeeting(new ZoomMeetingRequest()
+                    {
+                        Topic = lecture.Title,
+                        Duration = lecture.Duration,
+                        StartDateTime = lecture.LectureDate,
+                        Type = "2",
+                        schedule_for = currentUser.Email,
+                        TimeZone = _config.GetValue<string>(
+                    "ZoomCredentials:API:TimeZone"),
+                        APIKey = _config.GetValue<string>(
+                    "ZoomCredentials:API:Key"),
+                        ApiSecret = _config.GetValue<string>(
+                    "ZoomCredentials:API:Secret"),
+                        UserId = _config.GetValue<string>(
+                    "ZoomCredentials:API:UserId"),
+                    });
+                    lecture.ZoomMeetingHostURL = zoomMeetingResponse.start_url;
+                    lecture.ZoomMeetingJoinURL = zoomMeetingResponse.join_url;
+
+                    _context.Add(lecture);
+                    await _context.SaveChangesAsync();
+                }
+                catch (Exception ex)
+                {
+
+                    ViewData["CourseId"] = new SelectList(_context.Courses.Where(m => m.TeacherId == currentUser.Id), "Id", "Title", lecture.CourseId);
+                    return View(lecture);
+                }
+                
                 return RedirectToAction(nameof(Index));
             }
-            var currentUser = await _userManager.GetUserAsync(HttpContext.User);
+
             ViewData["CourseId"] = new SelectList(_context.Courses.Where(m => m.TeacherId == currentUser.Id), "Id", "Title", lecture.CourseId);
             return View(lecture);
         }

@@ -1,0 +1,45 @@
+﻿@model ELMS.Infrastructure.Models.StudentExamAnswer
+
+@{
+    ViewData["Title"] = "";
+}
+
+
+<div class="card" style="">
+    <div class="card-header">
+        <div class="col-sm-12">
+            <label class="card-title">Submit your Answer Sheet</label>
+        </div>
+        <a asp-action="Index" class="btn btn-sm btn-dark float-right">Back to List</a>
+    </div>
+
+    <div class="card-body">
+        <div class="col-md-12">
+            <form asp-action="SubmitExam" enctype="multipart/form-data">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="ExamId" />
+                <input type="hidden" asp-for="StudentId" />
+                <input type="hidden" asp-for="Id" />
+
+                <div class="form-group">
+                    @*<label asp-for="AssignmentDetails" class="control-label"></label>*@
+
+                    <input type="file" asp-for="FormFile" accept="" />
+                    <span asp-validation-for="FormFile" class="text-danger"></span>
+                    <span asp-validation-for="AnswerSheet" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <input type="submit" value="Submit" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

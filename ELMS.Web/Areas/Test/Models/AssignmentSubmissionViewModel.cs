@@ -1,36 +1,33 @@
 ﻿using ELMS.Infrastructure.Identity.Models;
-using Microsoft.AspNetCore.Http;
+using ELMS.Infrastructure.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
+using System.Threading.Tasks;
 
-#nullable disable
-
-namespace ELMS.Infrastructure.Models
+namespace ELMS.Web.Areas.Test.Models
 {
-    public partial class StudentAssignment
+    public class AssignmentSubmissionViewModel
     {
-        public int Id { get; set; }
+        public int? StudentAssignmentId { get; set; }
         [Display(Name = "Student")]
         [Required]
         public string StudentId { get; set; }
         [Display(Name = "Submission Date")]
         [Required]
-        public DateTime SubmissionDate { get; set; }
+        public DateTime? SubmissionDate { get; set; }
         [Display(Name = "Assignment Details")]
         [Required]
         public string AssignmentDetails { get; set; }
         [Display(Name = "Obtain Score")]
         [Required]
-        public int ObtainScore { get; set; }
+        public int? ObtainScore { get; set; }
         [Display(Name = "Assignment")]
         [Required]
         public int AssignmentId { get; set; }
-        [Display(Name = "File")]
-        [NotMapped]
-        public IFormFile FormFile { get; set; }
-        public virtual ApplicationUser Student { get; set; }
-        public virtual Assignment Assignment { get; set; }
+        public  ApplicationUser Student { get; set; }
+        public  Assignment Assignment { get; set; }
+        public DateTime LastDateToSubmit { get; internal set; }
     }
 }

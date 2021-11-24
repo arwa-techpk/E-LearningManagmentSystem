@@ -7,23 +7,34 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ELMS.Infrastructure.DbContexts;
 using ELMS.Infrastructure.Models;
+using System.IO;
+using System.Globalization;
+using System.Net.Http.Headers;
+using ELMS.Web.Abstractions;
+using Microsoft.AspNetCore.Identity;
+using ELMS.Infrastructure.Identity.Models;
+using Microsoft.AspNetCore.Authorization;
+using ELMS.Web.Areas.Test.Models;
 
 namespace ELMS.Web.Areas.Test.Controllers
 {
     [Area("Test")]
-    public class AssignmentsController : Controller
+    public class AssignmentsController : BaseController<AssignmentsController>
     {
         private readonly ApplicationDbContext _context;
-
-        public AssignmentsController(ApplicationDbContext context)
+        private readonly UserManager<ApplicationUser> _userManager;
+        public AssignmentsController(UserManager<ApplicationUser> userManager, ApplicationDbContext context)
         {
+            _userManager = userManager;
             _context = context;
         }
+
 
         // GET: Test/Assignments
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Assignments.Include(a => a.Course);
+            var currentUser = await _userManager.GetUserAsync(HttpContext.User);
+            var applicationDbContext = _context.Assignments.Include(a => a.Course).Where(m => m.Course.TeacherId == currentUser.Id);
             return View(await applicationDbContext.ToListAsync());
         }
 
@@ -53,21 +64,109 @@ namespace ELMS.Web.Areas.Test.Controllers
             return View();
         }
 
+        #region download the file
+        public async Task<IActionResult> DownloadAssignment(string id)
+        {
+            var path = Path.Combine(
+                           Directory.GetCurrentDirectory(),
+                           "wwwroot\\Uploads", id);
+
+            var memory = new MemoryStream();
+            using (var stream = new FileStream(path, FileMode.Open))
+            {
+                await stream.CopyToAsync(memory);
+            }
+            memory.Position = 0;
+            return File(memory, GetContentType(path), Path.GetFileName(path));
+        }
+        private string GetContentType(string path)
+        {
+            var types = GetMimeTypes();
+            var ext = Path.GetExtension(path).ToLowerInvariant();
+            return types[ext];
+        }
+
+        private Dictionary<string, string> GetMimeTypes()
+        {
+            return new Dictionary<string, string>
+            {
+                {".txt", "text/plain"},
+                {".pdf", "application/pdf"},
+                {".doc", "application/vnd.ms-word"},
+                {".docx", "application/vnd.ms-word"},
+                {".xls", "application/vnd.ms-excel"},
+                {".xlsx", "application/vnd.openxmlformatsofficedocument.spreadsheetml.sheet"},
+                {".png", "image/png"},
+                {".jpg", "image/jpeg"},
+                {".jpeg", "image/jpeg"},
+                {".gif", "image/gif"},
+                {".csv", "text/csv"}
+            };
+        }
+
+        #endregion
         // POST: Test/Assignments/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,SubmissionDate,AssignmentDetails,TotalScore,CourseId")] Assignment assignment)
+        public async Task<IActionResult> Create(Assignment assignment)
         {
             if (ModelState.IsValid)
             {
+                if (!(assignment.FormFile == null || assignment.FormFile.Length == 0))
+                {
+
+                    try
+                    {
+                        assignment.AssignmentFile = await UploadFile(assignment);
+                    }
+                    catch (Exception ex)
+                    {
+
+                        _notify.Error(ex.Message);
+                        return null;
+                    }
+
+                }
+
                 _context.Add(assignment);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
             ViewData["CourseId"] = new SelectList(_context.Courses, "Id", "Title", assignment.CourseId);
             return View(assignment);
+        }
+
+        private static async Task<string> UploadFile(Assignment assignment)
+        {
+            //get file name
+            var filename = ContentDispositionHeaderValue.Parse(assignment.FormFile.ContentDisposition).FileName.Trim('"');
+
+            //get path
+            var MainPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "Uploads");
+            try
+            {
+                //create directory "Uploads" if it doesn't exists
+                if (!Directory.Exists(MainPath))
+                {
+                    Directory.CreateDirectory(MainPath);
+                }
+
+
+                assignment.AssignmentFile = assignment.Name + assignment.FormFile.FileName;
+                var filePath = Path.Combine(MainPath, assignment.AssignmentFile);
+                using (System.IO.Stream stream = new FileStream(filePath, FileMode.Create))
+                {
+                    await assignment.FormFile.CopyToAsync(stream);
+                }
+                return assignment.AssignmentFile;
+            }
+            catch (Exception)
+            {
+                throw;
+
+            }
         }
 
         // GET: Test/Assignments/Edit/5
@@ -77,6 +176,7 @@ namespace ELMS.Web.Areas.Test.Controllers
             {
                 return NotFound();
             }
+
 
             var assignment = await _context.Assignments.FindAsync(id);
             if (assignment == null)
@@ -92,7 +192,7 @@ namespace ELMS.Web.Areas.Test.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,SubmissionDate,AssignmentDetails,TotalScore,CourseId")] Assignment assignment)
+        public async Task<IActionResult> Edit(int id, Assignment assignment)
         {
             if (id != assignment.Id)
             {
@@ -101,6 +201,21 @@ namespace ELMS.Web.Areas.Test.Controllers
 
             if (ModelState.IsValid)
             {
+                if (!(assignment.FormFile == null || assignment.FormFile.Length == 0))
+                {
+
+                    try
+                    {
+                        assignment.AssignmentFile = await UploadFile(assignment);
+                    }
+                    catch (Exception ex)
+                    {
+
+                        _notify.Error(ex.Message);
+                        return null;
+                    }
+                }
+
                 try
                 {
                     _context.Update(assignment);
@@ -110,6 +225,7 @@ namespace ELMS.Web.Areas.Test.Controllers
                 {
                     if (!AssignmentExists(assignment.Id))
                     {
+                        _notify.Warning($"Assignment with ID {assignment.Id} not Found.");
                         return NotFound();
                     }
                     else
@@ -117,6 +233,7 @@ namespace ELMS.Web.Areas.Test.Controllers
                         throw;
                     }
                 }
+
                 return RedirectToAction(nameof(Index));
             }
             ViewData["CourseId"] = new SelectList(_context.Courses, "Id", "Title", assignment.CourseId);
@@ -157,5 +274,123 @@ namespace ELMS.Web.Areas.Test.Controllers
         {
             return _context.Assignments.Any(e => e.Id == id);
         }
+
+        [Authorize(Roles = "Teacher")]
+        public async Task<IActionResult> SubmittedAssignments()
+        {
+            var currentUser = await _userManager.GetUserAsync(HttpContext.User);
+            var students = await _userManager.GetUsersInRoleAsync("Student");
+
+
+            // var teacherCourses = _context.Courses.Where(m => m.TeacherId == currentUser.Id);
+
+            var Courses = await (from i in _context.Assignments
+                                 join e in _context.Courses on i.CourseId equals e.Id
+                                 join s in _context.StudentCourses on e.Id equals s.CourseId
+
+                                 join sa in _context.StudentAssignments on i.Id equals sa.AssignmentId //&& e.StudentId equals s.StudentId  
+                                into courseTemp
+                                 from c in courseTemp.DefaultIfEmpty()
+                                 where e.TeacherId == currentUser.Id
+
+                                 select new AssignmentSubmissionViewModel()
+                                 {
+                                     AssignmentId = i.Id,
+                                     StudentAssignmentId = c.Id,
+
+                                     Assignment = new Assignment()
+                                     {
+                                         Id = i.Id,
+                                         AssignmentFile = i.AssignmentFile,
+                                         Name = i.Name,
+                                         SubmissionDate = i.SubmissionDate,
+                                         TotalScore = i.TotalScore,
+                                         CourseId = i.CourseId,
+                                         Course = e
+                                     },
+                                     //  Student=new ApplicationUser() { Id=u.Id,Email=u.Email},
+                                     AssignmentDetails = c.AssignmentDetails,
+                                     ObtainScore = c.ObtainScore,
+                                     SubmissionDate = c.SubmissionDate,
+                                     LastDateToSubmit = i.SubmissionDate,
+                                     StudentId = c.StudentId
+                                 }
+                           ).ToListAsync();
+            foreach (var item in Courses)
+            {
+                if (item.StudentId != null)
+                {
+                    item.Student = students.First(m => m.Id == item.StudentId);
+                }
+            }
+
+            return View(Courses);
+
+
+
+        }
+
+
+        [Authorize(Roles = "Teacher")]
+        // GET: Test/Assignments/Edit/5
+        public async Task<IActionResult> AssignmentFeedback(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+
+            var assignment = await _context.StudentAssignments.FindAsync(id);
+            if (assignment == null)
+            {
+                return NotFound();
+            }
+
+            return View(assignment);
+        }
+
+        // POST: Test/Assignments/Edit/5
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Teacher")]
+        public async Task<IActionResult> AssignmentFeedback(int id, [Bind("ObtainScore,Id")] StudentAssignment assignment)
+        {
+            if (id != assignment.Id)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                var assignmentToUpdate = await _context.StudentAssignments.FindAsync(id);
+                assignmentToUpdate.ObtainScore = assignment.ObtainScore;
+                try
+                {
+                    _context.Update(assignmentToUpdate);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!AssignmentExists(assignment.Id))
+                    {
+                        _notify.Warning($"Assignment with ID {assignment.Id} not Found.");
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction("SubmittedAssignments");
+            }
+
+
+
+            return View(assignment);
+        }
+
     }
 }

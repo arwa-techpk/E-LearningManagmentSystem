@@ -1,13 +1,14 @@
 ﻿@model IEnumerable<ELMS.Infrastructure.Models.Exam>
 
 @{
-    ViewData["Title"] = "Exam";
+    ViewData["Title"] = "";
 }
 
 <div class="card">
     <div class="card-header">
         <div class="col-sm-12">
-            <a asp-action="Create" class="btn bg-success float-right">
+            <label class="card-title">Exam</label>
+            <a asp-action="Create" class="btn bg-success btn-sm float-right">
                 <i class="fa fa-plus-square"></i> Create
             </a>
 
@@ -30,9 +31,7 @@
                     <th>
                         @Html.DisplayNameFor(model => model.TotalScore)
                     </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.ExamPaper)
-                    </th>
+                  
                     <th>
                         @Html.DisplayNameFor(model => model.Course)
                     </th>
@@ -55,13 +54,12 @@
                         <td>
                             @Html.DisplayFor(modelItem => item.TotalScore)
                         </td>
+                       
                         <td>
-                            @Html.DisplayFor(modelItem => item.ExamPaper)
+                            @Html.DisplayFor(modelItem => item.Course.Title)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.Course.Id)
-                        </td>
-                        <td>
+                            <a asp-action="DownloadExam" asp-route-id="@item.ExamPaper" class="btn btn-xs bg-info" title="Details"><i class="fas fa-download"></i></a>
                             <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-xs bg-success" title="Edit"><i class="fas fa-edit"></i></a>
                             <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-xs bg-info" title="Details"><i class="fas fa-eye"></i></a>
                             <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-xs bg-danger" title="Delete"><i class="fas fa-trash-alt"></i></a>
