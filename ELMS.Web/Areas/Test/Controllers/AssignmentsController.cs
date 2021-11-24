@@ -58,9 +58,11 @@ namespace ELMS.Web.Areas.Test.Controllers
         }
 
         // GET: Test/Assignments/Create
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
-            ViewData["CourseId"] = new SelectList(_context.Courses, "Id", "Title");
+            var currentUser = await _userManager.GetUserAsync(HttpContext.User);
+            ViewData["CourseId"] = new SelectList(_context.Courses.Where(m=>m.TeacherId== currentUser.Id), "Id", "Title");
+
             return View();
         }
 
@@ -134,7 +136,9 @@ namespace ELMS.Web.Areas.Test.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CourseId"] = new SelectList(_context.Courses, "Id", "Title", assignment.CourseId);
+    
+            var currentUser = await _userManager.GetUserAsync(HttpContext.User);
+            ViewData["CourseId"] = new SelectList(_context.Courses.Where(m => m.TeacherId == currentUser.Id), "Id", "Title", assignment.CourseId);
             return View(assignment);
         }
 
@@ -183,7 +187,9 @@ namespace ELMS.Web.Areas.Test.Controllers
             {
                 return NotFound();
             }
-            ViewData["CourseId"] = new SelectList(_context.Courses, "Id", "Title", assignment.CourseId);
+     
+            var currentUser = await _userManager.GetUserAsync(HttpContext.User);
+            ViewData["CourseId"] = new SelectList(_context.Courses.Where(m => m.TeacherId == currentUser.Id), "Id", "Title", assignment.CourseId);
             return View(assignment);
         }
 
@@ -236,7 +242,9 @@ namespace ELMS.Web.Areas.Test.Controllers
 
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CourseId"] = new SelectList(_context.Courses, "Id", "Title", assignment.CourseId);
+          
+            var currentUser = await _userManager.GetUserAsync(HttpContext.User);
+            ViewData["CourseId"] = new SelectList(_context.Courses.Where(m => m.TeacherId == currentUser.Id), "Id", "Title", assignment.CourseId);
             return View(assignment);
         }
 
