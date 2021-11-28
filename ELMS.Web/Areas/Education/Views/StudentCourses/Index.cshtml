@@ -48,15 +48,15 @@
         </table>
     </div>
 </div>
-    
-    
+
+
 
 @section Scripts
 {
     <script src="https://cdn.datatables.net/rowgroup/1.1.4/js/dataTables.rowGroup.min.js"></script>
     <script src="~/js/site.js"></script>
     <script>
-      
+
 
         $(document).ready(function () {
             var collapsedGroups = {};
@@ -83,7 +83,7 @@
             });
 
             $('#tableStudentCourse tbody').on('click', 'tr.dtrg-group', function () {
-                
+
                 var name = $(this).data('name');
                 collapsedGroups[name] = !collapsedGroups[name];
                 table.draw(false);

@@ -14,11 +14,12 @@ using ELMS.Web.Areas.Test.Models;
 using Microsoft.AspNetCore.Authorization;
 using System.Net.Http.Headers;
 using System.IO;
+using ELMS.Web.Abstractions;
 
 namespace ELMS.Web.Areas.Test.Controllers
 {
     [Area("Test")]
-    public class StudentExamAnswersController : Controller
+    public class StudentExamAnswersController : BaseController<StudentExamAnswersController>
     {
         private readonly ApplicationDbContext _context;
         private readonly UserManager<ApplicationUser> _userManager;
@@ -217,8 +218,17 @@ namespace ELMS.Web.Areas.Test.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var studentExamAnswer = await _context.StudentExamAnswers.FindAsync(id);
-            _context.StudentExamAnswers.Remove(studentExamAnswer);
-            await _context.SaveChangesAsync();
+            
+            try
+            {
+                _context.StudentExamAnswers.Remove(studentExamAnswer);
+                await _context.SaveChangesAsync();
+            }
+            catch (System.Exception)
+            {
+
+                _notify.Error("You cannot delete it, Please contact IT Support");
+            }
             return RedirectToAction(nameof(Index));
         }
 

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -11,11 +10,12 @@ using Microsoft.AspNetCore.Identity;
 using ELMS.Infrastructure.Identity.Models;
 using ELMS.Infrastructure.Zoom;
 using Microsoft.Extensions.Configuration;
+using ELMS.Web.Abstractions;
 
 namespace ELMS.Web.Areas.Education.Controllers
 {
     [Area("Education")]
-    public class LecturesController : Controller
+    public class LecturesController : BaseController<LecturesController>
     {
         private readonly ApplicationDbContext _context;
         private readonly UserManager<ApplicationUser> _userManager;
@@ -194,8 +194,17 @@ namespace ELMS.Web.Areas.Education.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var lecture = await _context.Lectures.FindAsync(id);
-            _context.Lectures.Remove(lecture);
-            await _context.SaveChangesAsync();
+          
+            try
+            {
+                _context.Lectures.Remove(lecture);
+                await _context.SaveChangesAsync();
+            }
+            catch (System.Exception)
+            {
+
+                _notify.Error("You cannot delete this Lecture, Please contact IT Support");
+            }
             return RedirectToAction(nameof(Index));
         }
 

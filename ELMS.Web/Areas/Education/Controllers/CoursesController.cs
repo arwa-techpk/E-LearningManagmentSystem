@@ -8,11 +8,12 @@ using ELMS.Infrastructure.Models;
 using ELMS.Infrastructure.Identity.Models;
 using Microsoft.AspNetCore.Identity;
 using ELMS.Application.Enums;
+using ELMS.Web.Abstractions;
 
 namespace ELMS.Web.Areas.Education.Controllers
 {
     [Area("Education")]
-    public class CoursesController : Controller
+    public class CoursesController : BaseController<CoursesController>
     {
         private readonly ApplicationDbContext _context;
 
@@ -26,7 +27,20 @@ namespace ELMS.Web.Areas.Education.Controllers
         // GET: Education/Courses
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Courses.Include(c => c.School).Include(c => c.Teacher);
+            IQueryable<Course> applicationDbContext;
+            if (User.IsInRole(Roles.SuperAdmin.ToString()))
+            {
+                 applicationDbContext = _context.Courses.Include(c => c.School)
+                    .Include(c => c.Teacher);
+            }
+            else
+            {
+                var currentUser = await _userManager.GetUserAsync(HttpContext.User);
+                 applicationDbContext = _context.Courses.Include(c => c.School)
+                    .Include(c => c.Teacher)
+                    .Where(m => m.SchoolId == currentUser.SchoolId);
+            }
+            
             return View(await applicationDbContext.ToListAsync());
         }
 
@@ -53,10 +67,19 @@ namespace ELMS.Web.Areas.Education.Controllers
         // GET: Education/Courses/Create
         public async Task<IActionResult> Create()
         {
-            var currentUser = await _userManager.GetUserAsync(HttpContext.User);
             var allUsersExceptCurrentUser = await _userManager.GetUsersInRoleAsync(Roles.Teacher.ToString());
-            allUsersExceptCurrentUser = allUsersExceptCurrentUser.Where(a => a.SchoolId == currentUser.SchoolId)
-                .ToList();
+            if (User.IsInRole(Roles.SuperAdmin.ToString()))
+            {
+                allUsersExceptCurrentUser = allUsersExceptCurrentUser
+                    .ToList();
+            }
+            else
+            {
+                var currentUser = await _userManager.GetUserAsync(HttpContext.User);
+                allUsersExceptCurrentUser = allUsersExceptCurrentUser.Where(a => a.SchoolId == currentUser.SchoolId)
+                    .ToList();
+            }
+                
             ViewData["TeacherId"] = new SelectList(allUsersExceptCurrentUser, "Id", "UserName");
             ViewData["SchoolId"] = new SelectList(_context.School, "Id", "Name");
             return View();
@@ -76,10 +99,18 @@ namespace ELMS.Web.Areas.Education.Controllers
                 return RedirectToAction(nameof(Index));
             }
 
-            var currentUser = await _userManager.GetUserAsync(HttpContext.User);
             var allUsersExceptCurrentUser = await _userManager.GetUsersInRoleAsync(Roles.Teacher.ToString());
-            allUsersExceptCurrentUser = allUsersExceptCurrentUser.Where(a => a.SchoolId == currentUser.SchoolId)
-                .ToList();
+            if (User.IsInRole(Roles.SuperAdmin.ToString()))
+            {
+                allUsersExceptCurrentUser = allUsersExceptCurrentUser
+                    .ToList();
+            }
+            else
+            {
+                var currentUser = await _userManager.GetUserAsync(HttpContext.User);
+                allUsersExceptCurrentUser = allUsersExceptCurrentUser.Where(a => a.SchoolId == currentUser.SchoolId)
+                    .ToList();
+            }
             ViewData["TeacherId"] = new SelectList(allUsersExceptCurrentUser, "Id", "UserName", course.TeacherId);
             ViewData["SchoolId"] = new SelectList(_context.School, "Id", "Name", course.SchoolId);
             return View(course);
@@ -98,10 +129,18 @@ namespace ELMS.Web.Areas.Education.Controllers
             {
                 return NotFound();
             }
-            var currentUser = await _userManager.GetUserAsync(HttpContext.User);
             var allUsersExceptCurrentUser = await _userManager.GetUsersInRoleAsync(Roles.Teacher.ToString());
-            allUsersExceptCurrentUser = allUsersExceptCurrentUser.Where(a => a.SchoolId == currentUser.SchoolId)
-                .ToList();
+            if (User.IsInRole(Roles.SuperAdmin.ToString()))
+            {
+                allUsersExceptCurrentUser = allUsersExceptCurrentUser
+                    .ToList();
+            }
+            else
+            {
+                var currentUser = await _userManager.GetUserAsync(HttpContext.User);
+                allUsersExceptCurrentUser = allUsersExceptCurrentUser.Where(a => a.SchoolId == currentUser.SchoolId)
+                    .ToList();
+            }
             ViewData["TeacherId"] = new SelectList(allUsersExceptCurrentUser, "Id", "UserName", course.TeacherId);
             ViewData["SchoolId"] = new SelectList(_context.School, "Id", "Name", course.SchoolId);
             return View(course);
@@ -139,10 +178,18 @@ namespace ELMS.Web.Areas.Education.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            var currentUser = await _userManager.GetUserAsync(HttpContext.User);
             var allUsersExceptCurrentUser = await _userManager.GetUsersInRoleAsync(Roles.Teacher.ToString());
-            allUsersExceptCurrentUser = allUsersExceptCurrentUser.Where(a => a.SchoolId == currentUser.SchoolId)
-                .ToList();
+            if (User.IsInRole(Roles.SuperAdmin.ToString()))
+            {
+                allUsersExceptCurrentUser = allUsersExceptCurrentUser
+                    .ToList();
+            }
+            else
+            {
+                var currentUser = await _userManager.GetUserAsync(HttpContext.User);
+                allUsersExceptCurrentUser = allUsersExceptCurrentUser.Where(a => a.SchoolId == currentUser.SchoolId)
+                    .ToList();
+            }
             ViewData["TeacherId"] = new SelectList(allUsersExceptCurrentUser, "Id", "UserName", course.TeacherId);
             ViewData["SchoolId"] = new SelectList(_context.School, "Id", "Name", course.SchoolId);
             return View(course);
@@ -174,8 +221,17 @@ namespace ELMS.Web.Areas.Education.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var course = await _context.Courses.FindAsync(id);
-            _context.Courses.Remove(course);
-            await _context.SaveChangesAsync();
+            try
+            {
+                _context.Courses.Remove(course);
+                await _context.SaveChangesAsync();
+            }
+            catch (System.Exception)
+            {
+
+                _notify.Error("You cannot delete this course, Please contact IT Support");
+            }
+            
             return RedirectToAction(nameof(Index));
         }
 

@@ -99,7 +99,8 @@ namespace ELMS.Web.Areas.Admin.Controllers
                     EmailConfirmed = true,
                     DateOfBirth = userModel.DateOfBirth,
                     ContactNumber = userModel.ContactNumber,
-                    Gender = userModel.Gender
+                    Gender = userModel.Gender,
+                    SchoolId=userModel.SchoolId
                 };
                 var result = await _userManager.CreateAsync(user, userModel.Password);
                 if (result.Succeeded)

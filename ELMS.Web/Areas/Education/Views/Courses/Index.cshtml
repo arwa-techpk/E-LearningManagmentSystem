@@ -1,5 +1,7 @@
 ﻿@model IEnumerable<ELMS.Infrastructure.Models.Course>
-
+@using ELMS.Infrastructure.Identity.Models;
+@using  ELMS.Application.Enums;
+@inject UserManager<ApplicationUser> UserManager
 @{
     ViewData["Title"] = "Course";
 }
@@ -7,7 +9,7 @@
 
 <div class="card">
     <div class="card-header">
-        <div class="col-sm-12" >
+        <div class="col-sm-12">
             <a asp-action="Create" class="btn bg-success float-right">
                 <i class="fa fa-plus-square"></i> Create
             </a>
@@ -31,34 +33,40 @@
                     <th>
                         @Html.DisplayNameFor(model => model.Teacher)
                     </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.School)
-                    </th>
-                    <th></th>
-                </tr>
+                    @if (User.IsInRole(Roles.SuperAdmin.ToString()))
+                    {
+                        <th>
+                            @Html.DisplayNameFor(model => model.School)
+                        </th>
+                    }
+                        <th></th>
+                    </tr>
             </thead>
             <tbody>
                 @foreach (var item in Model)
                 {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Title)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Credit)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Description)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Teacher.UserName)
-                        </td>
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Title)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Credit)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Description)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Teacher.UserName)
+                    </td>
+                    @if (User.IsInRole(Roles.SuperAdmin.ToString()))
+                    {
                         <td>
                             @Html.DisplayFor(modelItem => item.School.Name)
                         </td>
+                    }
                         <td>
-                            <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-xs bg-success" title="Edit"><i class="fas fa-edit"></i></a> 
-                            <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-xs bg-info" title="Details"><i class="fas fa-eye"></i></a> 
+                            <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-xs bg-success" title="Edit"><i class="fas fa-edit"></i></a>
+                            <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-xs bg-info" title="Details"><i class="fas fa-eye"></i></a>
                             <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-xs bg-danger" title="Delete"><i class="fas fa-trash-alt"></i></a>
                         </td>
                     </tr>
@@ -66,7 +74,7 @@
             </tbody>
         </table>
     </div>
-</div>>
+</div>
 
 @section Scripts
 {
@@ -74,7 +82,7 @@
     <script>
         $(document).ready(function () {
             $("#courseTable").DataTable();
-           
+
         });
     </script>
 }

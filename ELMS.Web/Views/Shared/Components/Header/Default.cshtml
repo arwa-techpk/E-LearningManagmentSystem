@@ -3,6 +3,7 @@
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
 @inject IHtmlLocalizer<SharedResource> localizer
+@inject ELMS.Infrastructure.DbContexts.ApplicationDbContext _context
 <nav id="navigationBar" class="main-header navbar navbar-expand navbar-light">
     <!-- Left navbar links -->
     <ul class="navbar-nav">
@@ -26,7 +27,14 @@
     <!-- Right navbar links -->
     <ul class="navbar-nav" style=" margin-inline-start: auto; ">
         <li class="nav-item dropdown no-arrow">
-            @(await Component.InvokeAsync<CultureViewComponent>())
+            @{
+                if (UserManager.GetUserAsync(User).Result.SchoolId != null)
+                {
+                        <h4 class="nav-link">@_context.School.FirstOrDefault(m => m.Id == UserManager.GetUserAsync(User).Result.SchoolId).Name | </h4>
+                }
+            }
+
+            @*@(await Component.InvokeAsync<CultureViewComponent>())*@
         </li>
         @if (User.Identity.IsAuthenticated)
         {

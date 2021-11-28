@@ -13,11 +13,12 @@ using ELMS.Application.Enums;
 using ELMS.Web.Areas.Test.Models;
 using System.IO;
 using System.Net.Http.Headers;
+using ELMS.Web.Abstractions;
 
 namespace ELMS.Web.Areas.Test.Controllers
 {
     [Area("Test")]
-    public class StudentAssignmentsController : Controller
+    public class StudentAssignmentsController : BaseController<StudentAssignmentsController>
     {
         private readonly ApplicationDbContext _context;
         private readonly UserManager<ApplicationUser> _userManager;
@@ -359,8 +360,17 @@ namespace ELMS.Web.Areas.Test.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var studentAssignment = await _context.StudentAssignments.FindAsync(id);
-            _context.StudentAssignments.Remove(studentAssignment);
-            await _context.SaveChangesAsync();
+            
+            try
+            {
+                _context.StudentAssignments.Remove(studentAssignment);
+                await _context.SaveChangesAsync();
+            }
+            catch (System.Exception)
+            {
+
+                _notify.Error("You cannot delete it, Please contact IT Support");
+            }
             return RedirectToAction(nameof(Index));
         }
 

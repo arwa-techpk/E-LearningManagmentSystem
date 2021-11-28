@@ -248,8 +248,17 @@ namespace ELMS.Web.Areas.Test.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var exam = await _context.Exams.FindAsync(id);
-            _context.Exams.Remove(exam);
-            await _context.SaveChangesAsync();
+          
+            try
+            {
+                _context.Exams.Remove(exam);
+                await _context.SaveChangesAsync();
+            }
+            catch (System.Exception)
+            {
+
+                _notify.Error("You cannot delete it, Please contact IT Support");
+            }
             return RedirectToAction(nameof(Index));
         }
 
