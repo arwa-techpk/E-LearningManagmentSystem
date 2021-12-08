@@ -1,5 +1,5 @@
 ﻿@page
-@using ELMS.Web.Views.Shared.Components.Culture;
+
 @model RegisterModel
 @{
     ViewData["Title"] = "Register";
@@ -17,19 +17,7 @@
     <partial name="_Styles" />
 </head>
 <body>
-    @*<nav id="navigationBar" class="main-header navbar navbar-expand navbar-light" style="margin:0 !important">
-        <ul class="navbar-nav" style=" margin-inline-start: auto; ">
-            <li class="nav-item dropdown no-arrow">
-                @(await Component.InvokeAsync<CultureViewComponent>())
-            </li>
-        </ul>
-        <ul class="navbar-nav">
-            <div class="custom-control custom-switch">
-                <input type="checkbox" class="custom-control-input" id="darkSwitch">
-                <label class="custom-control-label" style="font-weight:400" for="darkSwitch">@localizer["Dark Mode"]</label>
-            </div>
-        </ul>
-    </nav>*@
+
     <div class="content-wrapper mrl-zero" id="contentWrapper">
         <div class="container">
             <div class="row justify-content-center">
@@ -39,7 +27,7 @@
                         <div class="card-body p-0">
                             <!-- Nested Row within Card Body -->
                             <div class="row">
-                                <div class="col-lg-5 d-none d-lg-block" style=" background: url('/images/logo.png'); background-position: center; background-size: auto; background-repeat:no-repeat"></div>
+                                <div class="col-lg-5 d-none d-lg-block" style=" background: url('/images/logo.jpeg'); background-position: center; background-size: auto; background-repeat:no-repeat"></div>
                                 <div class="col-lg-7">
                                     <div class="p-5">
                                         <div class="text-center">
@@ -103,9 +91,9 @@
                                             $.validator.unobtrusive.parse(document);
                                         </script>
                                         <hr>
-                                        <div class="text-center">
+                                        @*<div class="text-center">
                                             <a class="small" asp-area="Identity" asp-page="/account/forgotpassword"> @localizer["Forgot Password?"]</a>
-                                        </div>
+                                        </div>*@
                                         <div class="text-center">
                                             <a class="small" asp-area="Identity" asp-page="/account/login"> @localizer["Already have an account? Login!"]</a>
                                         </div>

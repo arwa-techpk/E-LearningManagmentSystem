@@ -77,25 +77,8 @@ namespace ELMS.Web.Areas.Education.Controllers
             {
                 try
                 {
-                    ZoomNet zoomNet = new ZoomNet();
-                    ZoomMeetingResponse zoomMeetingResponse = zoomNet.CreateZoomMeeting(new ZoomMeetingRequest()
-                    {
-                        Topic = lecture.Title,
-                        Duration = lecture.Duration,
-                        StartDateTime = lecture.LectureDate,
-                        Type = "2",
-                        schedule_for = currentUser.Email,
-                        TimeZone = _config.GetValue<string>(
-                    "ZoomCredentials:API:TimeZone"),
-                        APIKey = _config.GetValue<string>(
-                    "ZoomCredentials:API:Key"),
-                        ApiSecret = _config.GetValue<string>(
-                    "ZoomCredentials:API:Secret"),
-                        UserId = _config.GetValue<string>(
-                    "ZoomCredentials:API:UserId"),
-                    });
-                    lecture.ZoomMeetingHostURL = zoomMeetingResponse.start_url;
-                    lecture.ZoomMeetingJoinURL = zoomMeetingResponse.join_url;
+
+                    lecture.ZoomMeetingJoinURL = String.Concat(("https://meet.jit.si/elmcom/" + lecture.CourseId + lecture.Title).Where(c => !Char.IsWhiteSpace(c))) ;
 
                     _context.Add(lecture);
                     await _context.SaveChangesAsync();
@@ -137,7 +120,7 @@ namespace ELMS.Web.Areas.Education.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,CourseId,LectureDate,Duration")] Lecture lecture)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,ZoomMeetingJoinURL,CourseId,LectureDate,Duration")] Lecture lecture)
         {
             if (id != lecture.Id)
             {
@@ -148,6 +131,12 @@ namespace ELMS.Web.Areas.Education.Controllers
             {
                 try
                 {
+                    if (string.IsNullOrEmpty(lecture.ZoomMeetingJoinURL))
+                    {
+
+                        lecture.ZoomMeetingJoinURL = String.Concat(("https://meet.jit.si/elmcom/" + lecture.CourseId + lecture.Title).Where(c => !Char.IsWhiteSpace(c)));
+
+                    }
                     _context.Update(lecture);
                     await _context.SaveChangesAsync();
                 }
