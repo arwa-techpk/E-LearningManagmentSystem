@@ -1,14 +1,14 @@
-﻿using System.Linq;
-using System.Threading.Tasks;
+﻿using ELMS.Application.Enums;
+using ELMS.Infrastructure.DbContexts;
+using ELMS.Infrastructure.Identity.Models;
+using ELMS.Infrastructure.Models;
+using ELMS.Web.Abstractions;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using ELMS.Infrastructure.DbContexts;
-using ELMS.Infrastructure.Models;
-using ELMS.Application.Enums;
-using ELMS.Infrastructure.Identity.Models;
-using Microsoft.AspNetCore.Identity;
-using ELMS.Web.Abstractions;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace ELMS.Web.Areas.Education.Controllers
 {
@@ -19,7 +19,7 @@ namespace ELMS.Web.Areas.Education.Controllers
 
         private readonly UserManager<ApplicationUser> _userManager;
 
-       
+
         public StudentCoursesController(UserManager<ApplicationUser> userManager, ApplicationDbContext context)
         {
             _userManager = userManager;
@@ -79,7 +79,7 @@ namespace ELMS.Web.Areas.Education.Controllers
                 var currentUser = await _userManager.GetUserAsync(HttpContext.User);
                 allUsersExceptCurrentUser = allUsersExceptCurrentUser.Where(a => a.SchoolId == currentUser.SchoolId)
                     .ToList();
-                 Courses = Courses.Where(a => a.SchoolId == currentUser.SchoolId);
+                Courses = Courses.Where(a => a.SchoolId == currentUser.SchoolId);
             }
 
             ViewData["StudentId"] = new SelectList(allUsersExceptCurrentUser, "Id", "UserName");
@@ -231,7 +231,7 @@ namespace ELMS.Web.Areas.Education.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var studentCourse = await _context.StudentCourses.FindAsync(id);
-           
+
             try
             {
                 _context.StudentCourses.Remove(studentCourse);

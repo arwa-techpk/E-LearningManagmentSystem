@@ -1,5 +1,5 @@
-﻿using ELMS.Application.DTOs.Identity;
-using AspNetCoreHero.Results;
+﻿using AspNetCoreHero.Results;
+using ELMS.Application.DTOs.Identity;
 using System.Threading.Tasks;
 
 namespace ELMS.Application.Interfaces

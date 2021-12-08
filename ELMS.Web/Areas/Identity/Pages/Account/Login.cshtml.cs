@@ -1,5 +1,4 @@
-﻿using ELMS.Application.Features.ActivityLog.Commands.AddLog;
-using ELMS.Infrastructure.Identity.Models;
+﻿using ELMS.Infrastructure.Identity.Models;
 using ELMS.Web.Abstractions;
 using MediatR;
 using Microsoft.AspNetCore.Authentication;
@@ -21,16 +20,14 @@ namespace ELMS.Web.Areas.Identity.Pages.Account
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
-        private readonly ILogger<LoginModel> _logger;
         private readonly IMediator _mediator;
 
         public LoginModel(SignInManager<ApplicationUser> signInManager,
-            ILogger<LoginModel> logger,
+            
             UserManager<ApplicationUser> userManager, IMediator mediator)
         {
             _userManager = userManager;
             _signInManager = signInManager;
-            _logger = logger;
             _mediator = mediator;
         }
 
@@ -107,12 +104,11 @@ namespace ELMS.Web.Areas.Identity.Pages.Account
                         var result = await _signInManager.PasswordSignInAsync(userName, Input.Password, Input.RememberMe, lockoutOnFailure: false);
                         if (result.Succeeded)
                         {
-                            await _mediator.Send(new AddActivityLogCommand() { userId = user.Id, Action = "Logged In" });
-                            _logger.LogInformation("User logged in.");
+
                             _notyf.Success($"Logged in as {userName}.");
                             return LocalRedirect(returnUrl);
                         }
-                        await _mediator.Send(new AddActivityLogCommand() { userId = user.Id, Action = "Log-In Failed" });
+
                         if (result.RequiresTwoFactor)
                         {
                             return RedirectToPage("./LoginWith2fa", new { ReturnUrl = returnUrl, RememberMe = Input.RememberMe });
@@ -120,7 +116,6 @@ namespace ELMS.Web.Areas.Identity.Pages.Account
                         if (result.IsLockedOut)
                         {
                             _notyf.Warning("User account locked out.");
-                            _logger.LogWarning("User account locked out.");
                             return RedirectToPage("./Lockout");
                         }
                         else

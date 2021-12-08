@@ -1,4 +1,6 @@
-﻿using ELMS.Application.DTOs.Identity;
+﻿using AspNetCoreHero.Results;
+using AspNetCoreHero.ThrowR;
+using ELMS.Application.DTOs.Identity;
 using ELMS.Application.DTOs.Mail;
 using ELMS.Application.DTOs.Settings;
 using ELMS.Application.Enums;
@@ -6,8 +8,6 @@ using ELMS.Application.Exceptions;
 using ELMS.Application.Interfaces;
 using ELMS.Application.Interfaces.Shared;
 using ELMS.Infrastructure.Identity.Models;
-using AspNetCoreHero.Results;
-using AspNetCoreHero.ThrowR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Options;

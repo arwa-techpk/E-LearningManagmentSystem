@@ -37,21 +37,22 @@ namespace ELMS.Infrastructure.Zoom
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Issuer = zoomMeetingRequest.APIKey,
-                Expires = now.AddSeconds(300),
+                Expires = now.AddSeconds(3000),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(symmetricKey), SecurityAlgorithms.HmacSha256),
             };
             var token = tokenHandler.CreateToken(tokenDescriptor);
             var tokenString = tokenHandler.WriteToken(token);
-            var client = new RestClient(String.Format("https://api.zoom.us/v2/users/{0}",zoomMeetingRequest.UserId));
-            var request = new RestRequest(Method.GET);
+            var client = new RestClient(String.Format("https://api.zoom.us/v2/users/{0}/meetings", zoomMeetingRequest.UserId));
+            var request = new RestRequest(Method.POST);
             request.RequestFormat = DataFormat.Json;
-            request.AddJsonBody(new { 
-                topic = zoomMeetingRequest.Topic, 
-                duration = zoomMeetingRequest.Duration, 
-                start_time = zoomMeetingRequest.StartDateTime, 
+            request.AddJsonBody(new
+            {
+                topic = zoomMeetingRequest.Topic,
+                duration = zoomMeetingRequest.Duration,
+                start_time = zoomMeetingRequest.StartDateTime,
                 type = zoomMeetingRequest.Type,
-                schedule_for=zoomMeetingRequest.schedule_for,
-                timezone= zoomMeetingRequest.TimeZone
+                schedule_for = zoomMeetingRequest.schedule_for,
+                timezone = zoomMeetingRequest.TimeZone
             });
             request.AddHeader("authorization", String.Format("Bearer {0}", tokenString));
 

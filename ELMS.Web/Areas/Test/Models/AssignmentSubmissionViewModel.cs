@@ -1,10 +1,7 @@
 ﻿using ELMS.Infrastructure.Identity.Models;
 using ELMS.Infrastructure.Models;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace ELMS.Web.Areas.Test.Models
 {
@@ -26,8 +23,8 @@ namespace ELMS.Web.Areas.Test.Models
         [Display(Name = "Assignment")]
         [Required]
         public int AssignmentId { get; set; }
-        public  ApplicationUser Student { get; set; }
-        public  Assignment Assignment { get; set; }
+        public ApplicationUser Student { get; set; }
+        public Assignment Assignment { get; set; }
         public DateTime LastDateToSubmit { get; internal set; }
     }
 }

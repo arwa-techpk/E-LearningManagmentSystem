@@ -1,14 +1,14 @@
-﻿using System.Linq;
-using System.Threading.Tasks;
+﻿using ELMS.Application.Enums;
+using ELMS.Infrastructure.DbContexts;
+using ELMS.Infrastructure.Identity.Models;
+using ELMS.Infrastructure.Models;
+using ELMS.Web.Abstractions;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using ELMS.Infrastructure.DbContexts;
-using ELMS.Infrastructure.Models;
-using Microsoft.AspNetCore.Identity;
-using ELMS.Infrastructure.Identity.Models;
-using ELMS.Application.Enums;
-using ELMS.Web.Abstractions;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace ELMS.Web.Areas.Education.Controllers
 {
@@ -62,7 +62,7 @@ namespace ELMS.Web.Areas.Education.Controllers
             var allUsersExceptCurrentUser = await _userManager.GetUsersInRoleAsync(Roles.Student.ToString());
             allUsersExceptCurrentUser = allUsersExceptCurrentUser.Where(a => a.SchoolId == currentUser.SchoolId)
                 .ToList();
-            var Lectures = _context.Lectures.Include(m=>m.Course)
+            var Lectures = _context.Lectures.Include(m => m.Course)
                .Select(x => new
                {
                    Id = x.Id,

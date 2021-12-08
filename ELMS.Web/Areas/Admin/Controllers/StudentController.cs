@@ -7,8 +7,6 @@ using ELMS.Web.Areas.Admin.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Mail;
@@ -45,7 +43,7 @@ namespace ELMS.Web.Areas.Admin.Controllers
             var allUsersExceptCurrentUser = await _userManager.GetUsersInRoleAsync(Roles.Student.ToString());
             allUsersExceptCurrentUser = allUsersExceptCurrentUser.Where(a => a.Id != currentUser.Id && a.SchoolId == currentUser.SchoolId)
                 .ToList();
-            
+
             var model = _mapper.Map<IEnumerable<UserViewModel>>(allUsersExceptCurrentUser);
             return PartialView("_ViewAll", model);
 
@@ -68,7 +66,7 @@ namespace ELMS.Web.Areas.Admin.Controllers
                 string userName = address.User;
 
                 var currentUser = await _userManager.GetUserAsync(HttpContext.User);
-               
+
 
                 var user = new ApplicationUser
                 {
@@ -80,8 +78,8 @@ namespace ELMS.Web.Areas.Admin.Controllers
                     DateOfBirth = userModel.DateOfBirth,
                     ContactNumber = userModel.ContactNumber,
                     Gender = userModel.Gender,
-                    SchoolId= currentUser.SchoolId
-            };
+                    SchoolId = currentUser.SchoolId
+                };
                 var result = await _userManager.CreateAsync(user, userModel.Password);
                 if (result.Succeeded)
                 {

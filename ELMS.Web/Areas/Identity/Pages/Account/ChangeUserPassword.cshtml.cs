@@ -1,14 +1,11 @@
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 using ELMS.Application.Constants;
 using ELMS.Infrastructure.Identity.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using System.ComponentModel.DataAnnotations;
+using System.Threading.Tasks;
 
 namespace ELMS.Web.Areas.Identity.Pages.Account
 {
@@ -23,7 +20,7 @@ namespace ELMS.Web.Areas.Identity.Pages.Account
             _userManager = userManager;
         }
 
-       
+
 
         [BindProperty]
         public InputModel Input { get; set; }
@@ -44,7 +41,7 @@ namespace ELMS.Web.Areas.Identity.Pages.Account
 
         }
 
-        public  IActionResult OnGet(string userId)
+        public IActionResult OnGet(string userId)
         {
             if (User.IsInRole("SuperAdmin"))
             {
@@ -61,7 +58,7 @@ namespace ELMS.Web.Areas.Identity.Pages.Account
                     return Page();
                 }
 
-               
+
             }
             else return RedirectToAction("Index", "Home", new { area = "Dashboard" });
 

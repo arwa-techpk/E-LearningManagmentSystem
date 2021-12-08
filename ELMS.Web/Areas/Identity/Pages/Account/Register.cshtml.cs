@@ -1,6 +1,4 @@
-﻿using ELMS.Application.DTOs.Mail;
-using ELMS.Application.Enums;
-using ELMS.Application.Interfaces.Contexts;
+﻿using ELMS.Application.Enums;
 using ELMS.Application.Interfaces.Shared;
 using ELMS.Domain.Entities;
 using ELMS.Infrastructure.DbContexts;
@@ -10,15 +8,12 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Net.Mail;
-using System.Text;
-using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 
 namespace ELMS.Web.Areas.Identity.Pages.Account
@@ -114,9 +109,9 @@ namespace ELMS.Web.Areas.Identity.Pages.Account
                     Email = Input.Email,
                     FirstName = Input.FirstName,
                     LastName = Input.LastName,
-                    DateOfBirth=Input.DateOfBirth,
-                    ContactNumber=Input.ContactNumber,
-                    Gender=Input.Gender,
+                    DateOfBirth = Input.DateOfBirth,
+                    ContactNumber = Input.ContactNumber,
+                    Gender = Input.Gender,
                     EmailConfirmed = true
                 };
                 var result = await _userManager.CreateAsync(user, Input.Password);

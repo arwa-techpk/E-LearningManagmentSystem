@@ -28,7 +28,7 @@ namespace ELMS.Infrastructure.Models
         [Required]
         public int TotalScore { get; set; }
         [Display(Name = "Exam Questionnaire")]
-        
+
         public string ExamPaper { get; set; }
         [Display(Name = "File")]
         [NotMapped]

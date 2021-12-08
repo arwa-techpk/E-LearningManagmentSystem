@@ -1,5 +1,5 @@
-using ELMS.Infrastructure.Identity.Models;
 using AspNetCoreHero.Extensions.Logging;
+using ELMS.Infrastructure.Identity.Models;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
@@ -28,7 +28,7 @@ namespace ELMS.Web
 
                     await Infrastructure.Identity.Seeds.DefaultRoles.SeedAsync(userManager, roleManager);
                     await Infrastructure.Identity.Seeds.DefaultSuperAdminUser.SeedAsync(userManager, roleManager);
-                   // await Infrastructure.Identity.Seeds.DefaultBasicUser.SeedAsync(userManager, roleManager);
+                    // await Infrastructure.Identity.Seeds.DefaultBasicUser.SeedAsync(userManager, roleManager);
                     logger.LogInformation("Finished Seeding Default Data");
                     logger.LogInformation("Application Starting");
                 }

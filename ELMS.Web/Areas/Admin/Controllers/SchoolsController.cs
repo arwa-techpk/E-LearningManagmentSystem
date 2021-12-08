@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using ELMS.Domain.Entities;
+using ELMS.Infrastructure.DbContexts;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using ELMS.Domain.Entities;
-using ELMS.Infrastructure.DbContexts;
 
 namespace ELMS.Web.Areas.Admin.Controllers
 {

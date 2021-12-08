@@ -1,5 +1,4 @@
-﻿using ELMS.Application.Features.ActivityLog.Commands.AddLog;
-using ELMS.Application.Interfaces.Shared;
+﻿using ELMS.Application.Interfaces.Shared;
 using ELMS.Infrastructure.Identity.Models;
 using ELMS.Web.Abstractions;
 using MediatR;
@@ -16,13 +15,12 @@ namespace ELMS.Web.Areas.Identity.Pages.Account
     {
         private readonly IMediator _mediator;
         private readonly SignInManager<ApplicationUser> _signInManager;
-        private readonly ILogger<LogoutModel> _logger;
         private readonly IAuthenticatedUserService _userService;
 
-        public LogoutModel(SignInManager<ApplicationUser> signInManager, ILogger<LogoutModel> logger, IMediator mediator, IAuthenticatedUserService userService)
+        public LogoutModel(SignInManager<ApplicationUser> signInManager,  IMediator mediator, IAuthenticatedUserService userService)
         {
             _signInManager = signInManager;
-            _logger = logger;
+            
             _mediator = mediator;
             _userService = userService;
         }
@@ -35,16 +33,14 @@ namespace ELMS.Web.Areas.Identity.Pages.Account
             }
             await _signInManager.SignOutAsync();
 
-            _logger.LogInformation("User logged out.");
             return RedirectToPage("/Index");
         }
 
         public async Task<IActionResult> OnPost(string returnUrl = null)
         {
-            await _mediator.Send(new AddActivityLogCommand() { userId = _userService.UserId, Action = "Logged Out" });
             await _signInManager.SignOutAsync();
             _notyf.Information("User logged out.");
-            _logger.LogInformation("User logged out.");
+
             if (returnUrl != null)
             {
                 return LocalRedirect(returnUrl);

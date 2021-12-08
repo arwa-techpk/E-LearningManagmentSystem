@@ -1,6 +1,6 @@
-﻿using ELMS.Infrastructure.Identity.Models;
+﻿using AutoMapper;
+using ELMS.Infrastructure.Identity.Models;
 using ELMS.Web.Areas.Admin.Models;
-using AutoMapper;
 
 namespace ELMS.Web.Areas.Admin.Mappings
 {

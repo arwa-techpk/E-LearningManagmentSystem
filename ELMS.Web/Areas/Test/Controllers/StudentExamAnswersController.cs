@@ -1,20 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using ELMS.Application.Enums;
+using ELMS.Infrastructure.DbContexts;
+using ELMS.Infrastructure.Identity.Models;
+using ELMS.Infrastructure.Models;
+using ELMS.Web.Abstractions;
+using ELMS.Web.Areas.Test.Models;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using ELMS.Infrastructure.DbContexts;
-using ELMS.Infrastructure.Models;
-using Microsoft.AspNetCore.Identity;
-using ELMS.Infrastructure.Identity.Models;
-using ELMS.Application.Enums;
-using ELMS.Web.Areas.Test.Models;
-using Microsoft.AspNetCore.Authorization;
-using System.Net.Http.Headers;
+using System;
+using System.Collections.Generic;
 using System.IO;
-using ELMS.Web.Abstractions;
+using System.Linq;
+using System.Net.Http.Headers;
+using System.Threading.Tasks;
 
 namespace ELMS.Web.Areas.Test.Controllers
 {
@@ -33,43 +33,43 @@ namespace ELMS.Web.Areas.Test.Controllers
         // GET: Test/StudentExamAnswers
         public async Task<IActionResult> Index()
         {
-           // var applicationDbContext = _context.StudentExamAnswers.Include(s => s.Exam).Include(s => s.Student);
+            // var applicationDbContext = _context.StudentExamAnswers.Include(s => s.Exam).Include(s => s.Student);
             var currentUser = await _userManager.GetUserAsync(HttpContext.User);
 
 
 
             var studentCourses = _context.StudentCourses.Include(c => c.Course).Where(m => m.StudentId == currentUser.Id);
             var applicationDbContext = await (from i in _context.Exams
-                                 join e in studentCourses on i.CourseId equals e.Id
-                                 join s in _context.StudentCourses on e.Id equals s.CourseId
+                                              join e in studentCourses on i.CourseId equals e.Id
+                                              join s in _context.StudentCourses on e.Id equals s.CourseId
 
-                                 join sa in _context.StudentExamAnswers on i.Id equals sa.ExamId //&& e.StudentId equals s.StudentId  
-                                into courseTemp
-                                 from c in courseTemp.DefaultIfEmpty()
-                                 where e.StudentId == currentUser.Id
+                                              join sa in _context.StudentExamAnswers on i.Id equals sa.ExamId //&& e.StudentId equals s.StudentId  
+                                             into courseTemp
+                                              from c in courseTemp.DefaultIfEmpty()
+                                              where e.StudentId == currentUser.Id
 
-                                 select new ExamAnswerSubmissionViewModel()
-                                 {
-                                     ExamId = i.Id,
-                                     StudentExamId = c.Id,
+                                              select new ExamAnswerSubmissionViewModel()
+                                              {
+                                                  ExamId = i.Id,
+                                                  StudentExamId = c.Id,
 
-                                     Exam = new Exam()
-                                     {
-                                         Id = i.Id,
-                                         ExamPaper = i.ExamPaper,
-                                         Name = i.Name,
-                                         ExamDate = i.ExamDate,
-                                         TotalScore = i.TotalScore,
-                                         CourseId = i.CourseId,
-                                         Course = e.Course
-                                     },
-                                     //  Student=new ApplicationUser() { Id=u.Id,Email=u.Email},
-                                     AnswerSheet = c.AnswerSheet,
-                                     ObtainedScore = c.ObtainedScore,
-                                     SubmissionDate = c.SubmissionDate,
-                                     ExamDate = i.ExamDate,
-                                     StudentId = c.StudentId
-                                 }
+                                                  Exam = new Exam()
+                                                  {
+                                                      Id = i.Id,
+                                                      ExamPaper = i.ExamPaper,
+                                                      Name = i.Name,
+                                                      ExamDate = i.ExamDate,
+                                                      TotalScore = i.TotalScore,
+                                                      CourseId = i.CourseId,
+                                                      Course = e.Course
+                                                  },
+                                                  //  Student=new ApplicationUser() { Id=u.Id,Email=u.Email},
+                                                  AnswerSheet = c.AnswerSheet,
+                                                  ObtainedScore = c.ObtainedScore,
+                                                  SubmissionDate = c.SubmissionDate,
+                                                  ExamDate = i.ExamDate,
+                                                  StudentId = c.StudentId
+                                              }
                     ).ToListAsync();
             return View(applicationDbContext);
 
@@ -218,7 +218,7 @@ namespace ELMS.Web.Areas.Test.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var studentExamAnswer = await _context.StudentExamAnswers.FindAsync(id);
-            
+
             try
             {
                 _context.StudentExamAnswers.Remove(studentExamAnswer);
