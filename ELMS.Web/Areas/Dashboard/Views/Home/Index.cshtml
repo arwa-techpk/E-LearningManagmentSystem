@@ -1,13 +1,11 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿@using ELMS.Infrastructure.Identity.Models;
+@model ELMS.Infrastructure.Identity.Models.ApplicationUser
 <div class="container-fluid">
     <div>
         <img src="~/images/logo-transparent.png" style="display: block; margin-left: auto; margin-right: auto; width: 200px; height:200px;" />
     </div>
     <br />
-    <h2 class="text-center display-4">Wellcome to ELMS Dashboard!</h2>
+
+    <h2 class="text-center display-4">Wellcome to ELMCOM Dashboard! Mr " " @Model.FirstName  </h2>
 
 </div>

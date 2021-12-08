@@ -1,8 +1,6 @@
 ﻿@using ELMS.Infrastructure.Identity.Models;
-@using ELMS.Web.Views.Shared.Components.Culture;
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
-@inject IHtmlLocalizer<SharedResource> localizer
 @inject ELMS.Infrastructure.DbContexts.ApplicationDbContext _context
 <nav id="navigationBar" class="main-header navbar navbar-expand navbar-light">
     <!-- Left navbar links -->
@@ -61,14 +59,10 @@
                         <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
                         Settings
                     </a>
-                    <a class="dropdown-item" asp-area="Identity" asp-page="/Account/AuditLog">
-                        <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
-                        Audit Log
-                    </a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
                         <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                        @localizer["Logout"]
+                        Logout
                     </a>
                 </div>
             </li>

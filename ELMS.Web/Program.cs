@@ -12,7 +12,7 @@ namespace ELMS.Web
 {
     public class Program
     {
-        public async static Task Main(string[] args)
+        public async static Task Main(string[] args) // set up web server, load all configruttion information
         {
             var host = CreateHostBuilder(args).Build();
 

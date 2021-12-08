@@ -28,7 +28,7 @@ namespace ELMS.Web.Areas.Identity.Pages.Account
     {
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly UserManager<ApplicationUser> _userManager;
-        private readonly ILogger<RegisterModel> _logger;
+        private readonly ILogger<RegisterModel> _logger; // it's needed ? 
         private readonly IMailService _emailSender;
         private readonly ApplicationDbContext _applicationDbContext;
         public RegisterModel(
@@ -45,7 +45,7 @@ namespace ELMS.Web.Areas.Identity.Pages.Account
             _applicationDbContext = dbContext;
         }
 
-        [BindProperty]
+        [BindProperty] // define 
         public InputModel Input { get; set; }
 
         public string ReturnUrl { get; set; }
@@ -126,24 +126,8 @@ namespace ELMS.Web.Areas.Identity.Pages.Account
                     var schoolId = await _applicationDbContext.SaveChangesAsync();
                     user.SchoolId = schoolId;
                     await _userManager.UpdateAsync(user);
-
-                    _logger.LogInformation("User created a new account with password.");
+                   // _logger.LogInformation("User created a new account with password.");
                     await _userManager.AddToRoleAsync(user, Roles.Admin.ToString());
-                    //var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-                    //code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
-                    //var callbackUrl = Url.Page(
-                    //    "/Account/ConfirmEmail",
-                    //    pageHandler: null,
-                    //    values: new { area = "Identity", userId = user.Id, code = code, returnUrl = returnUrl },
-                    //    protocol: Request.Scheme);
-                    //var mailRequest = new MailRequest
-                    //{
-                    //    Body = $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.",
-                    //    From = "info@ELMS.com",
-                    //    To = Input.Email,
-                    //    Subject = "Confirm Registration"
-                    //};
-                    //await _emailSender.SendAsync(mailRequest);
 
                     if (_userManager.Options.SignIn.RequireConfirmedAccount)
                     {

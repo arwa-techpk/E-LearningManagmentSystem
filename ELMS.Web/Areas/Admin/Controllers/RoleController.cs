@@ -28,7 +28,7 @@ namespace ELMS.Web.Areas.Admin.Controllers
 
         public async Task<IActionResult> LoadAll()
         {
-            var roles = await _roleManager.Roles.ToListAsync();
+            var roles =  await _roleManager.Roles.ToListAsync();
             var model = _mapper.Map<IEnumerable<RoleViewModel>>(roles);
             return PartialView("_ViewAll", model);
         }
@@ -49,7 +49,7 @@ namespace ELMS.Web.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> OnPostCreate(RoleViewModel role)
         {
-            if (ModelState.IsValid && role.Name != "SuperAdmin" && role.Name != "Basic")
+            if (ModelState.IsValid && role.Name != "SuperAdmin" )
             {
                 if (string.IsNullOrEmpty(role.Id))
                 {
@@ -80,7 +80,7 @@ namespace ELMS.Web.Areas.Admin.Controllers
         public async Task<JsonResult> OnPostDelete(string id)
         {
             var existingRole = await _roleManager.FindByIdAsync(id);
-            if (existingRole.Name != "SuperAdmin" && existingRole.Name != "Basic")
+            if (existingRole.Name != "SuperAdmin" )
             {
                 //TODO Check if Any Users already uses this Role
                 bool roleIsNotUsed = true;

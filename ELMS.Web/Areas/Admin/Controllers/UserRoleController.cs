@@ -1,4 +1,5 @@
-﻿using ELMS.Infrastructure.Identity.Models;
+﻿using ELMS.Application.Enums;
+using ELMS.Infrastructure.Identity.Models;
 using ELMS.Web.Abstractions;
 using ELMS.Web.Areas.Admin.Models;
 using Microsoft.AspNetCore.Identity;
@@ -29,7 +30,8 @@ namespace ELMS.Web.Areas.Admin.Controllers
             var user = await _userManager.FindByIdAsync(userId);
             ViewData["Title"] = $"{user.UserName} - Roles";
             ViewData["Caption"] = $"Manage {user.Email}'s Roles.";
-            foreach (var role in _roleManager.Roles)
+            var _roles = _roleManager.Roles.Where(m => m.Name != Roles.SuperAdmin.ToString());
+            foreach (var role in _roles)
             {
                 var userRolesViewModel = new UserRolesViewModel
                 {

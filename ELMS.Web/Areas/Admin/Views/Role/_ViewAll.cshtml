@@ -1,4 +1,5 @@
 ﻿@using ELMS.Web.Areas.Admin.Models
+@using ELMS.Application.Enums;
 @model IEnumerable<RoleViewModel>
 <table class="table table-striped" id="roleTable">
     <thead>
@@ -27,27 +28,31 @@
                     @role.Id
                 </td>
                 <td text-right">
-                    <div class="btn-group">
-                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Action
-                        </button>
-                        <div class="dropdown-menu shadow animated--grow-in">
-                            <a onclick="jQueryModalGet('/admin/role/OnGetCreate?id=@role.Id','Edit Role')" class="dropdown-item">
-                                <i class="fas fa-pencil-alt"></i> @localizer["Edit"]
-                            </a>
-                            <form id="form_delete_@role.Id" asp-controller="Role" method="post" asp-action="OnPostDelete" asp-route-id="@role.Id" onsubmit="return jQueryModalDelete(this)" class="d-inline">
-                                <a href="javascript:$('#form_delete_@role.Id').submit();" class="dropdown-item"><i class="fas fa-trash-alt"></i> @localizer["Delete"]</a>
-                            </form>
-                            @if (role.Name != "SuperAdmin")
-                            {
+                    @if (role.Name != "SuperAdmin")
+                    {
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Action
+                            </button>
+                            <div class="dropdown-menu shadow animated--grow-in">
+                                @if (role.Name != Roles.Teacher.ToString() && role.Name != Roles.Student.ToString() && role.Name != Roles.Admin.ToString())
+                                {
+                                    <a onclick="jQueryModalGet('/admin/role/OnGetCreate?id=@role.Id','Edit Role')" class="dropdown-item">
+                                        <i class="fas fa-pencil-alt"></i> @localizer["Edit"]
+                                    </a>
+                                    <form id="form_delete_@role.Id" asp-controller="Role" method="post" asp-action="OnPostDelete" asp-route-id="@role.Id" onsubmit="return jQueryModalDelete(this)" class="d-inline">
+                                        <a href="javascript:$('#form_delete_@role.Id').submit();" class="dropdown-item"><i class="fas fa-trash-alt"></i> @localizer["Delete"]</a>
+                                    </form>
 
-                                <a style='margin-right:16px' asp-controller="Permission" asp-action="Index" asp-route-roleId="@role.Id" class="dropdown-item">
-                                    <i class="fas fa-wrench"></i> @localizer["Manage Permissions"]
-                                </a>
-                            }
+                                }
+                                    <a style='margin-right:16px' asp-controller="Permission" asp-action="Index" asp-route-roleId="@role.Id" class="dropdown-item">
+                                        <i class="fas fa-wrench"></i> @localizer["Manage Permissions"]
+                                    </a>
+
+                                </div>
                         </div>
-                    </div>
-                </td>
+                    }
+                    </td>
             </tr>
         }
     </tbody>

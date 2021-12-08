@@ -47,7 +47,7 @@ namespace ELMS.Web.Areas.Admin.Controllers
             if (User.IsInRole("SuperAdmin"))
             {
                 var allUsersExceptCurrentUser = await _userManager.GetUsersInRoleAsync(Roles.Admin.ToString());
-                allUsersExceptCurrentUser = allUsersExceptCurrentUser.Where(a => a.Id != currentUser.Id && a.SchoolId == currentUser.SchoolId)
+                allUsersExceptCurrentUser = allUsersExceptCurrentUser.Where(a => a.Id != currentUser.Id)
                     .ToList();
                 var model = _mapper.Map<IEnumerable<UserViewModel>>(allUsersExceptCurrentUser);
                 return PartialView("_ViewAll", model);

@@ -67,8 +67,9 @@ namespace ELMS.Web.Areas.Test.Controllers
         }
 
         #region download the file
-        public async Task<IActionResult> DownloadAssignment(string id)
+        public async Task<IActionResult> DownloadAssignment(string id) // catch download file error 
         {
+            
             var path = Path.Combine(
                            Directory.GetCurrentDirectory(),
                            "wwwroot\\Uploads", id);

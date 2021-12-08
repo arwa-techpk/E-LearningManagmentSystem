@@ -31,7 +31,7 @@ namespace ELMS.Web
         public IConfiguration _configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
-        public void ConfigureServices(IServiceCollection services)
+        public void ConfigureServices(IServiceCollection services) // IServiceCollection is interface to configure services requierd to app (mohammed)
         {
             services.AddSingleton<IAuthorizationPolicyProvider, PermissionPolicyProvider>();
             services.AddScoped<IAuthorizationHandler, PermissionAuthorizationHandler>();
@@ -60,11 +60,11 @@ namespace ELMS.Web
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env) // used to setUp Request pipline 
         {
             if (env.IsDevelopment())
             {
-                app.UseDeveloperExceptionPage();
+                app.UseDeveloperExceptionPage(); // any exception will be handle it here 
             }
             else
             {
@@ -72,13 +72,14 @@ namespace ELMS.Web
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+            // middle wire that respnses to every http requests come to the app (mohammed)
             app.UseNotyf();
             app.UseHttpsRedirection();
-            app.UseStaticFiles();
+            app.UseStaticFiles(); // if this middle wire not written then http request for html&css&javaScript images etc will not be served (mohammed)
             app.UseCookiePolicy();
             app.UseMultiLingualFeature();
             app.UseRouting();
-            app.UseAuthentication();
+            app.UseAuthentication(); // middle wire to authnticate user based on identity role 
             app.UseAuthorization();
             app.UseEndpoints(endpoints =>
             {

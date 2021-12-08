@@ -28,7 +28,7 @@
                         @Html.DisplayNameFor(model => model.ObtainScore)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Student.Email)
+                       Student name
                     </th>
 
                     <th></th>
@@ -51,7 +51,8 @@
                             @Html.DisplayFor(modelItem => item.ObtainScore)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.Student.Email)
+                            @Html.DisplayFor(modelItem => item.Student.FirstName)
+                            @Html.DisplayFor(modelItem => item.Student.LastName)
                         </td>
 
                         <td>

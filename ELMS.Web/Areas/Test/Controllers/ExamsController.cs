@@ -32,8 +32,9 @@ namespace ELMS.Web.Areas.Test.Controllers
         // GET: Test/Exams
         public async Task<IActionResult> Index()
         {
+            var currentUser = await _userManager.GetUserAsync(HttpContext.User);
             var applicationDbContext = _context.Exams.Include(e => e.Course);
-            return View(await applicationDbContext.ToListAsync());
+            return View(await applicationDbContext.Where(m => m.Course.TeacherId == currentUser.Id).ToListAsync());
         }
 
         // GET: Test/Exams/Details/5
@@ -56,9 +57,10 @@ namespace ELMS.Web.Areas.Test.Controllers
         }
 
         // GET: Test/Exams/Create
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
-            ViewData["CourseId"] = new SelectList(_context.Courses, "Id", "Title");
+            var currentUser = await _userManager.GetUserAsync(HttpContext.User);
+            ViewBag.CourseId = new SelectList(_context.Courses.Where(m => m.TeacherId == currentUser.Id), "Id", "Title");
             return View();
         }
 
@@ -84,7 +86,8 @@ namespace ELMS.Web.Areas.Test.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CourseId"] = new SelectList(_context.Courses, "Id", "Title", exam.CourseId);
+            var currentUser = await _userManager.GetUserAsync(HttpContext.User);
+            ViewBag.CourseId = new SelectList(_context.Courses.Where(m => m.TeacherId == currentUser.Id), "Id", "Title", exam.CourseId);
             return View(exam);
         }
 
@@ -102,7 +105,8 @@ namespace ELMS.Web.Areas.Test.Controllers
             {
                 return NotFound();
             }
-            ViewData["CourseId"] = new SelectList(_context.Courses, "Id", "Title", exam.CourseId);
+            var currentUser = await _userManager.GetUserAsync(HttpContext.User);
+            ViewBag.CourseId = new SelectList(_context.Courses.Where(m => m.TeacherId == currentUser.Id), "Id", "Title", exam.CourseId);
             return View(exam);
         }
 
@@ -147,7 +151,8 @@ namespace ELMS.Web.Areas.Test.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CourseId"] = new SelectList(_context.Courses, "Id", "Title", exam.CourseId);
+            var currentUser = await _userManager.GetUserAsync(HttpContext.User);
+            ViewBag.CourseId = new SelectList(_context.Courses.Where(m => m.TeacherId == currentUser.Id), "Id", "Title", exam.CourseId);
             return View(exam);
         }
 
@@ -159,13 +164,23 @@ namespace ELMS.Web.Areas.Test.Controllers
                            Directory.GetCurrentDirectory(),
                            "wwwroot\\Uploads", id);
 
-            var memory = new MemoryStream();
-            using (var stream = new FileStream(path, FileMode.Open))
+            if (System.IO.File.Exists(path))
             {
-                await stream.CopyToAsync(memory);
+
+
+                var memory = new MemoryStream();
+                using (var stream = new FileStream(path, FileMode.Open))
+                {
+                    await stream.CopyToAsync(memory);
+                }
+                memory.Position = 0;
+                return File(memory, GetContentType(path), Path.GetFileName(path));
             }
-            memory.Position = 0;
-            return File(memory, GetContentType(path), Path.GetFileName(path));
+            else
+            {
+                _notify.Warning("File Not Exists");
+                return RedirectToAction(nameof(Index));
+            }
         }
         private string GetContentType(string path)
         {

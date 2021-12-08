@@ -6,6 +6,8 @@
 @using ELMS.Web.Views.Shared.Components.FormModal;
 @using ELMS.Web.Views.Shared.Components.ImageModal;
 
+<!-- Quiston down (mohammed) -->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -20,7 +22,7 @@
         <div id="loader"></div>
         <div class="loader-section"></div>
     </div>
-    <div class="wrapper"  style="background: url('/images/blue-snow.jpg'); background-position: absolute; background-size: cover; ">
+    <div class="wrapper" style="background: url('/images/blue-snow.jpg'); background-position: absolute; background-size: cover; ">
         @(await Component.InvokeAsync<HeaderViewComponent>())
         @(await Component.InvokeAsync<SidebarViewComponent>())
         <div class="content-wrapper" id="contentWrapper">
@@ -41,6 +43,6 @@
     </div>
     <partial name="_Scripts" />
     @await Component.InvokeAsync("Notyf")
-    @RenderSection("Scripts", required: false)
+    @RenderSection("Scripts", required: false) <!-- From which view does this section script come ? (mohammed) -->
 </body>
 </html>

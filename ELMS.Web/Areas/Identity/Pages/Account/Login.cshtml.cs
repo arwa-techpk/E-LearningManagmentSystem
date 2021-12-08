@@ -21,8 +21,8 @@ namespace ELMS.Web.Areas.Identity.Pages.Account
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
-        private readonly ILogger<LoginModel> _logger;
-        private readonly IMediator _mediator;
+        private readonly ILogger<LoginModel> _logger; // define 
+        private readonly IMediator _mediator; // define 
 
         public LoginModel(SignInManager<ApplicationUser> signInManager,
             ILogger<LoginModel> logger,
@@ -37,14 +37,14 @@ namespace ELMS.Web.Areas.Identity.Pages.Account
         [BindProperty]
         public InputModel Input { get; set; }
 
-        public IList<AuthenticationScheme> ExternalLogins { get; set; }
+        public IList<AuthenticationScheme> ExternalLogins { get; set; } // define 
 
-        public string ReturnUrl { get; set; }
+        public string ReturnUrl { get; set; } // define 
 
-        [TempData]
+        [TempData] // define 
         public string ErrorMessage { get; set; }
 
-        public class InputModel
+        public class InputModel // model of login 
         {
             [Required]
             [EmailAddress]
@@ -58,7 +58,7 @@ namespace ELMS.Web.Areas.Identity.Pages.Account
             public bool RememberMe { get; set; }
         }
 
-        public async Task OnGetAsync(string returnUrl = null)
+        public async Task OnGetAsync(string returnUrl = null) // why return url null ? , Explian this methood:
         {
             if (!string.IsNullOrEmpty(ErrorMessage))
             {
@@ -96,12 +96,12 @@ namespace ELMS.Web.Areas.Identity.Pages.Account
                     {
                         return RedirectToPage("./Deactivated");
                     }
-                    else if (!user.EmailConfirmed)
+                    /*else if (!user.EmailConfirmed)
                     {
                         _notyf.Error("Email Not Confirmed.");
                         ModelState.AddModelError(string.Empty, "Email Not Confirmed.");
                         return Page();
-                    }
+                    }*/
                     else
                     {
                         var result = await _signInManager.PasswordSignInAsync(userName, Input.Password, Input.RememberMe, lockoutOnFailure: false);
@@ -112,17 +112,19 @@ namespace ELMS.Web.Areas.Identity.Pages.Account
                             _notyf.Success($"Logged in as {userName}.");
                             return LocalRedirect(returnUrl);
                         }
-                        await _mediator.Send(new AddActivityLogCommand() { userId = user.Id, Action = "Log-In Failed" });
-                        if (result.RequiresTwoFactor)
-                        {
-                            return RedirectToPage("./LoginWith2fa", new { ReturnUrl = returnUrl, RememberMe = Input.RememberMe });
-                        }
-                        if (result.IsLockedOut)
-                        {
-                            _notyf.Warning("User account locked out.");
-                            _logger.LogWarning("User account locked out.");
-                            return RedirectToPage("./Lockout");
-                        }
+                        /* await _mediator.Send(new AddActivityLogCommand() { userId = user.Id, Action = "Log-In Failed" });
+                         if (result.RequiresTwoFactor)
+                         {
+                             return RedirectToPage("./LoginWith2fa", new { ReturnUrl = returnUrl, RememberMe = Input.RememberMe });
+                         }
+
+                         if (result.IsLockedOut)
+                         {
+                             _notyf.Warning("User account locked out.");
+                             _logger.LogWarning("User account locked out.");
+                             return RedirectToPage("./Lockout");
+                         }
+                        */
                         else
                         {
                             _notyf.Error("Invalid login attempt.");
@@ -142,7 +144,7 @@ namespace ELMS.Web.Areas.Identity.Pages.Account
             return Page();
         }
 
-        public bool IsValidEmail(string emailaddress)
+        public bool IsValidEmail(string emailaddress) // explin this methood: 
         {
             try
             {

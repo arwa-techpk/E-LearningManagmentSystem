@@ -14,7 +14,7 @@ using ELMS.Infrastructure.Identity.Models;
 
 namespace ELMS.Infrastructure.DbContexts
 {
-    public class ApplicationDbContext : AuditableContext, IApplicationDbContext
+    public class ApplicationDbContext : AuditableContext, IApplicationDbContext // why don't extend identityDbContext ? 
     {
         private readonly IDateTimeService _dateTime;
         private readonly IAuthenticatedUserService _authenticatedUser;

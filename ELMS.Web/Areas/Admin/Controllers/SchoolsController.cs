@@ -7,11 +7,12 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ELMS.Domain.Entities;
 using ELMS.Infrastructure.DbContexts;
+using ELMS.Web.Abstractions;
 
 namespace ELMS.Web.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    public class SchoolsController : Controller
+    public class SchoolsController : BaseController<Controller>
     {
         private readonly ApplicationDbContext _context;
 
@@ -141,8 +142,18 @@ namespace ELMS.Web.Areas.Admin.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var school = await _context.School.FindAsync(id);
-            _context.School.Remove(school);
-            await _context.SaveChangesAsync();
+            try
+            {
+                _context.School.Remove(school);
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+
+                _notify.Error("You cannot delete this school, as this school has teacher/students data");
+
+            }
+            
             return RedirectToAction(nameof(Index));
         }
 
