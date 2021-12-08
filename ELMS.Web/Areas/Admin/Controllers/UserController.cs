@@ -43,7 +43,7 @@ namespace ELMS.Web.Areas.Admin.Controllers
         {
             var currentUser = await _userManager.GetUserAsync(HttpContext.User);
 
-          
+
             if (User.IsInRole("SuperAdmin"))
             {
                 var allUsersExceptCurrentUser = await _userManager.GetUsersInRoleAsync(Roles.Admin.ToString());
@@ -56,11 +56,11 @@ namespace ELMS.Web.Areas.Admin.Controllers
             else
             {
 
-                var allUsersExceptCurrentUser = await _userManager.Users.Where(a => a.Id != currentUser.Id && a.SchoolId==currentUser.SchoolId).ToListAsync();
+                var allUsersExceptCurrentUser = await _userManager.Users.Where(a => a.Id != currentUser.Id && a.SchoolId == currentUser.SchoolId).ToListAsync();
                 var model = _mapper.Map<IEnumerable<UserViewModel>>(allUsersExceptCurrentUser);
                 return PartialView("_ViewAll", model);
             }
-           
+
         }
 
         public async Task<IActionResult> OnGetCreate()
@@ -69,8 +69,8 @@ namespace ELMS.Web.Areas.Admin.Controllers
             if (User.IsInRole("SuperAdmin"))
             {
 
-                var schoolsList = new SelectList(_context.School, "Id", "Name"); 
-               
+                var schoolsList = new SelectList(_context.School, "Id", "Name");
+
                 userViewModel.Schools = schoolsList;
             }
             else
@@ -100,7 +100,7 @@ namespace ELMS.Web.Areas.Admin.Controllers
                     DateOfBirth = userModel.DateOfBirth,
                     ContactNumber = userModel.ContactNumber,
                     Gender = userModel.Gender,
-                    SchoolId=userModel.SchoolId
+                    SchoolId = userModel.SchoolId
                 };
                 var result = await _userManager.CreateAsync(user, userModel.Password);
                 if (result.Succeeded)
@@ -124,8 +124,8 @@ namespace ELMS.Web.Areas.Admin.Controllers
                         var allUsersExceptCurrentUser = await _userManager.Users.Where(a => a.Id != currentUser.Id && a.SchoolId == currentUser.SchoolId).ToListAsync();
                         var users = _mapper.Map<IEnumerable<UserViewModel>>(allUsersExceptCurrentUser);
                         htmlData = await _viewRenderer.RenderViewToStringAsync("_ViewAll", users);
-                    }                        
-                    
+                    }
+
                     _notify.Success($"Account for {user.Email} created.");
                     return new JsonResult(new { isValid = true, html = htmlData });
                 }

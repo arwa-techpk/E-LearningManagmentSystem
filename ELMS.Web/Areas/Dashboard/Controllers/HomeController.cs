@@ -11,17 +11,16 @@ namespace ELMS.Web.Areas.Dashboard.Controllers
      
     public class HomeController : BaseController<HomeController>
     {
-        private readonly UserManager<ApplicationUser> _userManger;
-
-        public HomeController(UserManager<ApplicationUser> userManger)
+        private readonly UserManager<ApplicationUser> _userManager;
+        public HomeController(UserManager<ApplicationUser> userManager)
         {
-            _userManger = userManger;
+            _userManager = userManager;
         }
         public async Task<IActionResult> Index()
         {
-            var currentuser = await _userManger.GetUserAsync(HttpContext.User);
-            _notify.Information("Hi" + currentuser.FirstName + "" + currentuser.LastName);
-            return View(currentuser);
+            var currentUser = await _userManager.GetUserAsync(HttpContext.User);
+            _notify.Information("Welcome " + currentUser.FirstName + " " + currentUser.LastName);
+            return View();
         }
     }
 }

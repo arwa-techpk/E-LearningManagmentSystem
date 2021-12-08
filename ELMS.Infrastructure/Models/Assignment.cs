@@ -21,7 +21,7 @@ namespace ELMS.Infrastructure.Models
         [Required]
         public DateTime SubmissionDate { get; set; }
         [Display(Name = "Assignment File")]
-       
+
         public string AssignmentFile { get; set; }
         [Display(Name = "Total Score")]
         [Required]
@@ -29,7 +29,7 @@ namespace ELMS.Infrastructure.Models
         [Display(Name = "Course")]
         [Required]
         public int CourseId { get; set; }
-        
+
         [Display(Name = "File")]
         [NotMapped]
         public IFormFile FormFile { get; set; }

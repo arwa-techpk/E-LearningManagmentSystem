@@ -1,19 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using ELMS.Infrastructure.DbContexts;
+using ELMS.Infrastructure.Identity.Models;
+using ELMS.Infrastructure.Models;
+using ELMS.Web.Abstractions;
+using ELMS.Web.Areas.Test.Models;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using ELMS.Infrastructure.DbContexts;
-using ELMS.Infrastructure.Models;
-using System.Net.Http.Headers;
+using System;
+using System.Collections.Generic;
 using System.IO;
-using Microsoft.AspNetCore.Authorization;
-using ELMS.Infrastructure.Identity.Models;
-using Microsoft.AspNetCore.Identity;
-using ELMS.Web.Areas.Test.Models;
-using ELMS.Web.Abstractions;
+using System.Linq;
+using System.Net.Http.Headers;
+using System.Threading.Tasks;
 
 namespace ELMS.Web.Areas.Test.Controllers
 {
@@ -263,7 +263,7 @@ namespace ELMS.Web.Areas.Test.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var exam = await _context.Exams.FindAsync(id);
-          
+
             try
             {
                 _context.Exams.Remove(exam);

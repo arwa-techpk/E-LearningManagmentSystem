@@ -1,6 +1,6 @@
-﻿using ELMS.Web.Abstractions;
-using AspNetCoreHero.ToastNotification.Abstractions;
+﻿using AspNetCoreHero.ToastNotification.Abstractions;
 using AutoMapper;
+using ELMS.Web.Abstractions;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;

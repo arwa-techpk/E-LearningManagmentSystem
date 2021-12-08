@@ -1,20 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using ELMS.Infrastructure.DbContexts;
+using ELMS.Infrastructure.Identity.Models;
+using ELMS.Infrastructure.Models;
+using ELMS.Web.Abstractions;
+using ELMS.Web.Areas.Test.Models;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using ELMS.Infrastructure.DbContexts;
-using ELMS.Infrastructure.Models;
+using System;
+using System.Collections.Generic;
 using System.IO;
-using System.Globalization;
+using System.Linq;
 using System.Net.Http.Headers;
-using ELMS.Web.Abstractions;
-using Microsoft.AspNetCore.Identity;
-using ELMS.Infrastructure.Identity.Models;
-using Microsoft.AspNetCore.Authorization;
-using ELMS.Web.Areas.Test.Models;
+using System.Threading.Tasks;
 
 namespace ELMS.Web.Areas.Test.Controllers
 {
@@ -61,7 +60,7 @@ namespace ELMS.Web.Areas.Test.Controllers
         public async Task<IActionResult> Create()
         {
             var currentUser = await _userManager.GetUserAsync(HttpContext.User);
-            ViewData["CourseId"] = new SelectList(_context.Courses.Where(m=>m.TeacherId== currentUser.Id), "Id", "Title");
+            ViewData["CourseId"] = new SelectList(_context.Courses.Where(m => m.TeacherId == currentUser.Id), "Id", "Title");
 
             return View();
         }
@@ -137,7 +136,7 @@ namespace ELMS.Web.Areas.Test.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-    
+
             var currentUser = await _userManager.GetUserAsync(HttpContext.User);
             ViewData["CourseId"] = new SelectList(_context.Courses.Where(m => m.TeacherId == currentUser.Id), "Id", "Title", assignment.CourseId);
             return View(assignment);
@@ -188,7 +187,7 @@ namespace ELMS.Web.Areas.Test.Controllers
             {
                 return NotFound();
             }
-     
+
             var currentUser = await _userManager.GetUserAsync(HttpContext.User);
             ViewData["CourseId"] = new SelectList(_context.Courses.Where(m => m.TeacherId == currentUser.Id), "Id", "Title", assignment.CourseId);
             return View(assignment);
@@ -243,7 +242,7 @@ namespace ELMS.Web.Areas.Test.Controllers
 
                 return RedirectToAction(nameof(Index));
             }
-          
+
             var currentUser = await _userManager.GetUserAsync(HttpContext.User);
             ViewData["CourseId"] = new SelectList(_context.Courses.Where(m => m.TeacherId == currentUser.Id), "Id", "Title", assignment.CourseId);
             return View(assignment);
@@ -274,7 +273,7 @@ namespace ELMS.Web.Areas.Test.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var assignment = await _context.Assignments.FindAsync(id);
-            
+
             try
             {
                 _context.Assignments.Remove(assignment);

@@ -1,12 +1,12 @@
+using AspNetCoreHero.ToastNotification;
+using AspNetCoreHero.ToastNotification.Extensions;
+using AutoMapper;
 using ELMS.Application.Extensions;
 using ELMS.Infrastructure.Extensions;
 using ELMS.Web.Abstractions;
 using ELMS.Web.Extensions;
 using ELMS.Web.Permission;
 using ELMS.Web.Services;
-using AspNetCoreHero.ToastNotification;
-using AspNetCoreHero.ToastNotification.Extensions;
-using AutoMapper;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;

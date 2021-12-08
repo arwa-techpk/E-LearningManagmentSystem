@@ -1,16 +1,16 @@
-﻿using System;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using ELMS.Infrastructure.DbContexts;
+using ELMS.Infrastructure.Identity.Models;
+using ELMS.Infrastructure.Models;
+using ELMS.Infrastructure.Zoom;
+using ELMS.Web.Abstractions;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using ELMS.Infrastructure.DbContexts;
-using ELMS.Infrastructure.Models;
-using Microsoft.AspNetCore.Identity;
-using ELMS.Infrastructure.Identity.Models;
-using ELMS.Infrastructure.Zoom;
 using Microsoft.Extensions.Configuration;
-using ELMS.Web.Abstractions;
+using System;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace ELMS.Web.Areas.Education.Controllers
 {
@@ -33,7 +33,7 @@ namespace ELMS.Web.Areas.Education.Controllers
         {
             var currentUser = await _userManager.GetUserAsync(HttpContext.User);
             var applicationDbContext = _context.Lectures.Include(l => l.Course)
-                .Where(m=>m.Course.TeacherId== currentUser.Id);
+                .Where(m => m.Course.TeacherId == currentUser.Id);
             return View(await applicationDbContext.ToListAsync());
         }
 
@@ -60,7 +60,7 @@ namespace ELMS.Web.Areas.Education.Controllers
         public async Task<IActionResult> Create()
         {
             var currentUser = await _userManager.GetUserAsync(HttpContext.User);
-            ViewData["CourseId"] = new SelectList(_context.Courses.Where(m=>m.TeacherId==currentUser.Id), "Id", "Title");
+            ViewData["CourseId"] = new SelectList(_context.Courses.Where(m => m.TeacherId == currentUser.Id), "Id", "Title");
             return View();
         }
 
@@ -106,7 +106,7 @@ namespace ELMS.Web.Areas.Education.Controllers
                     ViewData["CourseId"] = new SelectList(_context.Courses.Where(m => m.TeacherId == currentUser.Id), "Id", "Title", lecture.CourseId);
                     return View(lecture);
                 }
-                
+
                 return RedirectToAction(nameof(Index));
             }
 
@@ -194,7 +194,7 @@ namespace ELMS.Web.Areas.Education.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var lecture = await _context.Lectures.FindAsync(id);
-          
+
             try
             {
                 _context.Lectures.Remove(lecture);

@@ -1,16 +1,16 @@
 ﻿using AspNetCoreHero.Abstractions.Domain;
-using ELMS.Application.Interfaces.Contexts;
-using ELMS.Application.Interfaces.Shared;
 //using ELMS.Domain.Entities.Catalog;
 using AspNetCoreHero.EntityFrameworkCore.AuditTrail;
+using ELMS.Application.Interfaces.Contexts;
+using ELMS.Application.Interfaces.Shared;
+using ELMS.Domain.Entities;
+using ELMS.Infrastructure.Identity.Models;
+using ELMS.Infrastructure.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Data;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using ELMS.Domain.Entities;
-using ELMS.Infrastructure.Models;
-using ELMS.Infrastructure.Identity.Models;
 
 namespace ELMS.Infrastructure.DbContexts
 {
@@ -73,12 +73,12 @@ namespace ELMS.Infrastructure.DbContexts
             {
                 property.SetColumnType("decimal(18,2)");
             }
-           
+
 
 
             builder.Entity<ApplicationUser>(entity =>
             {
-                entity.ToTable(name: "Users",schema:"Identity");
+                entity.ToTable(name: "Users", schema: "Identity");
             });
 
             base.OnModelCreating(builder);

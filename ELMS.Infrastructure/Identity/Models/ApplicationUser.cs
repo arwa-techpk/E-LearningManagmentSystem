@@ -13,12 +13,12 @@ namespace ELMS.Infrastructure.Identity.Models
         public string ContactNumber { get; set; }
         public DateTime DateOfBirth { get; set; }
         public string Gender { get; set; }
-       
+
 
         //public int UsernameChangeLimit { get; set; } = 10;
         public byte[] ProfilePicture { get; set; }
         public bool IsActive { get; set; } = true;
-
+        //to make int nullable 
         public int? SchoolId { get; set; }
 
         public virtual School School { get; set; }

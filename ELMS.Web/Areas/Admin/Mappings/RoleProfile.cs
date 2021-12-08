@@ -1,5 +1,5 @@
-﻿using ELMS.Web.Areas.Admin.Models;
-using AutoMapper;
+﻿using AutoMapper;
+using ELMS.Web.Areas.Admin.Models;
 using Microsoft.AspNetCore.Identity;
 
 namespace ELMS.Web.Areas.Admin.Mappings

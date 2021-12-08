@@ -1,14 +1,14 @@
-﻿using System.Linq;
-using System.Threading.Tasks;
+﻿using ELMS.Application.Enums;
+using ELMS.Infrastructure.DbContexts;
+using ELMS.Infrastructure.Identity.Models;
+using ELMS.Infrastructure.Models;
+using ELMS.Web.Abstractions;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using ELMS.Infrastructure.DbContexts;
-using ELMS.Infrastructure.Models;
-using ELMS.Infrastructure.Identity.Models;
-using Microsoft.AspNetCore.Identity;
-using ELMS.Application.Enums;
-using ELMS.Web.Abstractions;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace ELMS.Web.Areas.Education.Controllers
 {
@@ -30,17 +30,17 @@ namespace ELMS.Web.Areas.Education.Controllers
             IQueryable<Course> applicationDbContext;
             if (User.IsInRole(Roles.SuperAdmin.ToString()))
             {
-                 applicationDbContext = _context.Courses.Include(c => c.School)
-                    .Include(c => c.Teacher);
+                applicationDbContext = _context.Courses.Include(c => c.School)
+                   .Include(c => c.Teacher);
             }
             else
             {
                 var currentUser = await _userManager.GetUserAsync(HttpContext.User);
-                 applicationDbContext = _context.Courses.Include(c => c.School)
-                    .Include(c => c.Teacher)
-                    .Where(m => m.SchoolId == currentUser.SchoolId);
+                applicationDbContext = _context.Courses.Include(c => c.School)
+                   .Include(c => c.Teacher)
+                   .Where(m => m.SchoolId == currentUser.SchoolId);
             }
-            
+
             return View(await applicationDbContext.ToListAsync());
         }
 
@@ -79,7 +79,7 @@ namespace ELMS.Web.Areas.Education.Controllers
                 allUsersExceptCurrentUser = allUsersExceptCurrentUser.Where(a => a.SchoolId == currentUser.SchoolId)
                     .ToList();
             }
-                
+
             ViewData["TeacherId"] = new SelectList(allUsersExceptCurrentUser, "Id", "UserName");
             ViewData["SchoolId"] = new SelectList(_context.School, "Id", "Name");
             return View();
@@ -231,7 +231,7 @@ namespace ELMS.Web.Areas.Education.Controllers
 
                 _notify.Error("You cannot delete this course, Please contact IT Support");
             }
-            
+
             return RedirectToAction(nameof(Index));
         }
 

@@ -1,19 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using ELMS.Application.Enums;
+using ELMS.Infrastructure.DbContexts;
+using ELMS.Infrastructure.Identity.Models;
+using ELMS.Infrastructure.Models;
+using ELMS.Web.Abstractions;
+using ELMS.Web.Areas.Test.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using ELMS.Infrastructure.DbContexts;
-using ELMS.Infrastructure.Models;
-using Microsoft.AspNetCore.Identity;
-using ELMS.Infrastructure.Identity.Models;
-using ELMS.Application.Enums;
-using ELMS.Web.Areas.Test.Models;
+using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Net.Http.Headers;
-using ELMS.Web.Abstractions;
+using System.Threading.Tasks;
 
 namespace ELMS.Web.Areas.Test.Controllers
 {
@@ -34,7 +34,7 @@ namespace ELMS.Web.Areas.Test.Controllers
         public async Task<IActionResult> Index()
         {
             var currentUser = await _userManager.GetUserAsync(HttpContext.User);
-           
+
             if (await _userManager.IsInRoleAsync(currentUser, "Student"))
             {
                 var studentCourses = _context.StudentCourses.Include(c => c.Course).Where(m => m.StudentId == currentUser.Id);
@@ -73,7 +73,7 @@ namespace ELMS.Web.Areas.Test.Controllers
                                join s in _context.StudentAssignments on i.Id equals s.AssignmentId //&& e.StudentId equals s.StudentId  
                               into courseTemp
                                from c in courseTemp.DefaultIfEmpty()
-                               //where i.SubmissionDate <= DateTime.Now
+                                   //where i.SubmissionDate <= DateTime.Now
                                select new AssignmentSubmissionViewModel()
                                {
                                    AssignmentId = i.Id,
@@ -360,7 +360,7 @@ namespace ELMS.Web.Areas.Test.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var studentAssignment = await _context.StudentAssignments.FindAsync(id);
-            
+
             try
             {
                 _context.StudentAssignments.Remove(studentAssignment);

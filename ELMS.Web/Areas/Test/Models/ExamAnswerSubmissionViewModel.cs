@@ -9,7 +9,7 @@ namespace ELMS.Web.Areas.Test.Models
         public int ExamId { get; internal set; }
         public int? StudentExamId { get; internal set; }
         public Exam Exam { get; internal set; }
-       
+
         public string StudentId { get; internal set; }
         public ApplicationUser Student { get; internal set; }
         public DateTime ExamDate { get; internal set; }
