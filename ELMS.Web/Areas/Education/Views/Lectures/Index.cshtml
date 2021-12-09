@@ -1,13 +1,14 @@
 ﻿@model IEnumerable<ELMS.Infrastructure.Models.Lecture>
 
 @{
-    ViewData["Title"] = "Lecture";
+    ViewData["Title"] = "";
 }
 
 
 <div class="card">
     <div class="card-header">
         <div class="col-sm-12">
+            <label class="card-subtitle">Lecture</label>
             <a asp-action="Create" class="btn bg-success float-right">
                 <i class="fa fa-plus-square"></i> Create
             </a>
@@ -31,31 +32,43 @@
                     <th>
                         @Html.DisplayNameFor(model => model.Course)
                     </th>
+                    <th>
+                        Lecture Link
+                    </th>
                     <th></th>
                 </tr>
             </thead>
             <tbody>
                 @foreach (var item in Model)
                 {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Title)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.LectureDate)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Duration)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Course.Title)
-                        </td>
-                        <td>
-                            <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-xs bg-success" title="Edit"><i class="fas fa-edit"></i></a>
-                            <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-xs bg-info" title="Details"><i class="fas fa-eye"></i></a>
-                            <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-xs bg-danger" title="Delete"><i class="fas fa-trash-alt"></i></a>
-                        </td>
-                    </tr>
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Title)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.LectureDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Duration)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Course.Title)
+                    </td>
+                    <td>
+                        @{
+                            if (!string.IsNullOrEmpty(item.ZoomMeetingJoinURL))
+                            {
+                                <a href="@item.ZoomMeetingJoinURL" class="btn btn-sm bg-primary" target="_blank"> Attend</a>
+                            }
+                        }
+
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-xs bg-success" title="Edit"><i class="fas fa-edit"></i></a>
+                        <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-xs bg-info" title="Details"><i class="fas fa-eye"></i></a>
+                        <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-xs bg-danger" title="Delete"><i class="fas fa-trash-alt"></i></a>
+                    </td>
+                </tr>
                 }
             </tbody>
         </table>
