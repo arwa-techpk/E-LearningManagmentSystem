@@ -1,4 +1,4 @@
-﻿using ELMS.Infrastructure.Identity.Models;
+﻿using ELMCOM.Infrastructure.Identity.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
@@ -12,7 +12,7 @@ using System.Text;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 
-namespace ELMS.Web.Areas.Identity.Pages.Account
+namespace ELMCOM.Web.Areas.Identity.Pages.Account
 {
     [AllowAnonymous]
     public class ExternalLoginModel : PageModel

@@ -1,14 +1,13 @@
-﻿using ELMS.Application.Interfaces.Shared;
-using ELMS.Infrastructure.Identity.Models;
-using ELMS.Web.Abstractions;
+﻿using ELMCOM.Application.Interfaces.Shared;
+using ELMCOM.Infrastructure.Identity.Models;
+using ELMCOM.Web.Abstractions;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using System.Threading.Tasks;
 
-namespace ELMS.Web.Areas.Identity.Pages.Account
+namespace ELMCOM.Web.Areas.Identity.Pages.Account
 {
     [AllowAnonymous]
     public class LogoutModel : BasePageModel<LogoutModel>
@@ -17,10 +16,10 @@ namespace ELMS.Web.Areas.Identity.Pages.Account
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly IAuthenticatedUserService _userService;
 
-        public LogoutModel(SignInManager<ApplicationUser> signInManager,  IMediator mediator, IAuthenticatedUserService userService)
+        public LogoutModel(SignInManager<ApplicationUser> signInManager, IMediator mediator, IAuthenticatedUserService userService)
         {
             _signInManager = signInManager;
-            
+
             _mediator = mediator;
             _userService = userService;
         }

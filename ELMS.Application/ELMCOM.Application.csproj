@@ -20,7 +20,7 @@
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ELMS.Domain\ELMS.Domain.csproj" />
+    <ProjectReference Include="..\ELMS.Domain\ELMCOM.Domain.csproj" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="CacheKeys\" />

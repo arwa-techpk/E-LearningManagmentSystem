@@ -1,9 +1,9 @@
-﻿using ELMS.Infrastructure.Identity.Models;
-using ELMS.Infrastructure.Models;
+﻿using ELMCOM.Infrastructure.Identity.Models;
+using ELMCOM.Infrastructure.Models;
 using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace ELMS.Web.Areas.Test.Models
+namespace ELMCOM.Web.Areas.Test.Models
 {
     public class AssignmentSubmissionViewModel
     {

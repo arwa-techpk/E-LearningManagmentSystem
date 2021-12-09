@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
-using ELMS.Infrastructure.Identity.Models;
-using ELMS.Web.Areas.Admin.Models;
+using ELMCOM.Infrastructure.Identity.Models;
+using ELMCOM.Web.Areas.Admin.Models;
 
-namespace ELMS.Web.Areas.Admin.Mappings
+namespace ELMCOM.Web.Areas.Admin.Mappings
 {
     public class UserProfile : Profile
     {

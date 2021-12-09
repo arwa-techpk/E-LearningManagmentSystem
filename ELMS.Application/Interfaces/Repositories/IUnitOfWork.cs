@@ -2,7 +2,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace ELMS.Application.Interfaces.Repositories
+namespace ELMCOM.Application.Interfaces.Repositories
 {
     public interface IUnitOfWork : IDisposable
     {

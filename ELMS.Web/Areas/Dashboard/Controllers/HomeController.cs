@@ -1,14 +1,14 @@
-﻿using ELMS.Infrastructure.Identity.Models;
-using ELMS.Web.Abstractions;
+﻿using ELMCOM.Infrastructure.Identity.Models;
+using ELMCOM.Web.Abstractions;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
-namespace ELMS.Web.Areas.Dashboard.Controllers
+namespace ELMCOM.Web.Areas.Dashboard.Controllers
 {
     [Area("Dashboard")]
 
-     
+
     public class HomeController : BaseController<HomeController>
     {
         private readonly UserManager<ApplicationUser> _userManager;

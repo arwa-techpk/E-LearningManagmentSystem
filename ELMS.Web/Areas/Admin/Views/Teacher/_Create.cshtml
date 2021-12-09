@@ -1,4 +1,4 @@
-﻿@using ELMS.Web.Areas.Admin.Models
+﻿@using ELMCOM.Web.Areas.Admin.Models
 @model UserViewModel
 <form id="create-form" method="post" asp-area="Admin" asp-controller="Teacher" asp-action="OnPostCreate" onsubmit="return jQueryModalPost(this);">
     <div class="row">
@@ -33,12 +33,11 @@
                         <option value="Male">Male</option>
                         <option value="Female">Female</option>
                     </select>
-                    @*<input asp-for="Gender" type="text" class="form-control form-control-user" id="exampleFirstName" placeholder="@localizer["Gender"]">*@
                     <small><span asp-validation-for="Gender" class="text-danger"></span></small>
                 </div>
                 <div class="form-group col-sm-6">
                     <label class="control-label">Date Of Birth</label>
-                    <input asp-for="DateOfBirth" type="date" class="form-control form-control-user" id="exampleLastName" placeholder="@localizer["Date of Birth"]">
+                    <input asp-for="DateOfBirth" type="date" class="form-control form-control-user" id="exampleLastName" placeholder="Date of Birth">
                     <small><span asp-validation-for="DateOfBirth" class="text-danger"></span></small>
                 </div>
             </div>

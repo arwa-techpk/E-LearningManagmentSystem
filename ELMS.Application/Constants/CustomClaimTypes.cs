@@ -1,4 +1,4 @@
-﻿namespace ELMS.Application.Constants
+﻿namespace ELMCOM.Application.Constants
 {
     public class CustomClaimTypes
     {

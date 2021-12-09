@@ -1,5 +1,5 @@
 using AspNetCoreHero.Extensions.Logging;
-using ELMS.Infrastructure.Identity.Models;
+using ELMCOM.Infrastructure.Identity.Models;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
@@ -8,7 +8,7 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Threading.Tasks;
 
-namespace ELMS.Web
+namespace ELMCOM.Web
 {
     public class Program
     {

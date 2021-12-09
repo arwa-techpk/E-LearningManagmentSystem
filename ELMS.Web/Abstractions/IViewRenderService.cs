@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace ELMS.Web.Abstractions
+namespace ELMCOM.Web.Abstractions
 {
     public interface IViewRenderService
     {

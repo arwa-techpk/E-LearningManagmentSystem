@@ -1,11 +1,10 @@
-﻿using ELMS.Infrastructure.Identity.Models;
-using ELMS.Web.Abstractions;
+﻿using ELMCOM.Infrastructure.Identity.Models;
+using ELMCOM.Web.Abstractions;
 using MediatR;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -13,7 +12,7 @@ using System.Linq;
 using System.Net.Mail;
 using System.Threading.Tasks;
 
-namespace ELMS.Web.Areas.Identity.Pages.Account
+namespace ELMCOM.Web.Areas.Identity.Pages.Account
 {
     [AllowAnonymous]
     public class LoginModel : BasePageModel<LoginModel>
@@ -23,7 +22,7 @@ namespace ELMS.Web.Areas.Identity.Pages.Account
         private readonly IMediator _mediator;
 
         public LoginModel(SignInManager<ApplicationUser> signInManager,
-            
+
             UserManager<ApplicationUser> userManager, IMediator mediator)
         {
             _userManager = userManager;

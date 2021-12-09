@@ -1,12 +1,12 @@
 ﻿using AspNetCoreHero.ToastNotification.Abstractions;
 using AutoMapper;
-using ELMS.Web.Abstractions;
+using ELMCOM.Web.Abstractions;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
-namespace ELMS.Web.Controllers
+namespace ELMCOM.Web.Controllers
 {
     public abstract class BaseController<T> : Controller
     {

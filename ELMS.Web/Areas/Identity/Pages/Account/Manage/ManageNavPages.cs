@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 
-namespace ELMS.Web.Areas.Identity.Pages.Account.Manage
+namespace ELMCOM.Web.Areas.Identity.Pages.Account.Manage
 {
     public static class ManageNavPages
     {

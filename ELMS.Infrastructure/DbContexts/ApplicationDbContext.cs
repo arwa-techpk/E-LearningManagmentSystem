@@ -1,18 +1,18 @@
 ﻿using AspNetCoreHero.Abstractions.Domain;
-//using ELMS.Domain.Entities.Catalog;
+//using ELMCOM.Domain.Entities.Catalog;
 using AspNetCoreHero.EntityFrameworkCore.AuditTrail;
-using ELMS.Application.Interfaces.Contexts;
-using ELMS.Application.Interfaces.Shared;
-using ELMS.Domain.Entities;
-using ELMS.Infrastructure.Identity.Models;
-using ELMS.Infrastructure.Models;
+using ELMCOM.Application.Interfaces.Contexts;
+using ELMCOM.Application.Interfaces.Shared;
+using ELMCOM.Domain.Entities;
+using ELMCOM.Infrastructure.Identity.Models;
+using ELMCOM.Infrastructure.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Data;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace ELMS.Infrastructure.DbContexts
+namespace ELMCOM.Infrastructure.DbContexts
 {
     public class ApplicationDbContext : AuditableContext, IApplicationDbContext // why don't extend identityDbContext ? 
     {

@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 #nullable disable
 
-namespace ELMS.Infrastructure.Models
+namespace ELMCOM.Infrastructure.Models
 {
     public partial class Assignment
     {

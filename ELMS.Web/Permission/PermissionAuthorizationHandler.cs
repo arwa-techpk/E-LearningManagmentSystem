@@ -1,11 +1,11 @@
-﻿using ELMS.Application.Constants;
-using ELMS.Infrastructure.Identity.Models;
+﻿using ELMCOM.Application.Constants;
+using ELMCOM.Infrastructure.Identity.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ELMS.Web.Permission
+namespace ELMCOM.Web.Permission
 {
     internal class PermissionAuthorizationHandler : AuthorizationHandler<PermissionRequirement>
     {

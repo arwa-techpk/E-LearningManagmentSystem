@@ -3,7 +3,7 @@ using Microsoft.Extensions.Options;
 using System;
 using System.Threading.Tasks;
 
-namespace ELMS.Web.Permission
+namespace ELMCOM.Web.Permission
 {
     internal class PermissionPolicyProvider : IAuthorizationPolicyProvider
     {

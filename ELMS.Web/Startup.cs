@@ -1,12 +1,12 @@
 using AspNetCoreHero.ToastNotification;
 using AspNetCoreHero.ToastNotification.Extensions;
 using AutoMapper;
-using ELMS.Application.Extensions;
-using ELMS.Infrastructure.Extensions;
-using ELMS.Web.Abstractions;
-using ELMS.Web.Extensions;
-using ELMS.Web.Permission;
-using ELMS.Web.Services;
+using ELMCOM.Application.Extensions;
+using ELMCOM.Infrastructure.Extensions;
+using ELMCOM.Web.Abstractions;
+using ELMCOM.Web.Extensions;
+using ELMCOM.Web.Permission;
+using ELMCOM.Web.Services;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
@@ -19,7 +19,7 @@ using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
 using System.Reflection;
 
-namespace ELMS.Web
+namespace ELMCOM.Web
 {
     public class Startup
     {

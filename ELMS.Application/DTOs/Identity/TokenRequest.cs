@@ -1,4 +1,4 @@
-﻿namespace ELMS.Application.DTOs.Identity
+﻿namespace ELMCOM.Application.DTOs.Identity
 {
     public class TokenRequest
     {

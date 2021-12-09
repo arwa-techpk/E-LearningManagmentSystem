@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Globalization;
 
-namespace ELMS.Application.Exceptions
+namespace ELMCOM.Application.Exceptions
 {
     public class ApiException : Exception
     {

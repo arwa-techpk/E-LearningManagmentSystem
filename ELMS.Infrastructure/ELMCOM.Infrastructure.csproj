@@ -26,8 +26,8 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ELMS.Application\ELMS.Application.csproj" />
-    <ProjectReference Include="..\ELMS.Domain\ELMS.Domain.csproj" />
+    <ProjectReference Include="..\ELMS.Application\ELMCOM.Application.csproj" />
+    <ProjectReference Include="..\ELMS.Domain\ELMCOM.Domain.csproj" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Data\" />

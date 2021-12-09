@@ -1,4 +1,4 @@
-﻿using ELMS.Infrastructure.Identity.Models;
+﻿using ELMCOM.Infrastructure.Identity.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -6,7 +6,7 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Threading.Tasks;
 
-namespace ELMS.Web.Areas.Identity.Pages.Account.Manage
+namespace ELMCOM.Web.Areas.Identity.Pages.Account.Manage
 {
     public class Disable2faModel : PageModel
     {

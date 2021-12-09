@@ -1,13 +1,13 @@
 ﻿using AspNetCoreHero.Results;
 using AspNetCoreHero.ThrowR;
-using ELMS.Application.DTOs.Identity;
-using ELMS.Application.DTOs.Mail;
-using ELMS.Application.DTOs.Settings;
-using ELMS.Application.Enums;
-using ELMS.Application.Exceptions;
-using ELMS.Application.Interfaces;
-using ELMS.Application.Interfaces.Shared;
-using ELMS.Infrastructure.Identity.Models;
+using ELMCOM.Application.DTOs.Identity;
+using ELMCOM.Application.DTOs.Mail;
+using ELMCOM.Application.DTOs.Settings;
+using ELMCOM.Application.Enums;
+using ELMCOM.Application.Exceptions;
+using ELMCOM.Application.Interfaces;
+using ELMCOM.Application.Interfaces.Shared;
+using ELMCOM.Infrastructure.Identity.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Options;
@@ -21,7 +21,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ELMS.Infrastructure.Identity.Services
+namespace ELMCOM.Infrastructure.Identity.Services
 {
     public class IdentityService : IIdentityService
     {

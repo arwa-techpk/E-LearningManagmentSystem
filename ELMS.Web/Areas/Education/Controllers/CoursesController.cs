@@ -1,8 +1,8 @@
-﻿using ELMS.Application.Enums;
-using ELMS.Infrastructure.DbContexts;
-using ELMS.Infrastructure.Identity.Models;
-using ELMS.Infrastructure.Models;
-using ELMS.Web.Abstractions;
+﻿using ELMCOM.Application.Enums;
+using ELMCOM.Infrastructure.DbContexts;
+using ELMCOM.Infrastructure.Identity.Models;
+using ELMCOM.Infrastructure.Models;
+using ELMCOM.Web.Abstractions;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ELMS.Web.Areas.Education.Controllers
+namespace ELMCOM.Web.Areas.Education.Controllers
 {
     [Area("Education")]
     public class CoursesController : BaseController<CoursesController>

@@ -1,15 +1,15 @@
-﻿using ELMS.Application.Constants;
-using ELMS.Infrastructure.Identity.Models;
-using ELMS.Web.Abstractions;
-using ELMS.Web.Areas.Admin.Models;
-using ELMS.Web.Helpers;
+﻿using ELMCOM.Application.Constants;
+using ELMCOM.Infrastructure.Identity.Models;
+using ELMCOM.Web.Abstractions;
+using ELMCOM.Web.Areas.Admin.Models;
+using ELMCOM.Web.Helpers;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ELMS.Web.Areas.Admin.Controllers
+namespace ELMCOM.Web.Areas.Admin.Controllers
 {
     [Area("Admin")]
     public class PermissionController : BaseController<PermissionController>

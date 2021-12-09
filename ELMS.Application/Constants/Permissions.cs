@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace ELMS.Application.Constants
+namespace ELMCOM.Application.Constants
 {
     public static class Permissions
     {

@@ -1,4 +1,4 @@
-﻿namespace ELMS.Domain.Entities
+﻿namespace ELMCOM.Domain.Entities
 {
     public partial class School
     {

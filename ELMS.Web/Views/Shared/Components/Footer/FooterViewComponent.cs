@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace ELMS.Web.Views.Shared.Components.Footer
+namespace ELMCOM.Web.Views.Shared.Components.Footer
 {
     public class FooterViewComponent : ViewComponent
     {

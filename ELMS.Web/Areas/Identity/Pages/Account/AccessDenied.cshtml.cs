@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace ELMS.Web.Areas.Identity.Pages.Account
+namespace ELMCOM.Web.Areas.Identity.Pages.Account
 {
     public class AccessDeniedModel : PageModel
     {

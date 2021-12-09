@@ -1,11 +1,11 @@
-﻿using ELMS.Application.Interfaces.Repositories;
-using ELMS.Application.Interfaces.Shared;
-using ELMS.Infrastructure.DbContexts;
+﻿using ELMCOM.Application.Interfaces.Repositories;
+using ELMCOM.Application.Interfaces.Shared;
+using ELMCOM.Infrastructure.DbContexts;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace ELMS.Infrastructure.Repositories
+namespace ELMCOM.Infrastructure.Repositories
 {
     public class UnitOfWork : IUnitOfWork
     {

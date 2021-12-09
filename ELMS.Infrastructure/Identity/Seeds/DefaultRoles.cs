@@ -1,9 +1,9 @@
-﻿using ELMS.Application.Enums;
-using ELMS.Infrastructure.Identity.Models;
+﻿using ELMCOM.Application.Enums;
+using ELMCOM.Infrastructure.Identity.Models;
 using Microsoft.AspNetCore.Identity;
 using System.Threading.Tasks;
 
-namespace ELMS.Infrastructure.Identity.Seeds
+namespace ELMCOM.Infrastructure.Identity.Seeds
 {
     public static class DefaultRoles
     {

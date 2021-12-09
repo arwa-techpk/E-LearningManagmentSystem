@@ -1,7 +1,7 @@
-﻿using ELMS.Application.DTOs.Mail;
+﻿using ELMCOM.Application.DTOs.Mail;
 using System.Threading.Tasks;
 
-namespace ELMS.Application.Interfaces.Shared
+namespace ELMCOM.Application.Interfaces.Shared
 {
     public interface IMailService
     {

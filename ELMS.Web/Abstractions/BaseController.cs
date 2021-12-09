@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
-namespace ELMS.Web.Abstractions
+namespace ELMCOM.Web.Abstractions
 {
     public abstract class BaseController<T> : Controller
     {

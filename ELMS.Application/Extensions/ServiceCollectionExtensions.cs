@@ -4,7 +4,7 @@ using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
 
-namespace ELMS.Application.Extensions
+namespace ELMCOM.Application.Extensions
 {
     public static class ServiceCollectionExtensions
     {

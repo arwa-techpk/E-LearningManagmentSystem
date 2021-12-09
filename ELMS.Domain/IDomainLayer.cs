@@ -1,4 +1,4 @@
-﻿namespace ELMS.Domain
+﻿namespace ELMCOM.Domain
 {
     public interface IDomainLayer
     {

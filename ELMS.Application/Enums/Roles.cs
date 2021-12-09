@@ -1,4 +1,4 @@
-﻿namespace ELMS.Application.Enums
+﻿namespace ELMCOM.Application.Enums
 {
     public enum Roles
     {

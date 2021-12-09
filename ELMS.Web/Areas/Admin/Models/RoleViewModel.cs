@@ -1,4 +1,4 @@
-﻿namespace ELMS.Web.Areas.Admin.Models
+﻿namespace ELMCOM.Web.Areas.Admin.Models
 {
     public class RoleViewModel
     {

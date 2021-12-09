@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
-using ELMS.Web.Areas.Admin.Models;
+using ELMCOM.Web.Areas.Admin.Models;
 using Microsoft.AspNetCore.Identity;
 
-namespace ELMS.Web.Areas.Admin.Mappings
+namespace ELMCOM.Web.Areas.Admin.Mappings
 {
     public class RoleProfile : Profile
     {

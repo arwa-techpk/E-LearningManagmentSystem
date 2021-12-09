@@ -1,15 +1,15 @@
-﻿//using ELMS.Application.Interfaces.CacheRepositories;
+﻿//using ELMCOM.Application.Interfaces.CacheRepositories;
 using AutoMapper;
-using ELMS.Application.Interfaces.Contexts;
-using ELMS.Application.Interfaces.Repositories;
-//using ELMS.Infrastructure.CacheRepositories;
-using ELMS.Infrastructure.DbContexts;
-using ELMS.Infrastructure.Repositories;
+using ELMCOM.Application.Interfaces.Contexts;
+using ELMCOM.Application.Interfaces.Repositories;
+//using ELMCOM.Infrastructure.CacheRepositories;
+using ELMCOM.Infrastructure.DbContexts;
+using ELMCOM.Infrastructure.Repositories;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
 
-namespace ELMS.Infrastructure.Extensions
+namespace ELMCOM.Infrastructure.Extensions
 {
     public static class ServiceCollectionExtensions
     {
@@ -24,7 +24,7 @@ namespace ELMS.Infrastructure.Extensions
             #region Repositories
 
             services.AddTransient(typeof(IRepositoryAsync<>), typeof(RepositoryAsync<>));
-           
+
 
             services.AddTransient<IUnitOfWork, UnitOfWork>();
 

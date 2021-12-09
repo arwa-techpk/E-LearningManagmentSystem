@@ -2,7 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 
-namespace ELMS.Web.Extensions
+namespace ELMCOM.Web.Extensions
 {
     public static class ApplicationBuilderExtension
     {

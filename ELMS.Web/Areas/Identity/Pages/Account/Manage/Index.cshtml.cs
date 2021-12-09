@@ -1,5 +1,5 @@
-﻿using ELMS.Infrastructure.Identity.Models;
-using ELMS.Web.Extensions;
+﻿using ELMCOM.Infrastructure.Identity.Models;
+using ELMCOM.Web.Extensions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -8,7 +8,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ELMS.Web.Areas.Identity.Pages.Account.Manage
+namespace ELMCOM.Web.Areas.Identity.Pages.Account.Manage
 {
     public partial class IndexModel : PageModel
     {

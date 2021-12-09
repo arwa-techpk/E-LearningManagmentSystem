@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 #nullable disable
 
-namespace ELMS.Infrastructure.Models
+namespace ELMCOM.Infrastructure.Models
 {
     public partial class Lecture
     {
@@ -25,8 +25,8 @@ namespace ELMS.Infrastructure.Models
         [Display(Name = "Duration (Minutes)")]
         [Required]
         public string Duration { get; set; }
-        
-        public string ZoomMeetingJoinURL { get; set; }
+
+        public string LectureJoinURL { get; set; }
 
         // lets add the zoom link/ google meeting link here? // generate the zoom meeting link auto
         // whenever student clik that link, his attendence will automatically marked 

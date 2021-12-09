@@ -1,8 +1,8 @@
 ﻿using AspNetCoreHero.Results;
-using ELMS.Application.DTOs.Identity;
+using ELMCOM.Application.DTOs.Identity;
 using System.Threading.Tasks;
 
-namespace ELMS.Application.Interfaces
+namespace ELMCOM.Application.Interfaces
 {
     public interface IIdentityService
     {

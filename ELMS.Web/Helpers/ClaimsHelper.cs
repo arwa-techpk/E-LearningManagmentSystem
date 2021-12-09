@@ -1,5 +1,5 @@
-﻿using ELMS.Application.Constants;
-using ELMS.Web.Areas.Admin.Models;
+﻿using ELMCOM.Application.Constants;
+using ELMCOM.Web.Areas.Admin.Models;
 using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
@@ -8,7 +8,7 @@ using System.Reflection;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
-namespace ELMS.Web.Helpers
+namespace ELMCOM.Web.Helpers
 {
     public static class ClaimsHelper
     {

@@ -1,4 +1,4 @@
-﻿using ELMS.Web.Abstractions;
+﻿using ELMCOM.Web.Abstractions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
@@ -15,7 +15,7 @@ using System.Linq;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 
-namespace ELMS.Web.Services
+namespace ELMCOM.Web.Services
 {
     public class ViewRenderService : IViewRenderService
     {

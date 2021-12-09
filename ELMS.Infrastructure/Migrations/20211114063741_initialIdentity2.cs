@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace ELMS.Infrastructure.Migrations
+namespace ELMCOM.Infrastructure.Migrations
 {
     public partial class initialIdentity2 : Migration
     {

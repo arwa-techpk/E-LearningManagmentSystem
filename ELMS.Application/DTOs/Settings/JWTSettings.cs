@@ -1,4 +1,4 @@
-﻿namespace ELMS.Application.DTOs.Settings
+﻿namespace ELMCOM.Application.DTOs.Settings
 {
     public class JWTSettings
     {

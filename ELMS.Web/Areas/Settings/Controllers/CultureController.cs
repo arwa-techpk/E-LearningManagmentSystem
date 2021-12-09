@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 
-namespace ELMS.Web.Areas.Settings.Controllers
+namespace ELMCOM.Web.Areas.Settings.Controllers
 {
     [Area("Settings")]
     public class CultureController : Controller

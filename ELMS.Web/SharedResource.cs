@@ -1,4 +1,4 @@
-﻿namespace ELMS.Web
+﻿namespace ELMCOM.Web
 {
     public class SharedResource
     {

@@ -1,14 +1,14 @@
-﻿using ELMS.Application.Enums;
-using ELMS.Infrastructure.Identity.Models;
-using ELMS.Web.Abstractions;
-using ELMS.Web.Areas.Admin.Models;
+﻿using ELMCOM.Application.Enums;
+using ELMCOM.Infrastructure.Identity.Models;
+using ELMCOM.Web.Abstractions;
+using ELMCOM.Web.Areas.Admin.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ELMS.Web.Areas.Admin.Controllers
+namespace ELMCOM.Web.Areas.Admin.Controllers
 {
     [Area("Admin")]
     public class UserRoleController : BaseController<UserRoleController>

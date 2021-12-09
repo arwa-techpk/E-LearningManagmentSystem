@@ -1,9 +1,9 @@
-﻿using ELMS.Application.Constants;
-using ELMS.Application.Enums;
-using ELMS.Infrastructure.DbContexts;
-using ELMS.Infrastructure.Identity.Models;
-using ELMS.Web.Abstractions;
-using ELMS.Web.Areas.Admin.Models;
+﻿using ELMCOM.Application.Constants;
+using ELMCOM.Application.Enums;
+using ELMCOM.Infrastructure.DbContexts;
+using ELMCOM.Infrastructure.Identity.Models;
+using ELMCOM.Web.Abstractions;
+using ELMCOM.Web.Areas.Admin.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -12,7 +12,7 @@ using System.Linq;
 using System.Net.Mail;
 using System.Threading.Tasks;
 
-namespace ELMS.Web.Areas.Admin.Controllers
+namespace ELMCOM.Web.Areas.Admin.Controllers
 {
     [Area("Admin")]
     public class StudentController : BaseController<UserController>

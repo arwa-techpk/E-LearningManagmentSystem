@@ -1,13 +1,13 @@
-﻿using ELMS.Domain.Entities;
-using ELMS.Infrastructure.DbContexts;
+﻿using ELMCOM.Domain.Entities;
+using ELMCOM.Infrastructure.DbContexts;
+using ELMCOM.Web.Abstractions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
-using ELMS.Web.Abstractions;
-using System;
 
-namespace ELMS.Web.Areas.Admin.Controllers
+namespace ELMCOM.Web.Areas.Admin.Controllers
 {
     [Area("Admin")]
     public class SchoolsController : BaseController<Controller>
@@ -151,7 +151,7 @@ namespace ELMS.Web.Areas.Admin.Controllers
                 _notify.Error("You cannot delete this school, as this school has teacher/students data");
 
             }
-            
+
             return RedirectToAction(nameof(Index));
         }
 

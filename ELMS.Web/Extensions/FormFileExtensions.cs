@@ -3,7 +3,7 @@ using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Processing;
 using System.IO;
 
-namespace ELMS.Web.Extensions
+namespace ELMCOM.Web.Extensions
 {
     public static class FormFileExtensions
     {

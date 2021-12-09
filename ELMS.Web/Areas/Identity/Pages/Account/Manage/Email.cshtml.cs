@@ -1,4 +1,4 @@
-﻿using ELMS.Infrastructure.Identity.Models;
+﻿using ELMCOM.Infrastructure.Identity.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -9,7 +9,7 @@ using System.Text;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 
-namespace ELMS.Web.Areas.Identity.Pages.Account.Manage
+namespace ELMCOM.Web.Areas.Identity.Pages.Account.Manage
 {
     public partial class EmailModel : PageModel
     {

@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace ELMS.Web.Views.Shared.Components.Header
+namespace ELMCOM.Web.Views.Shared.Components.Header
 {
     public class HeaderViewComponent : ViewComponent
     {

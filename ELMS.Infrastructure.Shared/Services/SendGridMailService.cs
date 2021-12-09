@@ -1,4 +1,4 @@
-﻿namespace ELMS.Infrastructure.Shared.Services
+﻿namespace ELMCOM.Infrastructure.Shared.Services
 {
     internal class SendGridMailService
     {

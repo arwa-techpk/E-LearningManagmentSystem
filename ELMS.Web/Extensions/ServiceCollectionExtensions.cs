@@ -1,9 +1,9 @@
-﻿using ELMS.Application.DTOs.Settings;
-using ELMS.Application.Interfaces.Shared;
-using ELMS.Infrastructure.DbContexts;
-using ELMS.Infrastructure.Identity.Models;
-using ELMS.Infrastructure.Shared.Services;
-using ELMS.Web.Services;
+﻿using ELMCOM.Application.DTOs.Settings;
+using ELMCOM.Application.Interfaces.Shared;
+using ELMCOM.Infrastructure.DbContexts;
+using ELMCOM.Infrastructure.Identity.Models;
+using ELMCOM.Infrastructure.Shared.Services;
+using ELMCOM.Web.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
@@ -14,7 +14,7 @@ using Microsoft.Extensions.DependencyInjection;
 using System.Collections.Generic;
 using System.Globalization;
 
-namespace ELMS.Web.Extensions
+namespace ELMCOM.Web.Extensions
 {
     public static class ServiceCollectionExtensions
     {
@@ -26,26 +26,11 @@ namespace ELMS.Web.Extensions
 
             #endregion Registering ResourcesPath
 
-            services.AddMvc()
-               .AddViewLocalization(Microsoft.AspNetCore.Mvc.Razor.LanguageViewLocationExpanderFormat.Suffix)
-               .AddDataAnnotationsLocalization(options =>
-               {
-                   options.DataAnnotationLocalizerProvider = (type, factory) =>
-                       factory.Create(typeof(SharedResource));
-               });
+            
+
             services.AddRouting(o => o.LowercaseUrls = true);
             services.AddHttpContextAccessor();
-            services.Configure<RequestLocalizationOptions>(options =>
-            {
-                var cultures = new List<CultureInfo> {
-        new CultureInfo("en"),
-         new CultureInfo("ar"),
-        new CultureInfo("fr")
-                };
-                options.DefaultRequestCulture = new Microsoft.AspNetCore.Localization.RequestCulture("en");
-                options.SupportedCultures = cultures;
-                options.SupportedUICultures = cultures;
-            });
+            
         }
 
         public static void AddInfrastructure(this IServiceCollection services, IConfiguration configuration)

@@ -1,16 +1,15 @@
-﻿using ELMS.Application.Enums;
-using ELMS.Infrastructure.DbContexts;
-using ELMS.Infrastructure.Identity.Models;
-using ELMS.Infrastructure.Models;
-using ELMS.Web.Abstractions;
+﻿using ELMCOM.Infrastructure.DbContexts;
+using ELMCOM.Infrastructure.Identity.Models;
+using ELMCOM.Infrastructure.Models;
+using ELMCOM.Web.Abstractions;
+using ELMCOM.Web.Areas.Education.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ELMS.Web.Areas.Education.Controllers
+namespace ELMCOM.Web.Areas.Education.Controllers
 {
     [Area("Education")]
     public class StudentLecturesController : BaseController<StudentLecturesController>
@@ -29,182 +28,63 @@ namespace ELMS.Web.Areas.Education.Controllers
         // GET: Education/StudentLectures
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.StudentLectures.Include(s => s.Lecture)
-                .Include(s => s.Student);
+
+            var currentUser = await _userManager.GetUserAsync(HttpContext.User);
+
+            // linq query method, returns all courses for this student || inner join
+            var studentCourses = _context.StudentCourses
+                .Include(c => c.Course)
+                .Where(m => m.StudentId == currentUser.Id);
+
+            // linq query syntax
+            var applicationDbContext = (from i in _context.Lectures // lectures
+                                        join e in studentCourses on i.CourseId equals e.Id // Student courses
+                                        join sa in _context.StudentLectures on i.Id equals sa.LectureId // this will return, user has attended or not
+                                        into courseTemp // it will be null, if he hasn't attended. Left JOIN
+                                        from c in courseTemp.DefaultIfEmpty()
+                                        where e.StudentId == currentUser.Id
+
+                                        select new StudentAttendenceViewModel()
+                                        {
+                                            LectureId = i.Id,
+                                            LectureTitle = i.Title,
+                                            LectureDuration = i.Duration,
+                                            LectureDate = i.LectureDate,
+                                            LectureLink = i.LectureJoinURL,
+                                            CourseName = e.Course.Title,
+                                            HasAttended = c.Id != null,
+                                            StudentId = c.StudentId
+                                        });
+
+
+
             return View(await applicationDbContext.ToListAsync());
         }
 
-        // GET: Education/StudentLectures/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var studentLecture = await _context.StudentLectures
-                .Include(s => s.Lecture)
-                .Include(s => s.Student)
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (studentLecture == null)
-            {
-                return NotFound();
-            }
-
-            return View(studentLecture);
-        }
-
-        // GET: Education/StudentLectures/Create
-        public async Task<IActionResult> Create()
+        public async Task<IActionResult> AttendLecture(int LectureId, string StudentId, string LectureLink)
         {
 
             var currentUser = await _userManager.GetUserAsync(HttpContext.User);
-            var allUsersExceptCurrentUser = await _userManager.GetUsersInRoleAsync(Roles.Student.ToString());
-            allUsersExceptCurrentUser = allUsersExceptCurrentUser.Where(a => a.SchoolId == currentUser.SchoolId)
-                .ToList();
-            var Lectures = _context.Lectures.Include(m => m.Course)
-               .Select(x => new
-               {
-                   Id = x.Id,
-                   Name = x.Course.Title + " > " + x.Title
-               });
 
-            ViewData["StudentId"] = new SelectList(allUsersExceptCurrentUser, "Id", "UserName");
-            ViewData["LectureId"] = new SelectList(Lectures, "Id", "Name");
-            return View();
-        }
+            var studentCourses = await _context.StudentLectures
+                .FirstOrDefaultAsync(c => c.LectureId == LectureId && c.StudentId == currentUser.Id);
 
-        // POST: Education/StudentLectures/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,StudentId,LectureId")] StudentLecture studentLecture)
-        {
-            if (ModelState.IsValid)
+            if (studentCourses == null)
             {
+
+                StudentLecture studentLecture = new StudentLecture()
+                {
+                    LectureId = LectureId,
+                    StudentId = currentUser.Id
+                };
                 _context.Add(studentLecture);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            var currentUser = await _userManager.GetUserAsync(HttpContext.User);
-            var allUsersExceptCurrentUser = await _userManager.GetUsersInRoleAsync(Roles.Student.ToString());
-            allUsersExceptCurrentUser = allUsersExceptCurrentUser.Where(a => a.SchoolId == currentUser.SchoolId)
-                .ToList();
-            ViewData["StudentId"] = new SelectList(allUsersExceptCurrentUser, "Id", "UserName", studentLecture.StudentId);
-            ViewData["LectureId"] = new SelectList(_context.Lectures, "Id", "Title", studentLecture.LectureId);
-
-            return View(studentLecture);
-        }
-
-        // GET: Education/StudentLectures/Edit/5
-        public async Task<IActionResult> Edit(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
             }
 
-            var studentLecture = await _context.StudentLectures.FindAsync(id);
-            if (studentLecture == null)
-            {
-                return NotFound();
-            }
-            var currentUser = await _userManager.GetUserAsync(HttpContext.User);
-            var allUsersExceptCurrentUser = await _userManager.GetUsersInRoleAsync(Roles.Student.ToString());
-            allUsersExceptCurrentUser = allUsersExceptCurrentUser.Where(a => a.SchoolId == currentUser.SchoolId)
-                .ToList();
-            ViewData["StudentId"] = new SelectList(allUsersExceptCurrentUser, "Id", "UserName", studentLecture.StudentId);
-            ViewData["LectureId"] = new SelectList(_context.Lectures, "Id", "Title", studentLecture.LectureId);
 
-            return View(studentLecture);
-        }
 
-        // POST: Education/StudentLectures/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,StudentId,LectureId")] StudentLecture studentLecture)
-        {
-            if (id != studentLecture.Id)
-            {
-                return NotFound();
-            }
-
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(studentLecture);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!StudentLectureExists(studentLecture.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
-            var currentUser = await _userManager.GetUserAsync(HttpContext.User);
-            var allUsersExceptCurrentUser = await _userManager.GetUsersInRoleAsync(Roles.Student.ToString());
-            allUsersExceptCurrentUser = allUsersExceptCurrentUser.Where(a => a.SchoolId == currentUser.SchoolId)
-                .ToList();
-            ViewData["StudentId"] = new SelectList(allUsersExceptCurrentUser, "Id", "UserName", studentLecture.StudentId);
-            ViewData["LectureId"] = new SelectList(_context.Lectures, "Id", "Title", studentLecture.LectureId);
-
-            return View(studentLecture);
-        }
-
-        // GET: Education/StudentLectures/Delete/5
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var studentLecture = await _context.StudentLectures
-                .Include(s => s.Lecture)
-                .Include(s => s.Student)
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (studentLecture == null)
-            {
-                return NotFound();
-            }
-
-            return View(studentLecture);
-        }
-
-        // POST: Education/StudentLectures/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            var studentLecture = await _context.StudentLectures.FindAsync(id);
-
-            try
-            {
-                _context.StudentLectures.Remove(studentLecture);
-                await _context.SaveChangesAsync();
-            }
-            catch (System.Exception)
-            {
-
-                _notify.Error("You cannot delete it, Please contact IT Support");
-            }
             return RedirectToAction(nameof(Index));
         }
 
-        private bool StudentLectureExists(int id)
-        {
-            return _context.StudentLectures.Any(e => e.Id == id);
-        }
     }
 }

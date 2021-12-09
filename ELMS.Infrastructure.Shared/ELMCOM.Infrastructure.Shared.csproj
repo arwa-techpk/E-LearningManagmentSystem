@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ELMS.Application\ELMS.Application.csproj" />
+    <ProjectReference Include="..\ELMS.Application\ELMCOM.Application.csproj" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="MailKit" Version="2.10.0" />

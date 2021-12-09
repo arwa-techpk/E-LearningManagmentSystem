@@ -1,12 +1,12 @@
-﻿//using ELMS.Domain.Entities.Catalog;
-using ELMS.Domain.Entities;
+﻿//using ELMCOM.Domain.Entities.Catalog;
+using ELMCOM.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using System.Data;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace ELMS.Application.Interfaces.Contexts
+namespace ELMCOM.Application.Interfaces.Contexts
 {
     public interface IApplicationDbContext
     {

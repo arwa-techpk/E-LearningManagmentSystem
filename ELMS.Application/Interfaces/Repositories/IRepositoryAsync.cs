@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ELMS.Application.Interfaces.Repositories
+namespace ELMCOM.Application.Interfaces.Repositories
 {
     public interface IRepositoryAsync<T> where T : class
     {

@@ -1,8 +1,8 @@
-﻿using ELMS.Application.Interfaces.Shared;
+﻿using ELMCOM.Application.Interfaces.Shared;
 using Microsoft.AspNetCore.Http;
 using System.Security.Claims;
 
-namespace ELMS.Web.Services
+namespace ELMCOM.Web.Services
 {
     public class AuthenticatedUserService : IAuthenticatedUserService
     {

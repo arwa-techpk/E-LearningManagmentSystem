@@ -1,5 +1,5 @@
-using ELMS.Application.Constants;
-using ELMS.Infrastructure.Identity.Models;
+using ELMCOM.Application.Constants;
+using ELMCOM.Infrastructure.Identity.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 
-namespace ELMS.Web.Areas.Identity.Pages.Account
+namespace ELMCOM.Web.Areas.Identity.Pages.Account
 {
     [Authorize(Policy = Permissions.Users.View)]
     [Authorize(Roles = "SuperAdmin")]

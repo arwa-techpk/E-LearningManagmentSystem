@@ -1,9 +1,9 @@
-﻿using ELMS.Infrastructure.Identity.Models;
+﻿using ELMCOM.Infrastructure.Identity.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace ELMS.Infrastructure.DbContexts
+namespace ELMCOM.Infrastructure.DbContexts
 {
     public class IdentityContext : IdentityDbContext<ApplicationUser>
     {

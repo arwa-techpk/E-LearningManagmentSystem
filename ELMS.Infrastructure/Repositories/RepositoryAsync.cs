@@ -1,11 +1,11 @@
-﻿using ELMS.Application.Interfaces.Repositories;
-using ELMS.Infrastructure.DbContexts;
+﻿using ELMCOM.Application.Interfaces.Repositories;
+using ELMCOM.Infrastructure.DbContexts;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ELMS.Infrastructure.Repositories
+namespace ELMCOM.Infrastructure.Repositories
 {
     public class RepositoryAsync<T> : IRepositoryAsync<T> where T : class
     {

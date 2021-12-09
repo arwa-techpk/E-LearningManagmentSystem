@@ -1,10 +1,10 @@
-﻿using ELMS.Domain.Entities;
-using ELMS.Infrastructure.Models;
+﻿using ELMCOM.Domain.Entities;
+using ELMCOM.Infrastructure.Models;
 using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
 
-namespace ELMS.Infrastructure.Identity.Models
+namespace ELMCOM.Infrastructure.Identity.Models
 {
     public class ApplicationUser : IdentityUser
     {

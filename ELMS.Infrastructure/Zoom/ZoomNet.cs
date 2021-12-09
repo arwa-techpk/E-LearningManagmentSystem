@@ -5,7 +5,7 @@ using System;
 using System.Net;
 using System.Text;
 
-namespace ELMS.Infrastructure.Zoom
+namespace ELMCOM.Infrastructure.Zoom
 {
     public class ZoomMeetingRequest
     {

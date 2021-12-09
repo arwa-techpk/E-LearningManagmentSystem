@@ -1,4 +1,4 @@
-﻿@model ELMS.Infrastructure.Models.Lecture
+﻿@model ELMCOM.Infrastructure.Models.Lecture
 
 @{
     ViewData["Title"] = "";
@@ -20,7 +20,7 @@
                 <form asp-action="Edit">
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                     <input type="hidden" asp-for="Id" />
-                    <input type="hidden" asp-for="ZoomMeetingJoinURL" />
+                    <input type="hidden" asp-for="LectureJoinURL" />
                     <div class="form-group">
                         <label asp-for="Title" class="control-label"></label>
                         <input asp-for="Title" class="form-control" />

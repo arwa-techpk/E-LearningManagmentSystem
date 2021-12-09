@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace ELMS.Infrastructure.Migrations.ApplicationDb
+namespace ELMCOM.Infrastructure.Migrations.ApplicationDb
 {
     public partial class initial2 : Migration
     {

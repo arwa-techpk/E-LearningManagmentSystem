@@ -1,4 +1,4 @@
-namespace ELMS.Web.Models
+namespace ELMCOM.Web.Models
 {
     public class ErrorViewModel
     {

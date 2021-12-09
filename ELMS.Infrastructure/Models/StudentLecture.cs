@@ -1,9 +1,9 @@
-﻿using ELMS.Infrastructure.Identity.Models;
+﻿using ELMCOM.Infrastructure.Identity.Models;
 using System.ComponentModel.DataAnnotations;
 
 #nullable disable
 
-namespace ELMS.Infrastructure.Models
+namespace ELMCOM.Infrastructure.Models
 {
     public partial class StudentLecture
     {

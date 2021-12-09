@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 
-namespace ELMS.Web.Permission
+namespace ELMCOM.Web.Permission
 {
     internal class PermissionRequirement : IAuthorizationRequirement
     {

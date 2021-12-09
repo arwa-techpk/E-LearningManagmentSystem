@@ -1,4 +1,4 @@
-﻿using ELMS.Infrastructure.Identity.Models;
+﻿using ELMCOM.Infrastructure.Identity.Models;
 using Microsoft.AspNetCore.Http;
 using System;
 using System.ComponentModel.DataAnnotations;
@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 #nullable disable
 
-namespace ELMS.Infrastructure.Models
+namespace ELMCOM.Infrastructure.Models
 {
     public partial class StudentExamAnswer
     {

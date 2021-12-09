@@ -1,8 +1,7 @@
-﻿using ELMS.Infrastructure.DbContexts;
-using ELMS.Infrastructure.Identity.Models;
-using ELMS.Infrastructure.Models;
-using ELMS.Infrastructure.Zoom;
-using ELMS.Web.Abstractions;
+﻿using ELMCOM.Infrastructure.DbContexts;
+using ELMCOM.Infrastructure.Identity.Models;
+using ELMCOM.Infrastructure.Models;
+using ELMCOM.Web.Abstractions;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -12,7 +11,7 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ELMS.Web.Areas.Education.Controllers
+namespace ELMCOM.Web.Areas.Education.Controllers
 {
     [Area("Education")]
     public class LecturesController : BaseController<LecturesController>
@@ -32,8 +31,11 @@ namespace ELMS.Web.Areas.Education.Controllers
         public async Task<IActionResult> Index()
         {
             var currentUser = await _userManager.GetUserAsync(HttpContext.User);
+
+            //linq method syntax
             var applicationDbContext = _context.Lectures.Include(l => l.Course)
                 .Where(m => m.Course.TeacherId == currentUser.Id);
+
             return View(await applicationDbContext.ToListAsync());
         }
 
@@ -60,7 +62,7 @@ namespace ELMS.Web.Areas.Education.Controllers
         public async Task<IActionResult> Create()
         {
             var currentUser = await _userManager.GetUserAsync(HttpContext.User);
-            ViewData["CourseId"] = new SelectList(_context.Courses.Where(m => m.TeacherId == currentUser.Id), "Id", "Title");
+            ViewBag.CourseId = new SelectList(_context.Courses.Where(m => m.TeacherId == currentUser.Id), "Id", "Title");
             return View();
         }
 
@@ -77,8 +79,9 @@ namespace ELMS.Web.Areas.Education.Controllers
             {
                 try
                 {
-
-                    lecture.ZoomMeetingJoinURL = String.Concat(("https://meet.jit.si/elmcom/" + lecture.CourseId + lecture.Title).Where(c => !Char.IsWhiteSpace(c))) ;
+                    //Removing the white space in url and making unique link
+                    lecture.LectureJoinURL = String.Concat(("https://meet.jit.si/elmcom/" 
+                        + lecture.CourseId + lecture.Title).Where(c => !Char.IsWhiteSpace(c)));
 
                     _context.Add(lecture);
                     await _context.SaveChangesAsync();
@@ -86,14 +89,14 @@ namespace ELMS.Web.Areas.Education.Controllers
                 catch (Exception ex)
                 {
 
-                    ViewData["CourseId"] = new SelectList(_context.Courses.Where(m => m.TeacherId == currentUser.Id), "Id", "Title", lecture.CourseId);
+                    ViewBag.CourseId = new SelectList(_context.Courses.Where(m => m.TeacherId == currentUser.Id), "Id", "Title", lecture.CourseId);
                     return View(lecture);
                 }
 
                 return RedirectToAction(nameof(Index));
             }
 
-            ViewData["CourseId"] = new SelectList(_context.Courses.Where(m => m.TeacherId == currentUser.Id), "Id", "Title", lecture.CourseId);
+            ViewBag.CourseId = new SelectList(_context.Courses.Where(m => m.TeacherId == currentUser.Id), "Id", "Title", lecture.CourseId);
             return View(lecture);
         }
 
@@ -111,7 +114,7 @@ namespace ELMS.Web.Areas.Education.Controllers
                 return NotFound();
             }
             var currentUser = await _userManager.GetUserAsync(HttpContext.User);
-            ViewData["CourseId"] = new SelectList(_context.Courses.Where(m => m.TeacherId == currentUser.Id), "Id", "Title", lecture.CourseId);
+            ViewBag.CourseId = new SelectList(_context.Courses.Where(m => m.TeacherId == currentUser.Id), "Id", "Title", lecture.CourseId);
             return View(lecture);
         }
 
@@ -131,10 +134,10 @@ namespace ELMS.Web.Areas.Education.Controllers
             {
                 try
                 {
-                    if (string.IsNullOrEmpty(lecture.ZoomMeetingJoinURL))
+                    if (string.IsNullOrEmpty(lecture.LectureJoinURL))
                     {
 
-                        lecture.ZoomMeetingJoinURL = String.Concat(("https://meet.jit.si/elmcom/" + lecture.CourseId + lecture.Title).Where(c => !Char.IsWhiteSpace(c)));
+                        lecture.LectureJoinURL = String.Concat(("https://meet.jit.si/elmcom/" + lecture.CourseId + lecture.Title).Where(c => !Char.IsWhiteSpace(c)));
 
                     }
                     _context.Update(lecture);
@@ -154,7 +157,7 @@ namespace ELMS.Web.Areas.Education.Controllers
                 return RedirectToAction(nameof(Index));
             }
             var currentUser = await _userManager.GetUserAsync(HttpContext.User);
-            ViewData["CourseId"] = new SelectList(_context.Courses.Where(m => m.TeacherId == currentUser.Id), "Id", "Title", lecture.CourseId);
+            ViewBag.CourseId = new SelectList(_context.Courses.Where(m => m.TeacherId == currentUser.Id), "Id", "Title", lecture.CourseId);
             return View(lecture);
         }
 

@@ -1,4 +1,4 @@
-﻿namespace ELMS.Application.Interfaces.Shared
+﻿namespace ELMCOM.Application.Interfaces.Shared
 {
     public interface IAuthenticatedUserService
     {

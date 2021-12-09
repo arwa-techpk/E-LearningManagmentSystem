@@ -1,13 +1,13 @@
-﻿using ELMS.Infrastructure.Identity.Models;
-using ELMS.Web.Abstractions;
-using ELMS.Web.Areas.Admin.Models;
+﻿using ELMCOM.Infrastructure.Identity.Models;
+using ELMCOM.Web.Abstractions;
+using ELMCOM.Web.Areas.Admin.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace ELMS.Web.Areas.Admin.Controllers
+namespace ELMCOM.Web.Areas.Admin.Controllers
 {
     [Area("Admin")]
     public class RoleController : BaseController<RoleController>
@@ -28,7 +28,7 @@ namespace ELMS.Web.Areas.Admin.Controllers
 
         public async Task<IActionResult> LoadAll()
         {
-            var roles =  await _roleManager.Roles.ToListAsync();
+            var roles = await _roleManager.Roles.ToListAsync();
             var model = _mapper.Map<IEnumerable<RoleViewModel>>(roles);
             return PartialView("_ViewAll", model);
         }
@@ -49,7 +49,7 @@ namespace ELMS.Web.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> OnPostCreate(RoleViewModel role)
         {
-            if (ModelState.IsValid && role.Name != "SuperAdmin" )
+            if (ModelState.IsValid && role.Name != "SuperAdmin")
             {
                 if (string.IsNullOrEmpty(role.Id))
                 {
@@ -80,7 +80,7 @@ namespace ELMS.Web.Areas.Admin.Controllers
         public async Task<JsonResult> OnPostDelete(string id)
         {
             var existingRole = await _roleManager.FindByIdAsync(id);
-            if (existingRole.Name != "SuperAdmin" )
+            if (existingRole.Name != "SuperAdmin")
             {
                 //TODO Check if Any Users already uses this Role
                 bool roleIsNotUsed = true;

@@ -1,4 +1,4 @@
-﻿namespace ELMS.Application
+﻿namespace ELMCOM.Application
 {
     public interface IApplicationLayer
     {

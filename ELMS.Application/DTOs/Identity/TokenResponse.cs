@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 
-namespace ELMS.Application.DTOs.Identity
+namespace ELMCOM.Application.DTOs.Identity
 {
     public class TokenResponse
     {

@@ -1,9 +1,9 @@
-﻿using ELMS.Application.Enums;
-using ELMS.Infrastructure.DbContexts;
-using ELMS.Infrastructure.Identity.Models;
-using ELMS.Infrastructure.Models;
-using ELMS.Web.Abstractions;
-using ELMS.Web.Areas.Test.Models;
+﻿using ELMCOM.Application.Enums;
+using ELMCOM.Infrastructure.DbContexts;
+using ELMCOM.Infrastructure.Identity.Models;
+using ELMCOM.Infrastructure.Models;
+using ELMCOM.Web.Abstractions;
+using ELMCOM.Web.Areas.Test.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -16,7 +16,7 @@ using System.Linq;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
 
-namespace ELMS.Web.Areas.Test.Controllers
+namespace ELMCOM.Web.Areas.Test.Controllers
 {
     [Area("Test")]
     public class StudentExamAnswersController : BaseController<StudentExamAnswersController>

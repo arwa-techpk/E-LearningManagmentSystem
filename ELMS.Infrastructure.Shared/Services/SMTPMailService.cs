@@ -1,6 +1,6 @@
-﻿using ELMS.Application.DTOs.Mail;
-using ELMS.Application.DTOs.Settings;
-using ELMS.Application.Interfaces.Shared;
+﻿using ELMCOM.Application.DTOs.Mail;
+using ELMCOM.Application.DTOs.Settings;
+using ELMCOM.Application.Interfaces.Shared;
 using MailKit.Net.Smtp;
 using MailKit.Security;
 using Microsoft.Extensions.Logging;
@@ -8,7 +8,7 @@ using Microsoft.Extensions.Options;
 using MimeKit;
 using System.Threading.Tasks;
 
-namespace ELMS.Infrastructure.Shared.Services
+namespace ELMCOM.Infrastructure.Shared.Services
 {
     public class SMTPMailService : IMailService
     {

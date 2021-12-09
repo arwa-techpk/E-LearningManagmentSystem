@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
-namespace ELMS.Web.Abstractions
+namespace ELMCOM.Web.Abstractions
 {
     public class BasePageModel<T> : PageModel where T : class
     {

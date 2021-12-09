@@ -1,4 +1,4 @@
-﻿@model IEnumerable<ELMS.Infrastructure.Models.Lecture>
+﻿@model IEnumerable<ELMCOM.Infrastructure.Models.Lecture>
 
 @{
     ViewData["Title"] = "";
@@ -56,9 +56,9 @@
                     </td>
                     <td>
                         @{
-                            if (!string.IsNullOrEmpty(item.ZoomMeetingJoinURL))
+                            if (!string.IsNullOrEmpty(item.LectureJoinURL))
                             {
-                                <a href="@item.ZoomMeetingJoinURL" class="btn btn-sm bg-primary" target="_blank"> Attend</a>
+                                <a href="@item.LectureJoinURL" class="btn btn-sm bg-primary" target="_blank"> Attend</a>
                             }
                         }
 

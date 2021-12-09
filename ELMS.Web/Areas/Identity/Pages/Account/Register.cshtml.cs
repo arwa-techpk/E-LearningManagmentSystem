@@ -1,8 +1,8 @@
-﻿using ELMS.Application.Enums;
-using ELMS.Application.Interfaces.Shared;
-using ELMS.Domain.Entities;
-using ELMS.Infrastructure.DbContexts;
-using ELMS.Infrastructure.Identity.Models;
+﻿using ELMCOM.Application.Enums;
+using ELMCOM.Application.Interfaces.Shared;
+using ELMCOM.Domain.Entities;
+using ELMCOM.Infrastructure.DbContexts;
+using ELMCOM.Infrastructure.Identity.Models;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -16,7 +16,7 @@ using System.Linq;
 using System.Net.Mail;
 using System.Threading.Tasks;
 
-namespace ELMS.Web.Areas.Identity.Pages.Account
+namespace ELMCOM.Web.Areas.Identity.Pages.Account
 {
     [AllowAnonymous]
     public class RegisterModel : PageModel
@@ -121,7 +121,7 @@ namespace ELMS.Web.Areas.Identity.Pages.Account
                     var schoolId = await _applicationDbContext.SaveChangesAsync();
                     user.SchoolId = schoolId;
                     await _userManager.UpdateAsync(user);
-                   // _logger.LogInformation("User created a new account with password.");
+                    // _logger.LogInformation("User created a new account with password.");
                     await _userManager.AddToRoleAsync(user, Roles.Admin.ToString());
 
                     if (_userManager.Options.SignIn.RequireConfirmedAccount)

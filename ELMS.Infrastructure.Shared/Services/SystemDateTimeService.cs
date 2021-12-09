@@ -1,7 +1,7 @@
-﻿using ELMS.Application.Interfaces.Shared;
+﻿using ELMCOM.Application.Interfaces.Shared;
 using System;
 
-namespace ELMS.Infrastructure.Shared.Services
+namespace ELMCOM.Infrastructure.Shared.Services
 {
     public class SystemDateTimeService : IDateTimeService
     {

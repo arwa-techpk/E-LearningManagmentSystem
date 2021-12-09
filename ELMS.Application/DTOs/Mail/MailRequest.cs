@@ -1,4 +1,4 @@
-﻿namespace ELMS.Application.DTOs.Mail
+﻿namespace ELMCOM.Application.DTOs.Mail
 {
     public class MailRequest
     {

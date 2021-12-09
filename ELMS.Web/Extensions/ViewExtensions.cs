@@ -1,4 +1,4 @@
-﻿namespace ELMS.Web.Extensions
+﻿namespace ELMCOM.Web.Extensions
 {
     public static class ViewExtensions
     {

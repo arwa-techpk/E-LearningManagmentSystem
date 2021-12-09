@@ -38,8 +38,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ELMS.Infrastructure.Shared\ELMS.Infrastructure.Shared.csproj" />
-    <ProjectReference Include="..\ELMS.Infrastructure\ELMS.Infrastructure.csproj" />
+    <ProjectReference Include="..\ELMCOM.Infrastructure.Shared\ELMCOM.Infrastructure.Shared.csproj" />
+    <ProjectReference Include="..\ELMCOM.Infrastructure\ELMCOM.Infrastructure.csproj" />
   </ItemGroup>
 
   <ItemGroup>

@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 
-namespace ELMS.Web.Controllers
+namespace ELMCOM.Web.Controllers
 {
     public class CultureController : Controller
     {

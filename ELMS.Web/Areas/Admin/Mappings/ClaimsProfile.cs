@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
-using ELMS.Web.Areas.Admin.Models;
+using ELMCOM.Web.Areas.Admin.Models;
 using System.Security.Claims;
 
-namespace ELMS.Web.Areas.Admin.Mappings
+namespace ELMCOM.Web.Areas.Admin.Mappings
 {
     public class ClaimsProfile : Profile
     {

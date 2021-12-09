@@ -1,11 +1,11 @@
-﻿using ELMS.Domain.Entities;
-using ELMS.Infrastructure.Identity.Models;
+﻿using ELMCOM.Domain.Entities;
+using ELMCOM.Infrastructure.Identity.Models;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 #nullable disable
 
-namespace ELMS.Infrastructure.Models
+namespace ELMCOM.Infrastructure.Models
 {
     public partial class Course
     {
