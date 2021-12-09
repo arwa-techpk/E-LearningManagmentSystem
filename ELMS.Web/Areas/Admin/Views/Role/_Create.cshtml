@@ -2,7 +2,7 @@
 @model RoleViewModel
 <form id="create-form" method="post" asp-area="Admin" asp-controller="Role" asp-route-id="@Model.Id" asp-action="OnPostCreate" onsubmit="return jQueryModalPost(this);">
     <div class="form-group row">
-        <label class="col-md-3 col-form-label">@localizer["Name"]</label>
+        <label class="col-md-3 col-form-label">Name</label>
         <div class="col-md-9">
             <input type="text" asp-for="Name" name="Name" class="form-control">
             <span asp-validation-for="Name" class="text-danger"></span>

@@ -4,16 +4,16 @@
     <thead>
         <tr>
             <th>
-                @localizer["User"]
+                User
             </th>
             <th>
-                @localizer["Email"]
+                Email
             </th>
             <th>
-                @localizer["Status"]
+                Status
             </th>
             <th style="width:10%">
-                @localizer["Actions"]
+                Actions
             </th>
         </tr>
     </thead>
@@ -55,22 +55,22 @@
                     <small>
                         @if (user.EmailConfirmed)
                         {
-                            <span class="badge badge-success">@localizer["Email Confirmed"]</span>
+                        <span class="badge badge-success">Email Confirmed</span>
                         }
                         else
                         {
-                            <span class="badge badge-danger">@localizer["Email Not Confirmed"]</span>
+                    <span class="badge badge-danger">Email Not Confirmed</span>
                         }
                     </small>
                 </td>
                 <td>
                     @if (user.IsActive)
                     {
-                        <span class="badge badge-success">@localizer["Active"]</span>
+                    <span class="badge badge-success">Active</span>
                     }
                     else
                     {
-                        <span class="badge badge-danger">@localizer["Deactivated"]</span>
+                <span class="badge badge-danger">Deactivated</span>
                     }
                 </td>
                 <td>
@@ -80,15 +80,15 @@
                         </button>
                         <div class="dropdown-menu shadow animated--grow-in">
                             <a style='margin-right:16px' asp-area="Identity" asp-page="/Profile" asp-route-userId="@user.Id" class="dropdown-item">
-                                <i class="fas fa-user"></i> @localizer["Profile"]
+                                <i class="fas fa-user"></i> Profile
                             </a>
                             <a style='margin-right:16px' asp-controller="UserRole" asp-action="Index" asp-route-userId="@user.Id" class="dropdown-item">
-                                <i class="fas fa-wrench"></i> @localizer["Manage Roles"]
+                                <i class="fas fa-wrench"></i> Manage Roles
                             </a>
                             @if (User.IsInRole("SuperAdmin"))
                             {
                         <a style='margin-right:16px' title="Change Password" asp-area="Identity" asp-page="/Account/ChangeUserPassword" asp-route-userId="@user.Id" class="btn-primary btn btn-xs">
-                            <i class="fa fa-key"></i> @localizer["Change Password"]
+                            <i class="fa fa-key"></i> Change Password
                         </a>
                             }
                         </div>

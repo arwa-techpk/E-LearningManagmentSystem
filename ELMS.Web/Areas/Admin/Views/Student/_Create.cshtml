@@ -11,14 +11,14 @@
 
             <div class="row">
                 <div class="form-group  col-md-6">
-                    <label class="control-label">@localizer["First Name"]</label>
+                    <label class="control-label">First Name</label>
                    
                         <input type="text" asp-for="FirstName" name="FirstName" class="form-control">
                         <span asp-validation-for="FirstName" class="text-danger"></span>
                     
                 </div>
                 <div class="form-group col-md-6">
-                    <label for="LastName" class="control-label">@localizer["Last Name"]</label>
+                    <label for="LastName" class="control-label">Last Name</label>
                     
                         <input type="text" asp-for="LastName" name="LastName" id="LastName" class="form-control">
                         <span asp-validation-for="LastName" class="text-danger"></span>
@@ -28,31 +28,31 @@
 
             <div class=" row">
                 <div class="form-group col-md-6">
-                    <label class="control-label">@localizer["Gender"]</label>
+                    <label class="control-label">Gender</label>
                     <select asp-for="Gender" class="form-control form-control-user">
                         <option value="Male">Male</option>
                         <option value="Female">Female</option>
                     </select>
-                    @*<input asp-for="Gender" type="text" class="form-control form-control-user" id="exampleFirstName" placeholder="@localizer["Gender"]">*@
+                 
                     <small><span asp-validation-for="Gender" class="text-danger"></span></small>
                 </div>
                 <div class="form-group col-sm-6">
-                    <label class="control-label">@localizer["Date Of Birth"]</label>
-                    <input asp-for="DateOfBirth" type="date" class="form-control form-control-user" id="exampleLastName" placeholder="@localizer["Date of Birth"]">
+                    <label class="control-label">Date Of Birth</label>
+                    <input asp-for="DateOfBirth" type="date" class="form-control form-control-user" id="exampleLastName" placeholder="Date of Birth">
                     <small><span asp-validation-for="DateOfBirth" class="text-danger"></span></small>
                 </div>
             </div>
 
             <div class="row">
                 <div class="form-group col-md-6">
-                    <label class="control-label">@localizer["Email"]</label>
+                    <label class="control-label">Email</label>
 
                     <input type="email" asp-for="Email" name="Email" class="form-control">
                     <span asp-validation-for="Email" class="text-danger"></span>
                 </div>
                 <div class="form-group col-sm-6">
-                    <label class="control-label">@localizer["ContactNumber"]</label>
-                    <input asp-for="ContactNumber" type="text" class="form-control form-control-user" id="exampleLastName" placeholder="@localizer["Contact Number"]">
+                    <label class="control-label">ContactNumber</label>
+                    <input asp-for="ContactNumber" type="text" class="form-control form-control-user" id="exampleLastName" placeholder="Contact Number">
                     <small><span asp-validation-for="ContactNumber" class="text-danger"></span></small>
                 </div>
                 
@@ -60,14 +60,14 @@
             
             <div class="row">
                 <div class="form-group col-md-6">
-                    <label class="control-label">@localizer["Password"]</label>
+                    <label class="control-label">Password</label>
 
                     <input type="password" asp-for="Password" name="Password" class="form-control">
                     <span asp-validation-for="Password" class="text-danger"></span>
 
                 </div>
                 <div class="form-group col-md-6">
-                    <label class="control-label">@localizer["Confirm Password"]</label>
+                    <label class="control-label">Confirm Password</label>
 
                     <input type="password" asp-for="ConfirmPassword" name="ConfirmPassword" class="form-control">
                     <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
