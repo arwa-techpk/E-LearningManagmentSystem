@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace ELMCOM.Infrastructure.DbContexts
 {
-    public class ApplicationDbContext : AuditableContext, IApplicationDbContext // why don't extend identityDbContext ? 
+    public class ApplicationDbContext :DbContext // why don't extend identityDbContext ? 
     {
         private readonly IDateTimeService _dateTime;
         private readonly IAuthenticatedUserService _authenticatedUser;
@@ -34,37 +34,7 @@ namespace ELMCOM.Infrastructure.DbContexts
         public virtual DbSet<StudentCourse> StudentCourses { get; set; }
         public virtual DbSet<StudentExamAnswer> StudentExamAnswers { get; set; }
         public virtual DbSet<StudentLecture> StudentLectures { get; set; }
-        public IDbConnection Connection => Database.GetDbConnection();
-
-        public bool HasChanges => ChangeTracker.HasChanges();
-
-        public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
-        {
-            foreach (var entry in ChangeTracker.Entries<AuditableEntity>().ToList())
-            {
-                switch (entry.State)
-                {
-                    case EntityState.Added:
-                        entry.Entity.CreatedOn = _dateTime.NowUtc;
-                        entry.Entity.CreatedBy = _authenticatedUser.UserId;
-                        break;
-
-                    case EntityState.Modified:
-                        entry.Entity.LastModifiedOn = _dateTime.NowUtc;
-                        entry.Entity.LastModifiedBy = _authenticatedUser.UserId;
-                        break;
-                }
-            }
-            if (_authenticatedUser.UserId == null)
-            {
-                return await base.SaveChangesAsync(cancellationToken);
-            }
-            else
-            {
-                return await base.SaveChangesAsync(_authenticatedUser.UserId);
-            }
-        }
-
+       
         protected override void OnModelCreating(ModelBuilder builder)
         {
             foreach (var property in builder.Model.GetEntityTypes()

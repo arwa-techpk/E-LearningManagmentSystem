@@ -16,7 +16,7 @@ namespace ELMCOM.Infrastructure.Extensions
         public static void AddPersistenceContexts(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
-            services.AddScoped<IApplicationDbContext, ApplicationDbContext>();
+            //services.AddScoped<IApplicationDbContext, ApplicationDbContext>();
         }
 
         public static void AddRepositories(this IServiceCollection services)
