@@ -102,6 +102,20 @@ namespace ELMCOM.Web.Areas.Identity.Pages.Account
             if (ModelState.IsValid)
             {
                 MailAddress address = new MailAddress(Input.Email);
+                if (_applicationDbContext.School.First(m => m.Name == Input.SchoolName) != null)
+                {
+
+                    ModelState.AddModelError(string.Empty, "This School Already exists");
+                    return Page();
+                }
+                using var transaction = _applicationDbContext.Database.BeginTransaction();
+
+
+                _applicationDbContext.Add(new School() { Name = Input.SchoolName });
+                await _applicationDbContext.SaveChangesAsync();
+
+
+                var SchoolId = _applicationDbContext.School.First(m => m.Name == Input.SchoolName).Id;
                 string userName = address.User;
                 var user = new ApplicationUser
                 {
@@ -112,15 +126,12 @@ namespace ELMCOM.Web.Areas.Identity.Pages.Account
                     DateOfBirth = Input.DateOfBirth,
                     ContactNumber = Input.ContactNumber,
                     Gender = Input.Gender,
-                    EmailConfirmed = true
+                    EmailConfirmed = true,
+                    SchoolId = SchoolId
                 };
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {
-                    _applicationDbContext.Add(new School() { Name = Input.SchoolName });
-                    var schoolId = await _applicationDbContext.SaveChangesAsync();
-                    user.SchoolId = schoolId;
-                    await _userManager.UpdateAsync(user);
                     // _logger.LogInformation("User created a new account with password.");
                     await _userManager.AddToRoleAsync(user, Roles.Admin.ToString());
 
@@ -138,6 +149,9 @@ namespace ELMCOM.Web.Areas.Identity.Pages.Account
                 {
                     ModelState.AddModelError(string.Empty, error.Description);
                 }
+                // Commit transaction if all commands succeed, transaction will auto-rollback
+                // when disposed if either commands fails
+                transaction.Commit();
             }
 
             // If we got this far, something failed, redisplay form
