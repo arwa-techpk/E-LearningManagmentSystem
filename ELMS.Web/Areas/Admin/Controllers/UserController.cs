@@ -112,7 +112,7 @@ namespace ELMCOM.Web.Areas.Admin.Controllers
                     if (User.IsInRole("SuperAdmin"))
                     {
                         var allUsersExceptCurrentUser = await _userManager.GetUsersInRoleAsync(Roles.Admin.ToString());
-                        allUsersExceptCurrentUser = allUsersExceptCurrentUser.Where(a => a.Id != currentUser.Id && a.SchoolId == currentUser.SchoolId)
+                        allUsersExceptCurrentUser = allUsersExceptCurrentUser.Where(a => a.Id != currentUser.Id)
                             .ToList();
                         var users = _mapper.Map<IEnumerable<UserViewModel>>(allUsersExceptCurrentUser);
                         htmlData = await _viewRenderer.RenderViewToStringAsync("_ViewAll", users);
@@ -121,7 +121,9 @@ namespace ELMCOM.Web.Areas.Admin.Controllers
                     else
                     {
 
-                        var allUsersExceptCurrentUser = await _userManager.Users.Where(a => a.Id != currentUser.Id && a.SchoolId == currentUser.SchoolId).ToListAsync();
+                        var allUsersExceptCurrentUser = await _userManager.Users.Where(a => a.Id != currentUser.Id && 
+                        a.SchoolId == currentUser.SchoolId).ToListAsync();
+
                         var users = _mapper.Map<IEnumerable<UserViewModel>>(allUsersExceptCurrentUser);
                         htmlData = await _viewRenderer.RenderViewToStringAsync("_ViewAll", users);
                     }
