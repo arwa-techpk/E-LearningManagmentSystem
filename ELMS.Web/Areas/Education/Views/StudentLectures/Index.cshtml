@@ -53,14 +53,14 @@
                         </td>
                         <td>
                             @{
-                                if (item.HasAttended == true)
-                                {
-                                    <span class="text-success">Yes</span>
-                                }
-                                else
-                                {
-                                    <a asp-action="AttendLecture" asp-route-LectureId="@item.LectureId" class="btn btn-xs btn-dark" title="Attend Lecture">Attend</a>
-                                }
+                                //if (item.HasAttended == true)
+                                //{
+                                //    <span class="text-success">Yes</span>
+                                //}
+                                //else
+                                //{
+                                //    <a asp-action="AttendLecture" asp-route-LectureId="@item.LectureId" class="btn btn-xs btn-dark" title="Attend Lecture">Attend</a>
+                                //}
                                 if (!string.IsNullOrEmpty(item.LectureLink))
                                 {
                                     <a href="@item.LectureLink" class="btn btn-primary btn-xs" target="_blank">Join Lecture</a>
