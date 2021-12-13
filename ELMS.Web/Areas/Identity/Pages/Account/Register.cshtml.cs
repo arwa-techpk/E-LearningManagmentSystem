@@ -102,20 +102,13 @@ namespace ELMCOM.Web.Areas.Identity.Pages.Account
             if (ModelState.IsValid)
             {
                 MailAddress address = new MailAddress(Input.Email);
-                if (_applicationDbContext.School.First(m => m.Name == Input.SchoolName) != null)
+                if (_applicationDbContext.School.FirstOrDefault(m => m.Name == Input.SchoolName) != null)
                 {
 
                     ModelState.AddModelError(string.Empty, "This School Already exists");
                     return Page();
                 }
-                using var transaction = _applicationDbContext.Database.BeginTransaction();
-
-
-                _applicationDbContext.Add(new School() { Name = Input.SchoolName });
-                await _applicationDbContext.SaveChangesAsync();
-
-
-                var SchoolId = _applicationDbContext.School.First(m => m.Name == Input.SchoolName).Id;
+               
                 string userName = address.User;
                 var user = new ApplicationUser
                 {
@@ -126,14 +119,23 @@ namespace ELMCOM.Web.Areas.Identity.Pages.Account
                     DateOfBirth = Input.DateOfBirth,
                     ContactNumber = Input.ContactNumber,
                     Gender = Input.Gender,
-                    EmailConfirmed = true,
-                    SchoolId = SchoolId
+                    EmailConfirmed = true
+                    
                 };
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {
-                    // _logger.LogInformation("User created a new account with password.");
+                    _applicationDbContext.Add(new School() { Name = Input.SchoolName });
+                    _applicationDbContext.SaveChanges();
+
+                    var SchoolId = _applicationDbContext.School.First(m => m.Name == Input.SchoolName).Id;
+                    var applicationUser = await _userManager.FindByEmailAsync(user.Email);
+                    applicationUser.SchoolId = SchoolId;
+                    
+                    await _userManager.UpdateAsync(applicationUser);
+
                     await _userManager.AddToRoleAsync(user, Roles.Admin.ToString());
+                   
 
                     if (_userManager.Options.SignIn.RequireConfirmedAccount)
                     {
@@ -145,13 +147,17 @@ namespace ELMCOM.Web.Areas.Identity.Pages.Account
                         return LocalRedirect(returnUrl);
                     }
                 }
-                foreach (var error in result.Errors)
+                else
                 {
-                    ModelState.AddModelError(string.Empty, error.Description);
+
+                    foreach (var error in result.Errors)
+                    {
+                        ModelState.AddModelError(string.Empty, error.Description);
+                    }
+                    return Page();
                 }
-                // Commit transaction if all commands succeed, transaction will auto-rollback
-                // when disposed if either commands fails
-                transaction.Commit();
+               
+                
             }
 
             // If we got this far, something failed, redisplay form

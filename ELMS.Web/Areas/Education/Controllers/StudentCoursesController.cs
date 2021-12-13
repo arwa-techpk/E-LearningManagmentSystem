@@ -73,7 +73,9 @@ namespace ELMCOM.Web.Areas.Education.Controllers
                            join e in _context.StudentCourses on i.Id equals e.CourseId
                            into courseTemp
                            from c in courseTemp.DefaultIfEmpty()
-                           select i);
+
+                           select i
+                           );
             if (!User.IsInRole(Roles.SuperAdmin.ToString()))
             {
                 var currentUser = await _userManager.GetUserAsync(HttpContext.User);
@@ -96,6 +98,11 @@ namespace ELMCOM.Web.Areas.Education.Controllers
         {
             if (ModelState.IsValid)
             {
+                if (_context.StudentCourses.FirstOrDefault(m => m.StudentId == studentCourse.StudentId && m.CourseId == studentCourse.CourseId) != null)
+                {
+                    ModelState.AddModelError(string.Empty, "This student already enrolled with this course");
+                    return View(studentCourse);
+                }
                 _context.Add(studentCourse);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -167,6 +174,13 @@ namespace ELMCOM.Web.Areas.Education.Controllers
 
             if (ModelState.IsValid)
             {
+                if (_context.StudentCourses.FirstOrDefault(m => m.StudentId == studentCourse.StudentId 
+                && m.CourseId == studentCourse.CourseId
+                && m.Id!=studentCourse.Id) != null)
+                {
+                    ModelState.AddModelError(string.Empty, "This student already enrolled with this course");
+                    return View(studentCourse);
+                }
                 try
                 {
                     _context.Update(studentCourse);
