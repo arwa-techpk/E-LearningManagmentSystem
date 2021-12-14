@@ -43,7 +43,7 @@ namespace ELMCOM.Web.Areas.Test.Controllers
                                join s in _context.StudentAssignments on i.Id equals s.AssignmentId //&& e.StudentId equals s.StudentId  
                               into courseTemp
                                from c in courseTemp.DefaultIfEmpty()
-                               where i.SubmissionDate <= DateTime.Now
+                               //where i.SubmissionDate <= DateTime.Now
                                select new AssignmentSubmissionViewModel()
                                {
                                    AssignmentId = i.Id,

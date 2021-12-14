@@ -53,7 +53,7 @@
                         @Html.DisplayFor(modelItem => item.ObtainScore)
                     </td>
                     <td>
-                        <a asp-action="DownloadAssignment" asp-controller="Assignment"
+                        <a asp-action="DownloadAssignment" asp-controller="StudentAssignments"
                            asp-route-id="@item.Assignment.AssignmentFile" class="btn btn-xs bg-info"
                            title="Download Assignment"><i class="fas fa-download"></i> @Html.DisplayFor(modelItem => item.Assignment.Name)</a>
 
@@ -63,7 +63,7 @@
                         @{
                             if (!string.IsNullOrEmpty(item.AssignmentDetails))
                             {
-                                <a asp-action="DownloadAssignment" asp-controller="Assignment"
+                                <a asp-action="DownloadAssignment" asp-controller="StudentAssignments"
                                    asp-route-id="@item.AssignmentDetails" class="btn btn-xs bg-info"
                                    title="Download Assignment"><i class="fas fa-download"></i> @Html.DisplayFor(modelItem => item.SubmissionDate)</a>
 
