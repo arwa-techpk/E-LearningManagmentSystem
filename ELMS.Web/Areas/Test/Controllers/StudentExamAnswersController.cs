@@ -40,13 +40,13 @@ namespace ELMCOM.Web.Areas.Test.Controllers
 
             var studentCourses = _context.StudentCourses.Include(c => c.Course).Where(m => m.StudentId == currentUser.Id);
             var applicationDbContext = await (from i in _context.Exams
-                                              join e in studentCourses on i.CourseId equals e.Id
-                                              join s in _context.StudentCourses on e.Id equals s.CourseId
+                                              join e in studentCourses on i.CourseId equals e.CourseId
+                                             // join s in _context.StudentCourses on e.Id equals s.CourseId
 
                                               join sa in _context.StudentExamAnswers on i.Id equals sa.ExamId //&& e.StudentId equals s.StudentId  
                                              into courseTemp
                                               from c in courseTemp.DefaultIfEmpty()
-                                              where e.StudentId == currentUser.Id
+                                             // where e.StudentId == currentUser.Id
 
                                               select new ExamAnswerSubmissionViewModel()
                                               {

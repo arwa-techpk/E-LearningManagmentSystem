@@ -19,6 +19,9 @@
                         @Html.DisplayNameFor(model => model.Assignment.Course.Title)
                     </th>
                     <th>
+                        @Html.DisplayNameFor(model => model.Assignment.Name)
+                    </th>
+                    <th>
                         Last Date of Submission
                     </th>
                     <th>
@@ -30,7 +33,7 @@
                     <th>
                         @Html.DisplayNameFor(model => model.Assignment.AssignmentFile)
                     </th>
-                   
+
                     <th>Submitted File</th>
                 </tr>
             </thead>
@@ -42,9 +45,12 @@
                         @Html.DisplayFor(modelItem => item.Assignment.Course.Title)
                     </td>
                     <td>
+                        @Html.DisplayFor(modelItem => item.Assignment.Name)
+                    </td>
+                    <td>
                         @Html.DisplayFor(modelItem => item.Assignment.SubmissionDate)
 
-                  
+
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.Assignment.TotalScore)
@@ -69,12 +75,12 @@
 
                             }
 
-                            if (item.LastDateToSubmit>DateTime.Now)
+                            if (item.LastDateToSubmit > DateTime.Now)
                             {
-                        <a asp-action="SubmitAssignment" asp-route-assignmentid="@item.AssignmentId" asp-route-courseid="@item.Assignment.Course.Id" class="btn btn-xs bg-success" title="Edit">Submit Assignment</a>
-                        @*<a asp-action="Details" asp-route-id="@item.AssignmentId" class="btn btn-xs bg-info" title="Details"><i class="fas fa-eye"></i></a>*@
-                                }
+                                <a asp-action="SubmitAssignment" asp-route-assignmentid="@item.AssignmentId" asp-route-courseid="@item.Assignment.Course.Id" class="btn btn-xs bg-success" title="Edit">Submit Assignment</a>
+                                @*<a asp-action="Details" asp-route-id="@item.AssignmentId" class="btn btn-xs bg-info" title="Details"><i class="fas fa-eye"></i></a>*@
                             }
+                        }
                     </td>
                 </tr>
                 }

@@ -38,11 +38,11 @@ namespace ELMCOM.Web.Areas.Education.Controllers
 
             // linq query syntax
             var applicationDbContext = (from i in _context.Lectures // lectures
-                                        join e in studentCourses on i.CourseId equals e.Id // Student courses
+                                        join e in studentCourses on i.CourseId equals e.CourseId // Student courses
                                         join sa in _context.StudentLectures on i.Id equals sa.LectureId // this will return, user has attended or not
                                         into courseTemp // it will be null, if he hasn't attended. Left JOIN
                                         from c in courseTemp.DefaultIfEmpty()
-                                        where e.StudentId == currentUser.Id
+                                     //   where e.StudentId == currentUser.Id
 
                                         select new StudentAttendenceViewModel()
                                         {
