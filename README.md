@@ -1,13 +1,5 @@
-﻿# Clean Architecture Boilerplate - ASP.NET Core 5.0 (WebApi & MVC)
+﻿# Clean Architecture - ASP.NET Core 5.0 (WebApi & MVC)
 Clean Architecture Solution Template for ASP.NET Core 5.0. Built with Onion/Hexagonal Architecture and incorporates the most essential Packages your projects will ever need. Includes both WebApi and Web(MVC) Projects.
-
-# V1.0.0 is Released.
-
-[Get the NuGet Package from here!](https://www.nuget.org/packages/ELMS/)
-
-[Getting Started - Quick Start Guide](https://ELMS.com/blog/aspnet-core-hero-boilerplate-quick-start-guide/)
-
-[View the Project Page](https://ELMS.com/project/aspnet-core-hero-boilerplate/)
 
 # The Vision
 
@@ -22,7 +14,6 @@ How easy would it be if you are able to run a single line of CLI command on your
 
 ## Give a Star ⭐️
 If you found this Implementation helpful or used it in your Projects, do give it a star. Thanks!
-Or, If you are feeling really generous, [Support the Project with a small contribution!](https://www.buymeacoffee.com/ELMS)
 
 ## Contributions / Help Needed
 
@@ -70,17 +61,11 @@ Has this Project helped you learn something New? or Helped you at work? Do Consi
 
 - Leave a star!
 - Recommend this awesome project to your colleages.
-- Do consider endorsing me on LinkedIn for ASP.NET Core - [Connect via LinkedIn](https://www.linkedin.com/in/iamELMSm/)
+- Do consider endorsing me on LinkedIn for ASP.NET Core - [Connect via LinkedIn](https://www.linkedin.com/in/azharsial/)
 - Or, If you want to support this project on the long run, consider buying me a coffee.
-
-<a href="https://www.buymeacoffee.com/ELMS" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" width="200"  style="height: 60px !important;width: 200px !important;" ></a>
 
 
 ## About the Authors
 
-### ELMS Murugan
-- Blogs at [ELMS.com](https://www.ELMS.com)
-- Facebook - [ELMS](https://www.facebook.com/ELMS)
-- Twitter - [ELMS Murugan](https://www.twitter.com/iamELMSm)
-- Twitter - [ELMS](https://www.twitter.com/ELMS)
-- Linkedin - [ELMS Murugan](https://www.linkedin.com/in/iamELMSm/)
+### ELMS Azhar
+- Linkedin - [ELMS Murugan](https://www.linkedin.com/in/azharsial/)
