@@ -68,4 +68,4 @@ Has this Project helped you learn something New? or Helped you at work? Do Consi
 ## About the Authors
 
 ### ELMS Azhar
-- Linkedin - [ELMS Murugan](https://www.linkedin.com/in/azharsial/)
+- Linkedin - [Azhar](https://www.linkedin.com/in/azharsial/)
